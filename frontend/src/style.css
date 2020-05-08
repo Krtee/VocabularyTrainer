@@ -1,0 +1,130 @@
+/* ---------- General instructions ---------- */
+
+* {
+    font-family: 'Segoe UI','Roboto','Oxygen-Sans','Ubuntu','Cantarell','Helvetica Neue',sans-serif;
+}
+
+div#root {
+    margin: 2em;
+}
+
+h1 {
+    color: #007bff;
+    font-weight: bold;
+    margin-bottom:.5em !important;
+}
+
+h2 {
+    color: #888;
+    margin-bottom:1em !important;
+}
+
+
+button {
+    margin-top: 1em !important;
+}
+
+.row {
+    margin-left:0px !important;
+    margin-right:0px !important;
+}
+
+.margin_left {
+    margin-left: 1em;
+}
+
+.margin_top {
+    margin-top: 2em;
+}
+
+.no-padding {
+    padding: 0 !important;
+}
+
+.no-padding-left {
+    padding-left: 0 !important;
+}
+
+a {
+    color: inherit !important;
+}
+
+a:hover {
+    text-decoration: none !important;
+}
+
+.box {
+    border: 2px solid #ced4da;
+    border-radius: .5rem;
+    padding: 2em;
+}
+
+/* ---------- Main page ---------- */
+
+div#language_menu {
+    padding-left:0;
+}
+
+/* ---------- Languages page ---------- */
+
+.languages_box {
+    background-color: #d7eaff;
+    padding: 1em;
+    border-radius: .5rem;
+}
+
+.languages_option {
+    text-align: center;
+    vertical-align: middle;
+    background-color: #d7eaff;
+    padding: 0.5em 0;
+    color: black;
+    border-radius: .5rem;
+}
+
+.languages_option:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+
+
+/* ---------- MainContent component ---------- */
+
+.menu_option {
+    background-color: #d7eaff;
+    border-radius: .5rem;
+    padding: .5em;
+}
+
+.menu_option:hover {
+    background: #007bff;
+    cursor: pointer;
+    color: white !important;
+}
+
+.menu_option + .menu_option {
+    margin-top: 1em;
+}
+
+
+/* ---------- VocabularyList component ---------- */
+
+.vocabulary_list_header{
+    font-weight: bold;
+}
+
+.vocabulary_list_entry + .vocabulary_list_entry {
+    margin-top: .5em;
+}
+
+/* ---------- TrainVocabularySummary component ---------- */
+
+.right {
+    background-color: #ccffcc;
+}
+
+.wrong {
+    background-color: #ffcccc;
+}
+
