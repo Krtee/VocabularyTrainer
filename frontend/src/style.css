@@ -8,6 +8,10 @@ div#root {
     margin: 2em;
 }
 
+h1, h2, h3 {
+    font-family: "Passion One", sans-serif;
+}
+
 h1 {
     color: #007bff;
     font-weight: bold;
@@ -16,12 +20,8 @@ h1 {
 
 h2 {
     color: #888;
+    font-size: 1.8em !important;
     margin-bottom:1em !important;
-}
-
-
-button {
-    margin-top: 1em !important;
 }
 
 .row {
@@ -59,6 +59,12 @@ a:hover {
     padding: 2em;
 }
 
+.bigFont {
+    font-family: "Passion One", sans-serif;
+    font-size: 1.2em;
+    color: #007bff;
+}
+
 /* ---------- Main page ---------- */
 
 div#language_menu {
@@ -77,6 +83,7 @@ div#language_menu {
     text-align: center;
     vertical-align: middle;
     background-color: #d7eaff;
+    margin: 0.5em 0;
     padding: 0.5em 0;
     color: black;
     border-radius: .5rem;
@@ -91,20 +98,29 @@ div#language_menu {
 
 /* ---------- MainContent component ---------- */
 
-.menu_option {
-    background-color: #d7eaff;
-    border-radius: .5rem;
-    padding: .5em;
+#content {
+    padding: 1em;
 }
 
 .menu_option:hover {
-    background: #007bff;
-    cursor: pointer;
+    background: #007bff !important;
     color: white !important;
 }
 
-.menu_option + .menu_option {
-    margin-top: 1em;
+#navbar {
+    width: 100% !important;
+    margin-bottom: 1em;
+}
+
+.btn-outline-success {
+    color: #007bff !important;
+    border-color: #007bff !important;
+}
+
+.btn-outline-success:hover {
+    background-color: #007bff !important;
+    border-color: #007bff !important;
+    color: white !important;
 }
 
 

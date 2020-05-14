@@ -19,7 +19,7 @@ class SignUpButton extends React.Component {
         return (
             <div>
                 <Forms value={this.state.value} />
-                <button type="button" className="btn btn-primary marginleft" onClick={this.handleClick}>No account?</button>
+                <button type="button" className="btn btn-primary marginleft margin_top" onClick={this.handleClick}>No account?</button>
             </div>
         )
     }
