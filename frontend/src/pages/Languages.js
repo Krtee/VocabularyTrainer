@@ -1,7 +1,6 @@
 import "../style.css";
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import VocabularyList from "../components/VocabularyList";
 
 function Languages() {
   useEffect(() => {
@@ -26,22 +25,22 @@ function Languages() {
       <h2>Select the language you want to practise.</h2>
       <div className="row box">
         <div className="col-lg-3">
-          <Link to="/main">
+          <Link to="/VocabularyList">
             <div className="col-lg-12 languages_option">French</div>
           </Link>
         </div>
         <div className="col-lg-3">
-          <Link to="/main">
+          <Link to="/VocabularyList">
             <div className="col-lg-12 languages_option">Spanish</div>
           </Link>
         </div>
         <div className="col-lg-3">
-          <Link to="/main">
+          <Link to="/VocabularyList">
             <div className="col-lg-12 languages_option">Swedish</div>
           </Link>
         </div>
         <div className="col-lg-3">
-          <Link to="/main">
+          <Link to="/VocabularyList">
             <div className="col-lg-12 languages_option">Dutch</div>
           </Link>
         </div>

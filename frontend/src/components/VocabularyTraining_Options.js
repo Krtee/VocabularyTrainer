@@ -1,14 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import TrainVocabularyQueries from "./TrainVocabularyQueries";
 
-class TrainVocabulary extends React.Component {
+
+class VocabularyTraining_Options extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = { value: false }
     }
-
 
     handleClick = () => {
         this.setState({
@@ -16,13 +14,12 @@ class TrainVocabulary extends React.Component {
         })
     }
 
+
     render() {
+        if (this.props.value) {
+            return (
 
-        return (
-
-            <div>
                 <form>
-                    <h1>Train vocabulary</h1>
                     <h2>Please set your training prefrences</h2>
                     <div className="form-group row">
                         <label className="col-lg-4 col-xs-12 no_padding_left" htmlFor="training_options_amount">How many vocabulary do you want to practise?</label>
@@ -73,16 +70,19 @@ class TrainVocabulary extends React.Component {
                     <button type="button" className="btn btn-primary" onClick={this.handleClick}>Start training</button>
 
                 </form>
-                <TrainVocabularyQueries value={this.state.value} />
-            </div>
-        )
+
+
+
+            )
+        } else {
+            return (<div />)
+        }
+
     }
 
 }
 
 
-
-
-export default TrainVocabulary;
+export default VocabularyTraining_Options;
 
 

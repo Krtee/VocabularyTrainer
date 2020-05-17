@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-class Forms extends React.Component {
+class LogInForms extends React.Component {
 
 
     constructor(props) {
@@ -51,7 +51,7 @@ class Forms extends React.Component {
 
 }
 
-export default Forms;
+export default LogInForms;
 
 
 

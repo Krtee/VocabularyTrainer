@@ -1,5 +1,5 @@
 import React from "react";
-import Forms from "./Forms";
+import LogInForms from "./LogInForms";
 
 class SignUpButton extends React.Component {
   constructor(props) {
@@ -16,7 +16,7 @@ class SignUpButton extends React.Component {
   render() {
     return (
       <div>
-        <Forms value={this.state.value} />
+        <LogInForms value={this.state.value} />
         <button
           type="button"
           className="btn btn-primary marginleft margin_top"

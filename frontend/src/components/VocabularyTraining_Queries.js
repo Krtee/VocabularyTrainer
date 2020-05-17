@@ -1,8 +1,7 @@
 import React from "react";
-import TrainVocabularySummary from "./TrainVocabularySummary";
 
 
-class TrainVocabularyQueries extends React.Component {
+class VocabularyTraining_Queries extends React.Component {
 
     constructor(props) {
         super(props);
@@ -30,7 +29,6 @@ class TrainVocabularyQueries extends React.Component {
                         <button type="button" className="btn btn-primary" onClick={this.handleClick}>Send</button>
                         <button type="button" className="btn btn-primary margin_left" onClick={this.handleClick}>Stop training</button>
                     </form>
-                    <TrainVocabularySummary value={this.state.value} />
                 </div>
             )
         } else {
@@ -42,6 +40,6 @@ class TrainVocabularyQueries extends React.Component {
 }
 
 
-export default TrainVocabularyQueries;
+export default VocabularyTraining_Queries;
 
 
