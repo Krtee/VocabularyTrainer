@@ -69,6 +69,11 @@ a:hover {
     color: #007bff;
 }
 
+#content {
+    padding: 1em;
+}
+
+/* Navigation */
 
 .vocabulary_list .vocabulary_list,
 .add_vocabulary .add_vocabulary,
@@ -78,13 +83,17 @@ a:hover {
     color: #007bff !important;
 }
 
-/* ---------- Main page ---------- */
+#navbar {
+    width: 100% !important;
+    margin-bottom: 3em;
+}
+
+
+/* ---------- Languages page ---------- */
 
 div#language_menu {
     padding-left:0;
 }
-
-/* ---------- Languages page ---------- */
 
 .languages_box {
     background-color: #d7eaff;
@@ -107,24 +116,12 @@ div#language_menu {
     color: white;
 }
 
-
-
-/* ---------- MainContent component ---------- */
-
-#content {
-    padding: 1em;
-}
-
 .menu_option:hover {
     color: #007bff !important;
 }
 
-#navbar {
-    width: 100% !important;
-    margin-bottom: 3em;
-}
 
-/* ---------- VocabularyList component ---------- */
+/* ---------- VocabularyList page ---------- */
 
 .vocabulary_list_header{
     font-weight: bold;
@@ -134,7 +131,8 @@ div#language_menu {
     margin-top: .5em;
 }
 
-/* ---------- TrainVocabularySummary component ---------- */
+
+/* ---------- VocabularyTraining page ---------- */
 
 .right {
     background-color: #ccffcc;
@@ -143,6 +141,11 @@ div#language_menu {
 .wrong {
     background-color: #ffcccc;
 }
+
+
+
+
+
 
 @media (min-width: 991px) {
     #navbar {
