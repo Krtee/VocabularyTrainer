@@ -73,6 +73,17 @@ a:hover {
     padding: 1em;
 }
 
+.grey_button {
+    background-color: #bbb !important;
+    border-color: #bbb !important;
+    box-shadow: none !important;
+}
+
+.grey_button:hover {
+    background-color: #999 !important;
+}
+
+
 /* Navigation */
 
 .vocabulary_list .vocabulary_list,
