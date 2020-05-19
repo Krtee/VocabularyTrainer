@@ -1,11 +1,13 @@
 import "../style.css";
 import React, { useEffect } from "react";
 import Navigation from "../components/Navigation";
-import ComponentHandler from "../components/VocabularyTraining_ComponentHandler";
-
+import Options from "../components/VocabularyTraining_Options";
+import Queries from "../components/VocabularyTraining_Queries";
+import Summary from "../components/VocabularyTraining_Summary";
 
 
 function VocabularyTraining() {
+
     useEffect(() => {
         callBackendAPI()
           .then((res) => console.log({ data: res.express }))
@@ -21,13 +23,15 @@ function VocabularyTraining() {
         }
         return body;
       }
-    
 
+      
     return (
-      <div id="content" class="vocabulary_training">
+      <div id="content" className="vocabulary_training">
             <Navigation />
             <h1>Vocabulary Training</h1>
-            <ComponentHandler />
+            <Options show={true} />
+            <Queries show={false} />
+            <Summary show={false} />
         </div>
     );
 }

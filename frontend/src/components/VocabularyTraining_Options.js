@@ -5,18 +5,20 @@ class VocabularyTraining_Options extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { value: false }
+        this.show = props.show;
     }
 
-    handleClick = () => {
-        this.setState({
-            value: !this.state.value
-        })
+    startTraining = () => {
+        console.log("startTraining-Methode wurde aufgerufen. show ist aktuell: " + this.show);
+        this.show = false;
+        console.log("State wurde nun verändert. show ist aktuell: " + this.show);
+        this.render();
     }
 
 
     render() {
-        if (this.props.value) {
+
+        if (this.show) {
             return (
 
                 <form>
@@ -54,7 +56,7 @@ class VocabularyTraining_Options extends React.Component {
                         <label className="col-lg-4 col-xs-12 no_padding_left" htmlFor="training_options_direction">Direction</label>
                         <div className="col-lg-8 col-xs-12">
                             <div className="form-check">
-                                <input className="form-check-input" type="radio" name="training_options_radios" id="training_options_radios_1" value="en_fo" checked />
+                                <input className="form-check-input" type="radio" name="training_options_radios" id="training_options_radios_1" value="en_fo" />
                                 <label className="form-check-label" htmlFor="training_options_radios_1">
                                     Show English, ask foreign language
                     </label>
@@ -67,7 +69,7 @@ class VocabularyTraining_Options extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <button type="button" className="btn btn-primary" onClick={this.handleClick}>Start training</button>
+                    <button type="button" className="btn btn-primary" onClick={this.startTraining}>Start training</button>
 
                 </form>
 

@@ -8,7 +8,7 @@ class SignUpButton extends React.Component {
   }
 
   handleClick = () => {
-    if(this.state.noAccount == false) {
+    if(this.state.noAccount === false) {
       this.setState({
         noAccount: true,
         buttonText: "Already got an account?"
