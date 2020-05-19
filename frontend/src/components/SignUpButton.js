@@ -4,19 +4,20 @@ import LogInForms from "./LogInForms";
 class SignUpButton extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { value: false };
+    this.state = { noAccount: false };
   }
 
   handleClick = () => {
     this.setState({
-      value: !this.state.value,
+      noAccount: !this.state.noAccount,
     });
   };
 
   render() {
+    const { receiveInput } = this.props;
     return (
       <div>
-        <LogInForms value={this.state.value} />
+        <LogInForms noAccount={this.state.noAccount} receiveInput={receiveInput}/>
         <button
           type="button"
           className="btn btn-primary marginleft margin_top"
