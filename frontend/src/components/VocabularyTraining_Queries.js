@@ -5,18 +5,11 @@ class VocabularyTraining_Queries extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { value: false }
-    }
-
-    handleClick = () => {
-        this.setState({
-            value: !this.state.value
-        })
+        this.show = props.show;
     }
 
 
     render() {
-        if (this.props.value) {
             return (
                 <div className="margin_top">
                     <form>
@@ -26,17 +19,12 @@ class VocabularyTraining_Queries extends React.Component {
                             <input type="text" className="form-control col-lg-9 col-xs-12" id="train_vocabulary_translation" placeholder="type in translation" />
                         </div>
 
-                        <button type="button" className="btn btn-primary" onClick={this.handleClick}>Send</button>
-                        <button type="button" className="btn btn-primary margin_left" onClick={this.handleClick}>Stop training</button>
+                        <button type="button" className="btn btn-primary">Send</button>
+                        <button type="button" className="btn btn-primary margin_left">Stop training</button>
                     </form>
                 </div>
             )
-        } else {
-            return (<div />)
-        }
-
     }
-
 }
 
 
