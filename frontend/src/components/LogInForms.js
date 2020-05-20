@@ -4,7 +4,7 @@ import { Link, Redirect } from "react-router-dom";
 class LogInForms extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { userName: "", password: "", passwordRepeat: "", success: false };
+    this.state = { userName: "", password: "", passwordRepeat: "" };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -19,40 +19,24 @@ class LogInForms extends React.Component {
     });
   }
 
-  async handleSubmit(event) {
+  handleSubmit(event) {
     event.preventDefault();
     const { createUser, login } = this.props;
 
     switch (event.target.name) {
       case "noAccount":
-        try {
-          const res = await createUser(this.state);
-          if (res.success) {
-            this.setState({ success: true });
-          }
-        } catch (error) {
-          console.error(error);
-        }
+        createUser(this.state);
+
         break;
 
       default:
-        try {
-          const res = await login(this.state);
-          console.log(res)
-          if(res.success) {
-              this.setState({success: true})
-          }
-        } catch (error) {
-          console.error(error);
-        }
+        login(this.state);
+
         break;
     }
   }
 
   render() {
-    if (this.state.success) {
-      return <Redirect to="/Languages" />;
-    }
     const { noAccount } = this.props;
     if (noAccount) {
       return (

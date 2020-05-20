@@ -4,7 +4,7 @@ import Navigation from "../components/Navigation";
 import Options from "../components/VocabularyTraining_Options";
 import Queries from "../components/VocabularyTraining_Queries";
 import Summary from "../components/VocabularyTraining_Summary";
-import NoAuth from "../components/NoAuth";
+import { Redirect } from "react-router";
 
 function VocabularyTraining() {
   const [auth, setAuth] = useGlobal("auth");
@@ -16,7 +16,7 @@ function VocabularyTraining() {
   const [savedSettings, setSavedSettings] = useState(false);
 
   if (!auth) {
-    return <NoAuth />;
+    return <Redirect to="/" />;
   }
 
   const changeView = () => {

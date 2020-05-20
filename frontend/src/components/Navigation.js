@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useGlobal } from "reactn";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const Navigation = () => {
+  const [auth, setAuth] = useGlobal("auth");
+  function handleClick() {
+    setAuth(false);
+  }
   return (
     <Navbar bg="light" expand="lg" id="navbar">
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -33,8 +37,11 @@ const Navigation = () => {
               <Link to="/Settings">Settings</Link>
             </NavDropdown.Item>
             <NavDropdown.Divider />
+
             <NavDropdown.Item className="menu_option">
-              <Link to="/">Logout </Link>
+              <button type="submit" className="btn btn-primary" onClick={handleClick}>
+                Logout
+              </button>
             </NavDropdown.Item>
           </NavDropdown>
         </Nav>

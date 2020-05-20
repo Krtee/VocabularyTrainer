@@ -1,15 +1,15 @@
 import "../style.css";
 import React, { useGlobal } from "reactn";
 import Navigation from "../components/Navigation";
-import NoAuth from '../components/NoAuth'
+import { Redirect } from "react-router";
 
 
 function Settings() {
     const [auth, setAuth] = useGlobal("auth");
     
     if (!auth) {
-        return <NoAuth />;
-      }
+        return <Redirect to="/" />;
+    }
     
 
     return (

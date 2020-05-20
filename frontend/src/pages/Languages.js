@@ -1,7 +1,7 @@
 import "../style.css";
 import React, { useEffect } from "react";
 import Navigation from "../components/Navigation";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { useGlobal } from "reactn";
 import NoAuth from "../components/NoAuth";
 
@@ -9,7 +9,7 @@ function Languages() {
   const [auth, setAuth] = useGlobal("auth");
   console.log("Languages: auth: ", auth);
   if (!auth) {
-    return <NoAuth />;
+    return <Redirect to="/" />;
   }
 
     async function callBackendAPI() {

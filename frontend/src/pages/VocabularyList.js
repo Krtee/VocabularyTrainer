@@ -1,13 +1,13 @@
 import "../style.css";
 import React, { useGlobal } from "reactn";
 import Navigation from "../components/Navigation";
-import NoAuth from "../components/NoAuth";
+import { Redirect } from "react-router";
 
 function VocabularyList() {
   const [auth, setAuth] = useGlobal("auth");
 
   if (!auth) {
-    return <NoAuth />;
+    return <Redirect to="/" />;
   }
   //TODO catch data as json from database
   return (

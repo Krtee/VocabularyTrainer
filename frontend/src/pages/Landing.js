@@ -3,10 +3,12 @@ import { useGlobal } from "reactn";
 import SignUpButton from "../components/SignUpButton";
 import "../style.css";
 import api from "../api";
-import PromiseB, { is } from "bluebird";
+import PromiseB from "bluebird";
+import { Redirect } from "react-router-dom";
 
 function Landing() {
   const [auth, setAuth] = useGlobal("auth");
+  const [user, setUser] = useGlobal("user");
 
   async function createUser(input) {
     const userName = input.userName ? input.userName : null;
@@ -39,35 +41,47 @@ function Landing() {
   }
 
   async function login(input) {
-    console.log(input);
-    new PromiseB(async (resolve, reject) => {
-      const res = await api.user.fetchUsers();
-      if (res.status === 200) {
-        const { data } = res.data;
-        const userInfo = getUser(input.userName, data);
-        const isUser = authenticateUser(userInfo, input.password);
-        setAuth(isUser);
-        return resolve(res.data);
-      }
-      setAuth(false);
-      return reject("Something went wrong");
-    });
+    try {
+      new PromiseB(async (resolve, reject) => {
+        const res = await api.user.fetchUsers();
+        if (res.status === 200) {
+          const { data } = res.data;
+          const userInfo = getUser(input.userName, data);
+          const isUser = authenticateUser(userInfo, input.password);
+          setAuth(isUser);
+          return resolve(res.data);
+        }
+        setAuth(false);
+        return reject("Something went wrong");
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   function getUser(userName, data) {
-    const userData = new Map();
-    data.forEach((user) => {
-      userData.set(user.username, user);
-    });
-    return userData.get(userName);
+    try {
+      const userData = new Map();
+      data.forEach((user) => {
+        userData.set(user.username, user);
+      });
+      return userData.get(userName);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   function authenticateUser(userInfo, password) {
-    return userInfo.password === password;
+    try {
+      return userInfo.password === password;
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
     <div>
+      {auth ? <Redirect to="/languages" /> : null}
       <h1>Vocabulary Trainer</h1>
       <h2>Log in or sign up!</h2>
       <SignUpButton createUser={createUser} login={login} />
