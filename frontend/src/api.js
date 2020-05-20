@@ -11,8 +11,17 @@ const createUser = async (data) => {
   }
 };
 
+const fetchUsers = async () => {
+  try {
+    return await axios.get(`${url}/getUsers`)
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export default {
   user: {
     createUser: (data) => createUser(data),
+    fetchUsers: () => fetchUsers()
   },
 };

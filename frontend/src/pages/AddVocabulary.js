@@ -5,8 +5,6 @@ import NoAuth from "../components/NoAuth";
 
 const  AddVocabulary = () => {
   const [auth, setAuth] = useGlobal("auth");
-  // setAuth(true, test => {console.log(test)})
-  console.log("AddVocab: auth: ", auth);
 
   if (!auth) {
     return <NoAuth />;

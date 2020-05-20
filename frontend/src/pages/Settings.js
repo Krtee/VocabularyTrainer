@@ -1,24 +1,16 @@
 import "../style.css";
-import React, { useEffect } from "react";
+import React, { useGlobal } from "reactn";
 import Navigation from "../components/Navigation";
+import NoAuth from '../components/NoAuth'
 
 
 function Settings() {
-    useEffect(() => {
-        callBackendAPI()
-            .then((res) => console.log({ data: res.express }))
-            .catch((err) => console.log(err));
-    });
-
-    async function callBackendAPI() {
-        const response = await fetch("/express_backend");
-        const body = await response.json();
-
-        if (response.status !== 200) {
-            throw Error(body.message);
-        }
-        return body;
-    }
+    const [auth, setAuth] = useGlobal("auth");
+    
+    if (!auth) {
+        return <NoAuth />;
+      }
+    
 
     return (
         <div id="content" class="settings">

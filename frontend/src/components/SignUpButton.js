@@ -23,10 +23,10 @@ class SignUpButton extends React.Component {
     };
 
     render() {
-        const { receiveInput } = this.props;
+        const { createUser, login } = this.props;
         return (
             <div>
-                <LogInForms noAccount={this.state.noAccount} receiveInput={receiveInput} />
+                <LogInForms noAccount={this.state.noAccount} createUser={createUser}  login={login}/>
                 <button
                     type="button"
                     className="btn btn-primary marginleft margin_top grey_button"

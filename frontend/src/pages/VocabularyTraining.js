@@ -1,17 +1,23 @@
 import "../style.css";
-import React, { useEffect, useState } from "react";
+import React, { useGlobal, useState } from "reactn";
 import Navigation from "../components/Navigation";
 import Options from "../components/VocabularyTraining_Options";
 import Queries from "../components/VocabularyTraining_Queries";
 import Summary from "../components/VocabularyTraining_Summary";
+import NoAuth from "../components/NoAuth";
 
 function VocabularyTraining() {
+  const [auth, setAuth] = useGlobal("auth");
   const [showOptions, setShowOptions] = useState(true);
   const [showQueries, setShowQueries] = useState(false);
   const [showSummary, setShowSummary] = useState(false);
   const [buttonState, setButtonState] = useState("options");
-  const [buttonText, setButtonText] = useState("Start training");   
-  const [savedSettings, setSavedSettings] = useState(false)
+  const [buttonText, setButtonText] = useState("Start training");
+  const [savedSettings, setSavedSettings] = useState(false);
+
+  if (!auth) {
+    return <NoAuth />;
+  }
 
   const changeView = () => {
     if (buttonState === "options") {
@@ -19,13 +25,13 @@ function VocabularyTraining() {
       setShowOptions(false);
       setShowQueries(true);
       setShowSummary(false);
-      setButtonText("Stop Training")
+      setButtonText("Stop Training");
     } else if (buttonState === "queries") {
       setButtonState("summary");
       setShowOptions(false);
       setShowQueries(false);
       setShowSummary(true);
-      setButtonText("Start new Training")
+      setButtonText("Start new Training");
     } else if (buttonState === "summary") {
       setButtonState("options");
       setShowOptions(true);
@@ -35,9 +41,9 @@ function VocabularyTraining() {
   };
 
   const receiveInput = (input) => {
-    setSavedSettings(true)
-    console.info(input)
-  }
+    setSavedSettings(true);
+    console.info(input);
+  };
 
   return (
     <div id="content" className="vocabulary_training">
@@ -46,7 +52,7 @@ function VocabularyTraining() {
       {showOptions ? <Options receiveInput={receiveInput} showButton={!savedSettings} /> : null}
       {showQueries ? <Queries show={false} /> : null}
       {showSummary ? <Summary show={false} /> : null}
-      {savedSettings  ? (
+      {savedSettings ? (
         <button type="button" className="btn btn-primary" onClick={changeView}>
           {`${buttonText}`}
         </button>
