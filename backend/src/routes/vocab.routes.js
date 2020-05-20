@@ -1,7 +1,6 @@
 const express = require('express');
 const vocabRoutes = express.Router();
 const Vocab = require('../models/vocabtest.model');
-const apiHelper = require('../api/API_helper');
 const axios = require("axios");
 
 // fetches all available data
@@ -33,10 +32,10 @@ vocabRoutes.delete("/delete", (req, res) => {
 // adds new data
 vocabRoutes.post("/insert", (req, res) => {
 
-    const { language_id, english_word, translation } = req.body;
+    const { language_id, english_word} = req.body;
 
-    console.log(language_id+" "+english_word+" "+translation+" ");
-    if (!language_id && !english_word && !translation) {
+    console.log(language_id+" "+english_word+" "+" ");
+    if (!language_id && !english_word ) {
         return res.json({
             success: false,
             error: "INVALID INPUTS",
@@ -53,34 +52,36 @@ vocabRoutes.post("/insert", (req, res) => {
                 }
             }
 
-            const {
-                DICC_API_ID,
-                DICC_APP_KEY
-            } = process.env
 
-            let config = {
-                headers: {
-                    app_id: DICC_API_ID,
-                    app_key:DICC_APP_KEY
+            axios({
+                "method":"GET",
+                "url":"https://systran-systran-platform-for-language-processing-v1.p.rapidapi.com/translation/text/translate",
+                "headers":{
+                    "content-type":"application/octet-stream",
+                    "x-rapidapi-host":"systran-systran-platform-for-language-processing-v1.p.rapidapi.com",
+                    "x-rapidapi-key":"939e5d0eacmsh6a1ed52b1ac5e84p11713djsnbae53c4fa7cf",
+                    "useQueryString":true
+                },"params":{
+                    "source":"en",
+                    "target":language_id.toLowerCase(),
+                    "input":english_word.toLowerCase()
                 }
-            }
-
-            axios.get( "https://od-api.oxforddictionaries.com/api/v2/entries/"+ language_id+"/"+english_word.lowercase(), config)
-                .then(response =>{
-                    console.log(response);
+            })
+                .then((response)=>{
+                    console.log(response)
+                    let data = new Vocab()
+                    data.language_id = language_id;
+                    data.english_word = english_word;
+                    data.translation = response.data.outputs[0].output;
+                    console.log(response.data.outputs[0].output)
+                    data.save((err) => {
+                        if (err) return res.json({success: false, error: err});
+                        return res.json({success: true, sys: "nice"});
+                    })
                 })
-
-
-
-            let data = new Vocab()
-            data.language_id = language_id;
-            data.english_word = english_word;
-            data.translation = translation;
-            data.save((err) => {
-                if (err) return res.json({success: false, error: err});
-                return res.json({success: true, sys: "nice"});
-            });
-
+                .catch((error)=>{
+                    console.log(error)
+                })
         }
     });
 

@@ -1,46 +1,47 @@
 import "../style.css";
-import React, { useEffect } from "react";
+import React, {createRef} from "react";
 import Navigation from "../components/Navigation";
+import axios from "axios";
 
 
-function AddVocabulary() {
-    useEffect(() => {
-        callBackendAPI()
-            .then((res) => console.log({ data: res.express }))
-            .catch((err) => console.log(err));
-    });
+const AddVocabulary = () => {
+    let textinput= createRef();
 
-    async function callBackendAPI() {
-        const response = await fetch("/express_backend");
-        const body = await response.json();
-
-        if (response.status !== 200) {
-            throw Error(body.message);
-        }
-        return body;
+    function addVocab() {
+        axios.post("http://localhost:4000/Vocab/insert",{
+            language_id: 'de',
+            english_word:textinput.current.value
+        })
+            .then(response=>{
+                console.log(response)
+            })
+            .catch(error =>{
+                console.log(error)
+            })
     }
 
     return (
-        <div id="content" class="add_vocabulary">
-            <Navigation />
+        <div id="content" className="add_vocabulary">
+            <Navigation/>
             <form>
                 <h1>Add vocabulary</h1>
                 <h2>Enter the new word</h2>
                 <div className="form-group row">
                     <label className="col-lg-3 col-12 no_padding_left" htmlFor="add_vocabulary_english">
                         English
-          </label>
+                    </label>
                     <input
                         type="text"
                         className="form-control col-lg-9 col-12"
                         id="add_vocabulary_english"
                         placeholder="type in English word"
+                        ref={textinput}
                     />
                 </div>
                 <div className="form-group row">
                     <label className="col-lg-3 col-12 no_padding_left" htmlFor="add_vocabulary_english">
                         Foreign
-          </label>
+                    </label>
                     <input
                         type="text"
                         className="form-control col-lg-9 col-12"
@@ -49,9 +50,9 @@ function AddVocabulary() {
                     />
                 </div>
 
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btn btn-primary" onClick={addVocab}>
                     Add vocabulary
-        </button>
+                </button>
             </form>
         </div>
     );
