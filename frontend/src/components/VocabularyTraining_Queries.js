@@ -10,7 +10,6 @@ class VocabularyTraining_Queries extends React.Component {
 
 
     render() {
-        if (this.show) {
             return (
                 <div className="margin_top">
                     <form>
@@ -25,12 +24,7 @@ class VocabularyTraining_Queries extends React.Component {
                     </form>
                 </div>
             )
-        } else {
-            return null;
-        }
-
     }
-
 }
 
 
