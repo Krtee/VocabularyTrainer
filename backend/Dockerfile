@@ -10,12 +10,12 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 # Install Dependencies
-COPY package*.json ./
+COPY package.json /usr/src/app/
 
-RUN npm ci
+RUN npm i
 
-# Copy app source code
-COPY . .
+# Bundle app source
+COPY . /usr/src/app
 
 # Exports
 EXPOSE 8080
