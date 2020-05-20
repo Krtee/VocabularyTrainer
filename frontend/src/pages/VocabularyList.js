@@ -20,6 +20,7 @@ import Navigation from "../components/Navigation";
             return body;
         }
 
+        //TODO catch data as json from database
         return (
             <div id="content" class="vocabulary_list">
                 <Navigation/>

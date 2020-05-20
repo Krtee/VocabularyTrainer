@@ -243,7 +243,7 @@ app.use("/api", router);
 
 // create a GET route
 app.get("/express_backend", (req, res) => {
-  res.send({ express: "YOUR EXPRESS BACKEND IS CONNECTED TO REACT" });
+  // res.send({ express: "YOUR EXPRESS BACKEND IS CONNECTED TO REACT" });
 });
 
 // // will redirect all the non-api routes to react frontend
@@ -252,4 +252,4 @@ app.get("/express_backend", (req, res) => {
 // });
 
 // launch our backend into a port
-app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`));
+app.listen(API_PORT, () => console.log(`Listening on port ${API_PORT}`));

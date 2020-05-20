@@ -1,13 +1,16 @@
 import "../style.css";
 import React, { useEffect } from "react";
+import Navigation from "../components/Navigation";
 import { Link } from "react-router-dom";
+import { useGlobal } from "reactn";
+import NoAuth from "../components/NoAuth";
 
 function Languages() {
-  useEffect(() => {
-    callBackendAPI()
-      .then((res) => console.log({ data: res.express }))
-      .catch((err) => console.log(err));
-  });
+  const [auth, setAuth] = useGlobal("auth");
+  console.log("Languages: auth: ", auth);
+  if (!auth) {
+    return <NoAuth />;
+  }
 
   async function callBackendAPI() {
     const response = await fetch("/express_backend");
@@ -21,6 +24,7 @@ function Languages() {
 
   return (
     <div>
+      <Navigation />
       <h1>Languages</h1>
       <h2>Select the language you want to practise.</h2>
       <div className="row box">
