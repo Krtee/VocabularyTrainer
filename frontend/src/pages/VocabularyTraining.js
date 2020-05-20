@@ -4,15 +4,14 @@ import Navigation from "../components/Navigation";
 import Options from "../components/VocabularyTraining_Options";
 import Queries from "../components/VocabularyTraining_Queries";
 import Summary from "../components/VocabularyTraining_Summary";
-import OptionsButton from "../components/VocabularyTraining_OptionsButton";
 
 function VocabularyTraining() {
   const [showOptions, setShowOptions] = useState(true);
   const [showQueries, setShowQueries] = useState(false);
   const [showSummary, setShowSummary] = useState(false);
   const [buttonState, setButtonState] = useState("options");
-  const [buttonText, setButtonText] = useState("Start training");
-
+  const [buttonText, setButtonText] = useState("Start training");   
+  const [savedSettings, setSavedSettings] = useState(false)
 
   const changeView = () => {
     if (buttonState === "options") {
@@ -35,14 +34,19 @@ function VocabularyTraining() {
     }
   };
 
+  const receiveInput = (input) => {
+    setSavedSettings(true)
+    console.info(input)
+  }
+
   return (
     <div id="content" className="vocabulary_training">
       <Navigation />
       <h1>Vocabulary Training</h1>
-      {showOptions ? <Options /> : null}
+      {showOptions ? <Options receiveInput={receiveInput} showButton={!savedSettings} /> : null}
       {showQueries ? <Queries show={false} /> : null}
       {showSummary ? <Summary show={false} /> : null}
-      {buttonState  ? (
+      {savedSettings  ? (
         <button type="button" className="btn btn-primary" onClick={changeView}>
           {`${buttonText}`}
         </button>
