@@ -37,11 +37,11 @@ userRoutes.get("/:user_id", (req, res, next) => {
 
 /* Add Single User */
 userRoutes.post("/", (req, res, next) => {
-    let newPost = {
-        title: req.body.title,
-        body: req.body.body
+    let newUser = {
+        username: req.body.username,
+        password: req.body.password
     };
-    User.create(newPost, function(err, result) {
+    User.create(newUser, function(err, result) {
         if(err){
             res.status(400).send({
                 success: false,
@@ -90,5 +90,8 @@ userRoutes.delete("/:user_id", (req, res, next) => {
         });
     });
 });
+
+
+
 
 module.exports = userRoutes;

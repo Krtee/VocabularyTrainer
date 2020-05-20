@@ -1,42 +1,42 @@
-const mongoose = require("mongoose");
-const express = require("express");
-var cors = require("cors");
-const bodyParser = require("body-parser");
-const logger = require("morgan");
-const Users = require("./src/models/user.model");
-const Languages = require("./src/models/languages.model");
-const Progress = require("./src/models/progress.model");
-const Vocab = require("./src/models/vocab.model");
-
-const API_PORT = 8080;
+const express = require('express');
+const bodyParser = require('body-parser');
+const path = require('path');
 const app = express();
+var cors = require("cors");
+const logger = require("morgan");
+
+const userRouter = require("./src/routes/user.routes");
+const vocabRouter = require("./src/routes/vocab.routes");
+
+//const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
+const API_PORT = 8080;
+
 app.use(cors());
-const router = express.Router();
-
-// this is our MongoDB database
-const dbRoute =
-  "mongodb+srv://london:kAXrWRHvbEsVQBIecl34HVLsyVsuk1@hdm-mwa-urx4p.mongodb.net/london?retryWrites=true&w=majority";
-
-// connects our back end code with the database
-mongoose.connect(dbRoute, { useNewUrlParser: true });
-
-let db = mongoose.connection;
-
-db.once("open", () => console.log("connected to the database"));
-
-// checks if connection with the database is successful
-db.on("error", console.error.bind(console, "MongoDB connection error:"));
-
-// (optional) only made for logging and
-// bodyParser, parses the request body to be a readable json format
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+
 app.use(logger("dev"));
+
+require('./src/database');
+
+app.use("/Users",userRouter);
+app.use("/Vocab",vocabRouter);
+
+
+
+
+
+
+
 
 //---------------------------------------------------------//
 //------------------- User DB Connection ------------------//
 //---------------------------------------------------------//
 // fetches all available data
+/*
 router.get("/getUsers", (req, res) => {
   Users.find((err, data) => {
     if (err) return res.json({ success: false, error: err });
@@ -145,14 +145,7 @@ router.get("/getProgress", (req, res) => {
   });
 });
 
-// overwrites existing data
-router.post("/updateProgress", (req, res) => {
-  const { id, update } = req.body;
-  Progress.findByIdAndUpdate(id, update, (err) => {
-    if (err) return res.json({ success: false, error: err });
-    return res.json({ success: true });
-  });
-});
+app.use('/Users', userRouter);
 
 // removes existing data
 router.delete("/deleteProgress", (req, res) => {
@@ -237,9 +230,11 @@ router.post("/putVocab", (req, res) => {
     return res.json({ success: true });
   });
 });
+*/
+
 
 // append /api for our http requests
-app.use("/api", router);
+//app.use("/api", router);
 
 // create a GET route
 app.get("/express_backend", (req, res) => {
