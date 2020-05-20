@@ -40,7 +40,7 @@ class VocabularyTraining_Summary extends React.Component {
                 </div>
             );
         } else {
-            return <div />;
+            return null;
         }
     }
 }

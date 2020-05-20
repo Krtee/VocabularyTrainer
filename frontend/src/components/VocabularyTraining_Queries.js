@@ -26,7 +26,7 @@ class VocabularyTraining_Queries extends React.Component {
                 </div>
             )
         } else {
-            return (<div />)
+            return null;
         }
 
     }

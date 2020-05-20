@@ -15,6 +15,10 @@ class VocabularyTraining_Options extends React.Component {
         this.render();
     }
 
+    getOptions(){
+        return this.show;
+    }
+
 
     render() {
 
@@ -69,7 +73,6 @@ class VocabularyTraining_Options extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <button type="button" className="btn btn-primary" onClick={this.startTraining}>Start training</button>
 
                 </form>
 
@@ -77,7 +80,7 @@ class VocabularyTraining_Options extends React.Component {
 
             )
         } else {
-            return (<div />)
+            return null;
         }
 
     }

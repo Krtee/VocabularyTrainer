@@ -21,7 +21,7 @@ function AddVocabulary() {
     }
 
     return (
-        <div id="content" class="add_vocabulary">
+        <div id="content" className="add_vocabulary">
             <Navigation />
             <form>
                 <h1>Add vocabulary</h1>
