@@ -4,7 +4,7 @@ import { Link, Redirect } from "react-router-dom";
 class LogInForms extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { userName: "", password: "", passwordRepeat: "" };
+    this.state = { userName: "", password: "", passwordRepeat: "", userNameHelp:"", passwordHelp: "", passwordRepeat:"" };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -38,10 +38,14 @@ class LogInForms extends React.Component {
 
   render() {
     const { noAccount } = this.props;
+    const { userNameHelp } = this.props;
+    const { passwordHelp } = this.props;
+    const { passwordRepeatHelp } = this.props;
+
     if (noAccount) {
       return (
         <fieldset className="box">
-          <form onSubmit={this.handleSubmit} name="noAccount">
+          <form onSubmit={this.handleSubmit} name="noAccount" id="signUpForm">
             <div className="form-group row">
               <label className="col-lg-2 col-xs-12 no-padding" htmlFor="login-username">
                 User name
@@ -56,7 +60,7 @@ class LogInForms extends React.Component {
                   defaultValue={this.state.userName}
                   onChange={this.handleChange}
                 />
-                <small name="userNameHelp" className="form-text text-muted"></small>
+                <small name="userNameHelp" className="form-text text-muted">{userNameHelp}</small>
               </div>
             </div>
             <div className="form-group row">
@@ -72,12 +76,12 @@ class LogInForms extends React.Component {
                   placeholder="Choose a password"
                   onChange={this.handleChange}
                 />
-                <small name="passwordHelp" className="form-text text-muted"></small>
+                <small name="passwordHelp" className="form-text text-muted">{passwordHelp}</small>
               </div>
             </div>
             <div className="form-group row">
               <label className="col-lg-2 col-xs-12 no-padding" htmlFor="login-password">
-                Password
+                Repeat password
               </label>
               <div className="col-lg-10 col-xs-12">
                 <input
@@ -88,7 +92,7 @@ class LogInForms extends React.Component {
                   placeholder="Repeat password"
                   onChange={this.handleChange}
                 />
-                <small name="passwordRepeatHelp" className="form-text text-muted"></small>
+                <small name="passwordRepeatHelp" className="form-text text-muted">{passwordRepeatHelp}</small>
               </div>
             </div>
             <input type="submit" value="Sign Up" className="btn btn-primary" />
