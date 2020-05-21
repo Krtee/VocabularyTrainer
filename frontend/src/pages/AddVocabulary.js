@@ -1,7 +1,7 @@
 import "../style.css";
 import Navigation from "../components/Navigation";
-import axios from "axios";
-import { Redirect } from "react-router";
+/* import axios from "axios";
+ */import { Redirect } from "react-router";
 import React, { useGlobal, createRef } from "reactn";
 import api from "../api";
 
@@ -10,9 +10,9 @@ const AddVocabulary = () => {
 
   const [auth, setAuth] = useGlobal("auth");
 
-  //     if (!auth) {
-  //     return <Redirect to="/" />;
-  //   }
+  if (!auth) {
+    return <Redirect to="/" />;
+  }
 
   const addVocab = () => {
     const data = {
@@ -27,7 +27,7 @@ const AddVocabulary = () => {
       <Navigation />
       <form>
         <h1>Add vocabulary</h1>
-        <h2>Enter the new word</h2>
+        <h2>Enter the word you want to add</h2>
         <div className="form-group row">
           <label className="col-lg-3 col-12 no_padding_left" htmlFor="add_vocabulary_english">
             English
@@ -40,7 +40,7 @@ const AddVocabulary = () => {
             ref={textinput}
           />
         </div>
-        <div className="form-group row">
+        {/* <div className="form-group row">
           <label className="col-lg-3 col-12 no_padding_left" htmlFor="add_vocabulary_english">
             Foreign
           </label>
@@ -50,7 +50,7 @@ const AddVocabulary = () => {
             id="add_vocabulary_english"
             placeholder="type in Forein language word"
           />
-        </div>
+        </div> */}
 
         <button type="submit" className="btn btn-primary" onClick={addVocab}>
           Add vocabulary

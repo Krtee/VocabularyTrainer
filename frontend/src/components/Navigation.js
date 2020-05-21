@@ -29,7 +29,7 @@ const Navigation = () => {
             </Link>{" "}
           </Nav.Link>
 
-          <NavDropdown title="Other" id="basic-nav-dropdown" className="menu_option">
+          <NavDropdown title="Account" id="basic-nav-dropdown" className="menu_option">
             <NavDropdown.Item className="menu_option">
               <Link to="/Languages">Change language</Link>
             </NavDropdown.Item>

@@ -95,10 +95,10 @@ function Landing() {
               setPasswordHelp("Wrong user name or password");
             }
           } else {
-            if (input.userName.length == 0) {
+            if (input.userName.length === 0) {
               setUserNameHelp("Please enter your user name");
             }
-            if (input.password.length == 0) {
+            if (input.password.length === 0) {
               setPasswordHelp("Please enter your password");
             }
           }

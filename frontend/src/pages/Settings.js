@@ -9,8 +9,7 @@ function Settings() {
     
     if (!auth) {
         return <Redirect to="/" />;
-    }
-    
+    }  
 
     return (
         <div id="content" class="settings">

@@ -142,7 +142,7 @@ class VocabularyTraining_Options extends React.Component {
           </div>
         </div>
         {showButton ? (
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary margin_top">
             Save options
           </button>
         ) : null}

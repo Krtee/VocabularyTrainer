@@ -25,18 +25,19 @@ function VocabularyTraining() {
       setShowOptions(false);
       setShowQueries(true);
       setShowSummary(false);
-      setButtonText("Stop Training");
+      setButtonText("Stop training");
     } else if (buttonState === "queries") {
       setButtonState("summary");
       setShowOptions(false);
       setShowQueries(false);
       setShowSummary(true);
-      setButtonText("Start new Training");
+      setButtonText("Start new training");
     } else if (buttonState === "summary") {
       setButtonState("options");
       setShowOptions(true);
       setShowQueries(false);
       setShowSummary(false);
+      setButtonText("Start training");
     }
   };
 
@@ -53,7 +54,7 @@ function VocabularyTraining() {
       {showQueries ? <Queries show={false} /> : null}
       {showSummary ? <Summary show={false} /> : null}
       {savedSettings ? (
-        <button type="button" className="btn btn-primary" onClick={changeView}>
+        <button type="button" className="btn btn-primary margin_top" onClick={changeView}>
           {`${buttonText}`}
         </button>
       ) : null}

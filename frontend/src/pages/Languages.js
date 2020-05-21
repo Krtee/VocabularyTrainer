@@ -1,7 +1,7 @@
 import "../style.css";
 import React, { useEffect, useState } from "react";
-import Navigation from "../components/Navigation";
-import { Link, Redirect } from "react-router-dom";
+import ReducedNavigation from "../components/ReducedNavigation";
+import { Redirect } from "react-router-dom";
 import { useGlobal } from "reactn";
 import api from "../api";
 import LanguageButton from "../components/LanguageButton";
@@ -28,7 +28,7 @@ const Languages = () => {
 
   return (
     <div>
-      <Navigation />
+      <ReducedNavigation />
       <h1>Languages</h1>
       <h2>Select the language you want to practise.</h2>
       <div className="row box">
