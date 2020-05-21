@@ -1,7 +1,10 @@
 import "../style.css";
-import React, {createRef} from "react";
 import Navigation from "../components/Navigation";
 import axios from "axios";
+import { Redirect } from "react-router";
+import React,  { useGlobal,createRef } from "reactn";
+
+
 
 const AddVocabulary = () => {
     let textinput= createRef();

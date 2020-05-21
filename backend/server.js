@@ -4,6 +4,14 @@ const path = require('path');
 const app = express();
 const cors = require("cors");
 const logger = require("morgan");
+const router = express.Router();
+const Users = require("./src/models/user.model");
+const Languages = require("./src/models/languages.model");
+const Progress = require("./src/models/progress.model");
+const Vocab = require("./src/models/vocab.model");
+
+
+
 
 const userRouter = require("./src/routes/user.routes");
 const vocabRouter = require("./src/routes/vocab.routes");
@@ -240,7 +248,7 @@ router.post("/putVocab", (req, res) => {
 
 
 // append /api for our http requests
-//app.use("/api", router);
+app.use("/api", router);
 
 // create a GET route
 app.get("/express_backend", (req, res) => {
