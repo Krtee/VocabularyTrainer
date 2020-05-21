@@ -8,17 +8,19 @@ App to train the vocabulary
 
 * [Using Systran.io as API](https://platform.systran.net/index)
 * Login-Page: Every user has his/her own account
-* Language selection: Users can learn different languages. For every language there's a 'personal dictionary'
+* Language selection: Users can learn different languages. For every language they've got their 'personal dictionary'
 * Users can add vocabulary to their dictionary
 * Progress:
-  + All vocabularies have a progress
+  + All vocabularies have a progress (numbers 1 - 3)
   + Progress shows how well the user already knows a word
 * Vocabulary training:
-  + User can set options
+  + User can set options:
     - How many words are asked?
-    - Shall only words with a certain progress be asked?
+    - Shall only words with a certain progress level be asked?
     - Which direction shall be asked?
-* Learning by categories or difficulty
+  + After the vocabulary training there's a summary showing if the translations were right
+* Settings: 
+  + for progress level: How many right guesses in a row shall lead to a new progress level?
 
 
 ### Technical
