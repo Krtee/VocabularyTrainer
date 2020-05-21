@@ -1,26 +1,30 @@
 import "../style.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Navigation from "../components/Navigation";
 import { Link, Redirect } from "react-router-dom";
 import { useGlobal } from "reactn";
-import NoAuth from "../components/NoAuth";
+import api from "../api";
+import LanguageButton from "../components/LanguageButton";
 
-function Languages() {
+const getLanguages = async () => {
+  const res = await api.language.getLanguages();
+  return res;
+};
+
+const Languages = () => {
   const [auth, setAuth] = useGlobal("auth");
-  console.log("Languages: auth: ", auth);
+  const [languages, setLanguages] = useState([]);
+
+  useEffect(() => {
+    getLanguages().then((data) => setLanguages(data));
+  }, []);
+
   if (!auth) {
+    console.info("redirecting");
     return <Redirect to="/" />;
   }
 
-    async function callBackendAPI() {
-        const response = await fetch("/express_backend");
-        const body = await response.json();
-
-        if (response.status !== 200) {
-            throw Error(body.message);
-        }
-        return body;
-    }
+  
 
   return (
     <div>
@@ -28,32 +32,15 @@ function Languages() {
       <h1>Languages</h1>
       <h2>Select the language you want to practise.</h2>
       <div className="row box">
-        <div className="col-lg-3">
-          <Link to="/VocabularyList">
-            <div className="col-lg-12 languages_option">French</div>
-          </Link>
-        </div>
-        <div className="col-lg-3">
-          <Link to="/VocabularyList">
-            <div className="col-lg-12 languages_option">Spanish</div>
-          </Link>
-        </div>
-        <div className="col-lg-3">
-          <Link to="/VocabularyList">
-            <div className="col-lg-12 languages_option">Swedish</div>
-          </Link>
-        </div>
-        <div className="col-lg-3">
-          <Link to="/VocabularyList">
-            <div className="col-lg-12 languages_option">Dutch</div>
-          </Link>
-        </div>
+        {languages.map((language) => {
+          return <LanguageButton language={language} />;
+        })}
       </div>
       <button type="button" className="btn btn-primary margin_top">
         Add new language
       </button>
-        </div>
-    );
-}
+    </div>
+  );
+};
 
 export default Languages;
