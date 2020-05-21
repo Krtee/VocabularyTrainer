@@ -20,7 +20,7 @@ App to train the vocabulary
     - Which direction shall be asked?
   + After the vocabulary training there's a summary showing if the translations were right
 * Settings: 
-  + for progress level: How many right guesses in a row shall lead to a new progress level?
+  + How many right guesses in a row shall lead to a new progress level?
 
 
 ### Technical
@@ -29,9 +29,6 @@ App to train the vocabulary
 * Library: React
 * MongoDB
 * ExpressJS
-
-
-### How To
 
 
 ### Prerequisites
@@ -43,10 +40,10 @@ App to train the vocabulary
 ### get started 
 
 1. pull repository
-2. cd into ./frontend
+2. cd into ./backend
 3. `npm install`  
 4. `npm start` 
-5. cd into ./backend
+5. cd into ./frontend
 6. `npm install` 
 7. `npm start` 
 
