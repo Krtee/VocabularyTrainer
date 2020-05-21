@@ -155,7 +155,8 @@ div#language_menu {
 
 /* LogInForms */
 
-#signUpForm small {
+#signUpForm small,
+#logInForm small {
     color: red !important;
 }
 

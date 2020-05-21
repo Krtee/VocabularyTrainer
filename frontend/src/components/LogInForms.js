@@ -4,7 +4,7 @@ import { Link, Redirect } from "react-router-dom";
 class LogInForms extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { userName: "", password: "", passwordRepeat: "", userNameHelp:"", passwordHelp: "", passwordRepeat:"" };
+    this.state = { userName: "", password: "", passwordRepeat: "", userNameHelp: "", passwordHelp: "", passwordRepeat: "" };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -60,7 +60,7 @@ class LogInForms extends React.Component {
                   defaultValue={this.state.userName}
                   onChange={this.handleChange}
                 />
-                <small name="userNameHelp" className="form-text text-muted">{userNameHelp}</small>
+                <small className="form-text text-muted">{userNameHelp}</small>
               </div>
             </div>
             <div className="form-group row">
@@ -76,7 +76,7 @@ class LogInForms extends React.Component {
                   placeholder="Choose a password"
                   onChange={this.handleChange}
                 />
-                <small name="passwordHelp" className="form-text text-muted">{passwordHelp}</small>
+                <small className="form-text text-muted">{passwordHelp}</small>
               </div>
             </div>
             <div className="form-group row">
@@ -92,7 +92,7 @@ class LogInForms extends React.Component {
                   placeholder="Repeat password"
                   onChange={this.handleChange}
                 />
-                <small name="passwordRepeatHelp" className="form-text text-muted">{passwordRepeatHelp}</small>
+                <small className="form-text text-muted">{passwordRepeatHelp}</small>
               </div>
             </div>
             <input type="submit" value="Sign Up" className="btn btn-primary" />
@@ -102,32 +102,38 @@ class LogInForms extends React.Component {
     } else {
       return (
         <fieldset className="box">
-          <form onSubmit={this.handleSubmit} name="hasAccount">
+          <form onSubmit={this.handleSubmit} name="hasAccount" id="logInForm">
             <div className="form-group row">
               <label className="col-lg-2 col-xs-12 no-padding" htmlFor="login-username">
                 User name
               </label>
-              <input
-                type="username"
-                className="form-control col-lg-10 col-xs-12"
-                id="login-username"
-                placeholder="Enter user name"
-                name="userName"
-                onChange={this.handleChange}
-              />
+              <div className="col-lg-10 col-xs-12">
+                <input
+                  type="username"
+                  className="form-control"
+                  id="login-username"
+                  placeholder="Enter user name"
+                  name="userName"
+                  onChange={this.handleChange}
+                />
+                <small className="form-text text-muted">{userNameHelp}</small>
+              </div>
             </div>
             <div className="form-group row">
               <label className="col-lg-2 col-xs-12 no-padding" htmlFor="login-password">
                 Password
               </label>
-              <input
-                type="password"
-                className="form-control col-lg-10 col-xs-12"
-                id="login-password"
-                placeholder="Enter password"
-                name="password"
-                onChange={this.handleChange}
-              />
+              <div className="col-lg-10 col-xs-12">
+                <input
+                  type="password"
+                  className="form-control"
+                  id="login-password"
+                  placeholder="Enter password"
+                  name="password"
+                  onChange={this.handleChange}
+                />
+                <small className="form-text text-muted">{passwordHelp}</small>
+              </div>
             </div>
             <button type="submit" className="btn btn-primary">
               Log in
