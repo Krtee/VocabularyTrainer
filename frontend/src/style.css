@@ -132,7 +132,7 @@ div#language_menu {
 }
 
 
-/* ---------- VocabularyList page ---------- */
+/* ---------- VocabularyList ---------- */
 
 .vocabulary_list_header{
     font-weight: bold;
@@ -143,7 +143,7 @@ div#language_menu {
 }
 
 
-/* ---------- VocabularyTraining page ---------- */
+/* ---------- VocabularyTraining ---------- */
 
 .right {
     background-color: #ccffcc;
@@ -151,6 +151,13 @@ div#language_menu {
 
 .wrong {
     background-color: #ffcccc;
+}
+
+/* LogInForms */
+
+#signUpForm small,
+#logInForm small {
+    color: red !important;
 }
 
 
