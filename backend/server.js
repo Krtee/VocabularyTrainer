@@ -4,6 +4,7 @@ const path = require('path');
 const app = express();
 const cors = require("cors");
 const logger = require("morgan");
+const router = express.Router();
 
 const userRouter = require("./src/routes/user.routes");
 const vocabRouter = require("./src/routes/vocab.routes");
