@@ -1,26 +1,30 @@
 import "../style.css";
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import Navigation from "../components/Navigation";
+import { Link, Redirect } from "react-router-dom";
+import { useGlobal } from "reactn";
+import NoAuth from "../components/NoAuth";
 
 function Languages() {
-  useEffect(() => {
-    callBackendAPI()
-      .then((res) => console.log({ data: res.express }))
-      .catch((err) => console.log(err));
-  });
-
-  async function callBackendAPI() {
-    const response = await fetch("/express_backend");
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message);
-    }
-    return body;
+  const [auth, setAuth] = useGlobal("auth");
+  console.log("Languages: auth: ", auth);
+  if (!auth) {
+    return <Redirect to="/" />;
   }
+
+    async function callBackendAPI() {
+        const response = await fetch("/express_backend");
+        const body = await response.json();
+
+        if (response.status !== 200) {
+            throw Error(body.message);
+        }
+        return body;
+    }
 
   return (
     <div>
+      <Navigation />
       <h1>Languages</h1>
       <h2>Select the language you want to practise.</h2>
       <div className="row box">
@@ -48,8 +52,8 @@ function Languages() {
       <button type="button" className="btn btn-primary margin_top">
         Add new language
       </button>
-    </div>
-  );
+        </div>
+    );
 }
 
 export default Languages;

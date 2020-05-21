@@ -1,24 +1,16 @@
 import "../style.css";
-import React, { useEffect } from "react";
+import React, { useGlobal } from "reactn";
 import Navigation from "../components/Navigation";
+import { Redirect } from "react-router";
 
 
 function Settings() {
-    useEffect(() => {
-        callBackendAPI()
-            .then((res) => console.log({ data: res.express }))
-            .catch((err) => console.log(err));
-    });
-
-    async function callBackendAPI() {
-        const response = await fetch("/express_backend");
-        const body = await response.json();
-
-        if (response.status !== 200) {
-            throw Error(body.message);
-        }
-        return body;
+    const [auth, setAuth] = useGlobal("auth");
+    
+    if (!auth) {
+        return <Redirect to="/" />;
     }
+    
 
     return (
         <div id="content" class="settings">
@@ -28,6 +20,10 @@ function Settings() {
                 <div className="form-group row">
                     <label className="col-lg-10 col-xs-12 no_padding_left" htmlFor="settings">How many correct answers in a row lead to a new progress level?</label>
                     <input type="number" className="form-control col-lg-2 col-xs-12" id="settings" placeholder="" />
+                </div>
+                <div className="form-group row">
+                    <label className="col-lg-10 col-xs-12 no_padding_left" htmlFor="settings">Change Username</label>
+                    <input type="text" className="form-control col-lg-2 col-xs-12" id="settings" placeholder="" />
                 </div>
                 <button type="submit" className="btn btn-primary">Save settings</button>
             </form>

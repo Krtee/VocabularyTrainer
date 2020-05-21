@@ -3,9 +3,14 @@ import React, {createRef} from "react";
 import Navigation from "../components/Navigation";
 import axios from "axios";
 
+const  AddVocabulary = () => {
+  const [auth, setAuth] = useGlobal("auth");
 
 const AddVocabulary = () => {
     let textinput= createRef();
+  if (!auth) {
+    return <Redirect to="/" />;
+  }
 
     function addVocab() {
         axios.post("http://localhost:4000/Vocab/insert",{

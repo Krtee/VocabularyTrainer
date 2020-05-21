@@ -1,13 +1,14 @@
 import React from "react";
 
 class VocabularyTraining_Summary extends React.Component {
+
     constructor(props) {
         super(props);
-        this.state = {};
+        this.show = props.show;
     }
 
+
     render() {
-        if (this.props.value) {
             return (
                 <div id="training_summary" className="margin_top">
                     <h2>Training summary</h2>
@@ -37,9 +38,6 @@ class VocabularyTraining_Summary extends React.Component {
                     </div>
                 </div>
             );
-        } else {
-            return <div />;
-        }
     }
 }
 

@@ -1,35 +1,64 @@
 import "../style.css";
-import React, { useEffect } from "react";
+import React, { useGlobal, useState } from "reactn";
 import Navigation from "../components/Navigation";
-import ComponentHandler from "../components/VocabularyTraining_ComponentHandler";
-
-
+import Options from "../components/VocabularyTraining_Options";
+import Queries from "../components/VocabularyTraining_Queries";
+import Summary from "../components/VocabularyTraining_Summary";
+import { Redirect } from "react-router";
 
 function VocabularyTraining() {
-    useEffect(() => {
-        callBackendAPI()
-          .then((res) => console.log({ data: res.express }))
-          .catch((err) => console.log(err));
-      });
-    
-      async function callBackendAPI() {
-        const response = await fetch("/express_backend");
-        const body = await response.json();
-    
-        if (response.status !== 200) {
-          throw Error(body.message);
-        }
-        return body;
-      }
-    
+  const [auth, setAuth] = useGlobal("auth");
+  const [showOptions, setShowOptions] = useState(true);
+  const [showQueries, setShowQueries] = useState(false);
+  const [showSummary, setShowSummary] = useState(false);
+  const [buttonState, setButtonState] = useState("options");
+  const [buttonText, setButtonText] = useState("Start training");
+  const [savedSettings, setSavedSettings] = useState(false);
 
-    return (
-      <div id="content" class="vocabulary_training">
-            <Navigation />
-            <h1>Vocabulary Training</h1>
-            <ComponentHandler />
-        </div>
-    );
+  if (!auth) {
+    return <Redirect to="/" />;
+  }
+
+  const changeView = () => {
+    if (buttonState === "options") {
+      setButtonState("queries");
+      setShowOptions(false);
+      setShowQueries(true);
+      setShowSummary(false);
+      setButtonText("Stop Training");
+    } else if (buttonState === "queries") {
+      setButtonState("summary");
+      setShowOptions(false);
+      setShowQueries(false);
+      setShowSummary(true);
+      setButtonText("Start new Training");
+    } else if (buttonState === "summary") {
+      setButtonState("options");
+      setShowOptions(true);
+      setShowQueries(false);
+      setShowSummary(false);
+    }
+  };
+
+  const receiveInput = (input) => {
+    setSavedSettings(true);
+    console.info(input);
+  };
+
+  return (
+    <div id="content" className="vocabulary_training">
+      <Navigation />
+      <h1>Vocabulary Training</h1>
+      {showOptions ? <Options receiveInput={receiveInput} showButton={!savedSettings} /> : null}
+      {showQueries ? <Queries show={false} /> : null}
+      {showSummary ? <Summary show={false} /> : null}
+      {savedSettings ? (
+        <button type="button" className="btn btn-primary" onClick={changeView}>
+          {`${buttonText}`}
+        </button>
+      ) : null}
+    </div>
+  );
 }
 
 export default VocabularyTraining;

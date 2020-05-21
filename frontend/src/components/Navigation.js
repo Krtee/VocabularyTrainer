@@ -1,49 +1,53 @@
-import React from "react";
-import { Button, Navbar, Nav, NavDropdown, Form, FormControl } from "react-bootstrap";
+import React, { useGlobal } from "reactn";
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-class Navigation extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { value: 1 };
-    }
+const Navigation = () => {
+  const [auth, setAuth] = useGlobal("auth");
+  function handleClick() {
+    setAuth(false);
+  }
+  return (
+    <Navbar bg="light" expand="lg" id="navbar">
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="mr-auto">
+          <Nav.Link>
+            <Link to="/VocabularyList" className="menu_option vocabulary_list">
+              Overview
+            </Link>
+          </Nav.Link>
+          <Nav.Link>
+            <Link to="/AddVocabulary" className="menu_option add_vocabulary">
+              Add vocabulary
+            </Link>{" "}
+          </Nav.Link>
 
-    render() {
+          <Nav.Link>
+            <Link to="/VocabularyTraining" className="menu_option vocabulary_training">
+              Training
+            </Link>{" "}
+          </Nav.Link>
 
-        return (
-            <Navbar bg="light" expand="lg" id="navbar">
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
-                        <Nav.Link href="/VocabularyList" className="menu_option vocabulary_list">
-                            Overview
-                </Nav.Link>
-                        <Nav.Link href="/AddVocabulary" className="menu_option add_vocabulary">
-                            Add vocabulary
-                </Nav.Link>
-                        <Nav.Link href="/VocabularyTraining" className="menu_option vocabulary_training">
-                            Training
-                </Nav.Link>
-                        <NavDropdown title="Other" id="basic-nav-dropdown" className="menu_option">
-                            <NavDropdown.Item href="/Languages" className="menu_option">
-                                Change language
-                  </NavDropdown.Item>
-                            <NavDropdown.Item
-                                href="/Settings"
-                                className="menu_option settings"
-                            >
-                                Settings
-                  </NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="/" className="menu_option">
-                                Logout
-                  </NavDropdown.Item>
-                        </NavDropdown>
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
+          <NavDropdown title="Other" id="basic-nav-dropdown" className="menu_option">
+            <NavDropdown.Item className="menu_option">
+              <Link to="/Languages">Change language</Link>
+            </NavDropdown.Item>
+            <NavDropdown.Item className="menu_option settings">
+              <Link to="/Settings">Settings</Link>
+            </NavDropdown.Item>
+            <NavDropdown.Divider />
 
-        );
-    }
-}
+            <NavDropdown.Item className="menu_option">
+              <button type="submit" className="btn btn-primary" onClick={handleClick}>
+                Logout
+              </button>
+            </NavDropdown.Item>
+          </NavDropdown>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
+  );
+};
 
 export default Navigation;
