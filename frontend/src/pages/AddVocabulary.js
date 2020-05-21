@@ -11,12 +11,12 @@ const AddVocabulary = () => {
 
     const [auth, setAuth] = useGlobal("auth");
 
-    if (!auth) {
-    return <Redirect to="/" />;
-  }
+//     if (!auth) {
+//     return <Redirect to="/" />;
+//   }
 
-    function addVocab() {
-        axios.post("http://localhost:4000/Vocab/insert",{
+function addVocab() {
+    axios.post("http://localhost:8080/Vocab/insert",{
             language_id: 'de',
             english_word:textinput.current.value
         })
