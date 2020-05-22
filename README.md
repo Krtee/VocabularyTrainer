@@ -7,6 +7,8 @@ App to train the vocabulary
 ### Ideas
 
 * [Using Systran.io as API](https://platform.systran.net/index)
+  * Later: [Linguee](https://github.com/imankulov/linguee-api)
+  * Sample Sentences
 * Login-Page: Every user has his/her own account
 * Language selection: Users can learn different languages. For every language they've got their 'personal dictionary'
 * Users can add vocabulary to their dictionary
