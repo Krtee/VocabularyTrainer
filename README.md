@@ -33,7 +33,7 @@ App to train some vocabulary.
 - ReactJS
 - Style: Bootstrap
 
-  ### Backend
+### Backend
 
 - Node.js
 - API: REST
