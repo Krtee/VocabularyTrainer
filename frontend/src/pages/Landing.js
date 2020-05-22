@@ -17,9 +17,7 @@ function Landing() {
     const userName = input.userName ? input.userName : null;
     const password = input.password ? input.password : null;
     const passwordRepeat = input.passwordRepeat ? input.passwordRepeat : null;
-    setUserNameHelp("");
-    setPasswordHelp("");
-    setPasswordRepeatHelp("");
+    emptyHelpFields();
 
     if (signUpDataComplete(userName, password, passwordRepeat) === true) {
       if (password !== passwordRepeat) {
@@ -74,6 +72,12 @@ function Landing() {
     }
   }
 
+  function emptyHelpFields(){
+    setUserNameHelp("");
+    setPasswordHelp("");
+    setPasswordRepeatHelp("");
+  }
+
   async function login(input) {
     try {
       new PromiseB(async (resolve, reject) => {
@@ -83,8 +87,7 @@ function Landing() {
           const userInfo = getUser(input.userName, data);
           var userExists = false;
           var passwordCorrect = false;
-          setUserNameHelp("");
-          setPasswordHelp("");
+          emptyHelpFields();
 
           if (logInDataComplete(input.userName, input.password)) {
             if (userInfo != null) {
@@ -139,7 +142,7 @@ function Landing() {
       {auth ? <Redirect to="/languages" /> : null}
       <h1>Vocabulary Trainer</h1>
       <h2>Log in or sign up!</h2>
-      <SignUpButton createUser={createUser} login={login} userNameHelp={userNameHelp} passwordHelp={passwordHelp} passwordRepeatHelp={passwordRepeatHelp} />
+      <SignUpButton createUser={createUser} login={login} emptyHelpFields={emptyHelpFields} userNameHelp={userNameHelp} passwordHelp={passwordHelp} passwordRepeatHelp={passwordRepeatHelp} />
     </div>
   );
 }

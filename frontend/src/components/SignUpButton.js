@@ -8,6 +8,8 @@ class SignUpButton extends React.Component {
     }
 
     handleClick = () => {
+        const { emptyHelpFields } = this.props;
+        emptyHelpFields();
         if (this.state.noAccount === false) {
             this.setState({
                 noAccount: true,
@@ -18,6 +20,7 @@ class SignUpButton extends React.Component {
                 noAccount: false,
                 buttonText: "No account?"
             });
+            emptyHelpFields();
         }
 
     };
