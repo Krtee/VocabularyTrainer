@@ -31,11 +31,10 @@ vocabRoutes.delete("/delete", (req, res) => {
 
 // adds new data
 vocabRoutes.post("/insert", (req, res) => {
+    const { language_id, english_word } = req.body;
 
-    const { language_id, english_word} = req.body;
-
-    console.log(language_id+" "+english_word+" "+" ");
-    if (!language_id && !english_word ) {
+    console.log(language_id + " " + english_word + " " + " ");
+    if (!language_id && !english_word) {
         return res.json({
             success: false,
             error: "INVALID INPUTS",
@@ -48,40 +47,35 @@ vocabRoutes.post("/insert", (req, res) => {
                 console.log(item);
                 console.log(item.language_id + item.english_word);
                 if (item.language_id === language_id && item.english_word === english_word) {
-                    return res.json({success: true, info: "word already exist"})
+                    return res.json({ success: true, info: "word already exist" })
                 }
             }
 
 
+            var myURL = "https://linguee-api.herokuapp.com/api?q=" + english_word.toLowerCase() + "&src=en&dst=" + language_id.toLowerCase();
+            console.log("URL: " + myURL);
+
             axios({
-                "method":"GET",
-                "url":"https://systran-systran-platform-for-language-processing-v1.p.rapidapi.com/translation/text/translate",
-                "headers":{
-                    "content-type":"application/octet-stream",
-                    "x-rapidapi-host":"systran-systran-platform-for-language-processing-v1.p.rapidapi.com",
-                    "x-rapidapi-key":"939e5d0eacmsh6a1ed52b1ac5e84p11713djsnbae53c4fa7cf",
-                    "useQueryString":true
-                },"params":{
-                    "source":"en",
-                    "target":language_id.toLowerCase(),
-                    "input":english_word.toLowerCase()
-                }
+                "method": "GET",
+                "url": myURL              
             })
-                .then((response)=>{
+                .then((response) => {
                     console.log(response)
-                    let data = new Vocab()
+                    let data = new Vocab();
                     data.language_id = language_id;
                     data.english_word = english_word;
-                    data.translation = response.data.outputs[0].output;
-                    console.log(response.data.outputs[0].output)
+                    data.translation = response.data.exact_matches[0].translations[0].text;
+                    console.log(response.data.exact_matches[0].translations[0].text);
                     data.save((err) => {
-                        if (err) return res.json({success: false, error: err});
-                        return res.json({success: true, sys: "nice"});
+                        if (err) return res.json({ success: false, error: err });
+                        return res.json({ success: true, sys: "nice" });
                     })
                 })
-                .catch((error)=>{
+                .catch((error) => {
                     console.log(error)
                 })
+
+
         }
     });
 
