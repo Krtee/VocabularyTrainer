@@ -1,7 +1,7 @@
 import "../style.css";
 import Navigation from "../components/Navigation";
 /* import axios from "axios";
- */import { Redirect } from "react-router";
+ */ import { Redirect } from "react-router";
 import React, { useGlobal, createRef } from "reactn";
 import api from "../api";
 
@@ -14,7 +14,8 @@ const AddVocabulary = () => {
     return <Redirect to="/" />;
   }
 
-  const addVocab = () => {
+  const addVocab = (event) => {
+    event.preventDefault();
     const data = {
       language_id: "de",
       english_word: textinput.current.value,
