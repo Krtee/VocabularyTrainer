@@ -13,7 +13,10 @@ const getLanguages = async () => {
 
 const Languages = () => {
   const [auth, setAuth] = useGlobal("auth");
+  const [language, setLanguage] = useGlobal("language");
+  const [languageId, setLanguageId] = useGlobal("languageId");
   const [languages, setLanguages] = useState([]);
+  const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
     getLanguages().then((data) => setLanguages(data));
@@ -24,7 +27,16 @@ const Languages = () => {
     return <Redirect to="/" />;
   }
 
-  
+  const getLanguage = (languageId, language) => {
+    console.log(languageId, language);
+    setLanguage(language);
+    setLanguageId(languageId)
+    setRedirect(true);
+  };
+
+  if (redirect) {
+    return <Redirect to={{ pathname: `/VocabularyList`, query: { language, languageId } }} />;
+  }
 
   return (
     <div>
@@ -33,7 +45,7 @@ const Languages = () => {
       <h2>Select the language you want to practise.</h2>
       <div className="row box">
         {languages.map((language) => {
-          return <LanguageButton language={language} />;
+          return <LanguageButton language={language} getLanguage={getLanguage} />;
         })}
       </div>
       <button type="button" className="btn btn-primary margin_top">

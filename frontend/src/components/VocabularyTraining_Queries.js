@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useGlobal } from "reactn";
 import api from "../api";
 
 const getVocabs = async () => {
@@ -8,8 +8,7 @@ const getVocabs = async () => {
 
 const VocabularyTraining_Queries = (props) => {
   const [vocab, setVocab] = useState([]);
-  const [language, setLanguage] = useState("german");
-  const [languageId, setLanguageId] = useState("de");
+  const [language, setLanguage] = useGlobal("language");
   const [iterate, setIterate] = useState(0);
   const [input, setInput] = useState("");
 

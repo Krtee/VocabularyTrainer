@@ -14,12 +14,18 @@ function VocabularyTraining() {
   const [buttonState, setButtonState] = useState("options");
   const [buttonText, setButtonText] = useState("Start training");
   const [savedSettings, setSavedSettings] = useState(false);
+  const [numberOfVocabs, setNumberOfVocabs] = useGlobal("numberOfVocabs");
+  const [progress, setProgress] = useGlobal("progress");
+  const [direction, setDirection] = useGlobal("direction");
+  const [language, setLanguage] = useGlobal("language");
+
 
   if (!auth) {
     return <Redirect to="/" />;
   }
 
   const changeView = () => {
+    console.log("buttonState: ", buttonState);
     if (buttonState === "options") {
       setButtonState("queries");
       setShowOptions(false);
@@ -43,15 +49,40 @@ function VocabularyTraining() {
 
   const receiveInput = (input) => {
     setSavedSettings(true);
-    console.info(input);
+    console.info("input: ", input);
+    setNumberOfVocabs(input.vocabNumber);
+    const progressArray = [];
+    if (input.progess1) {
+      progressArray.push(1);
+    }
+    if (input.progess2) {
+      progressArray.push(2);
+    }
+    if (input.progess3) {
+      progressArray.push(3);
+    }
+    setProgress(progressArray);
+    if (input.training_options_radios) {
+      setDirection(input.training_options_radios);
+    }
   };
 
   return (
     <div id="content" className="vocabulary_training">
       <Navigation />
       <h1>Vocabulary Training</h1>
-      {showOptions ? <Options receiveInput={receiveInput} showButton={!savedSettings} /> : null}
-      {showQueries ? <Queries show={false} /> : null}
+      {showOptions && !savedSettings ? (
+        <Options receiveInput={receiveInput} showButton={!savedSettings} onClick={changeView} />
+      ) : null}
+      {showQueries ? (
+        <Queries
+          show={false}
+          numberOfVocabs={numberOfVocabs}
+          progress={progress}
+          direction={direction}
+          language={language}
+        />
+      ) : null}
       {showSummary ? <Summary show={false} /> : null}
       {savedSettings ? (
         <button type="button" className="btn btn-primary margin_top" onClick={changeView}>

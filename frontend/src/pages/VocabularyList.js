@@ -12,8 +12,11 @@ const getVocabs = async () => {
 
 const VocabularyList = (props) => {
   const [auth, setAuth] = useGlobal("auth");
-  const [language, setLanguage] = useState("german");
-  const [languageId, setLanguageId] = useState("de");
+  const [progress, setProgress] = useGlobal("progress");
+  const [numberOfVocabs, setNumberOfVocabs] = useGlobal("numberOfVocabs");
+  const [direction, stDirection] = useGlobal("direction");
+  const [language, setLanguage] = useGlobal("language");
+  const [languageId, setLanguageId] = useGlobal("languageId");
   const [vocab, setVocab] = useState([]);
 
   useEffect(() => {
@@ -21,9 +24,10 @@ const VocabularyList = (props) => {
   }, []);
 
   try {
+    console.log("language: ", props.location.query)
     if (props.location.query.language !== language) {
       setLanguage(props.location.query.language);
-      setLanguageId(props.location.query.id);
+      setLanguageId(props.location.query.languageId);
     }
   } catch (error) {
     console.info("No language selected. Using german as default.");
@@ -32,6 +36,10 @@ const VocabularyList = (props) => {
   if (!auth) {
     return <Redirect to="/" />;
   }
+
+  //TODO: filter for Progress
+  //TODO: set Direction somehow
+  //TODO: limit Number of
 
   const getSortedVocab = vocab
     .filter((word) => {

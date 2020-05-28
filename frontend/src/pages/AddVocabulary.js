@@ -14,7 +14,8 @@ const AddVocabulary = () => {
     return <Redirect to="/" />;
   }
 
-  const addVocab = () => {
+  const addVocab = (event) => {
+    event.preventDefault()
     const data = {
       language_id: "de",
       english_word: textinput.current.value,

@@ -27,6 +27,8 @@ class VocabularyTraining_Options extends React.Component {
     event.preventDefault();
     const { receiveInput } = this.props;
     receiveInput(this.state);
+    console.log(this.state)
+    this.props.onClick()
   }
 
   handleChange(event) {
@@ -142,8 +144,8 @@ class VocabularyTraining_Options extends React.Component {
           </div>
         </div>
         {showButton ? (
-          <button type="submit" className="btn btn-primary margin_top">
-            Save options
+          <button type="submit" className="btn btn-primary margin_top" >
+            Start training
           </button>
         ) : null}
       </form>

@@ -7,13 +7,18 @@ import "./style.css";
 
 // FIXME: FOR DEV REASONS SET ON TRUE, BUT SET FALSE FOR PRODUCTIVE!
 setGlobal({
-  auth: false, user: ""
+  auth: false,
+  user: "",
+  progress: 1,
+  numberOfVocabs: 25,
+  direction: "fn_en",
+  language: "German",
+  languageId: "de",
 });
 
-
 render(
-    <BrowserRouter>
-        <App />
-    </BrowserRouter>,
-    document.getElementById("root")
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
+  document.getElementById("root")
 );
