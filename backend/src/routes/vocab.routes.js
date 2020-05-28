@@ -47,7 +47,7 @@ vocabRoutes.post("/insert", (req, res) => {
                 console.log(item);
                 console.log(item.language_id + item.english_word);
                 if (item.language_id === language_id && item.english_word === english_word) {
-                    return res.json({ success: true, info: "Word already exist" })
+                    return res.json({ success: true, info: "Word already exists" })
                 }
             }
 
