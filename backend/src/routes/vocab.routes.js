@@ -54,8 +54,6 @@ vocabRoutes.post("/insert", (req, res) => {
                     return res.json({ success: true, info: "word already exist" })
                 }
             }
-
-
             
             const languageTranslator = new LanguageTranslatorV3({
               version: '2018-05-01',
@@ -73,30 +71,34 @@ vocabRoutes.post("/insert", (req, res) => {
             languageTranslator
               .translate(translateParams)
               .then((translationResult) => {
-                const translation = JSON.stringify(translationResult, null, 2);
-                console.log("####> ", translation)
+                const ibmResponse = JSON.stringify(translationResult, null, 2);
 
+                try {
+                    const ibmRes = JSON.parse(ibmResponse)
+                    console.log(ibmRes);
 
-
-
-                
-                const data = new Vocab();
-                data.language_id = language_id;
-                data.english_word = english_word;
-                data.translation = translation
-                console.log(`${english_word} > ${translation}`);
-                data.save((err) => {
-                  if (err) return res.json({ success: false, error: err });
-                  return res.json({ success: true, sys: "nice" });
-                });
+                    
+                    if (ibmRes.status === 200) {
+                        const translation = ibmRes.result.translations[0].translation
+                        const data = new Vocab();
+                        data.language_id = language_id;
+                        data.english_word = english_word;
+                        data.translation = translation
+                        console.log(`${english_word} > ${translation}`);
+                        
+                        data.save((err) => {
+                          if (err) return res.json({ success: false, error: err });
+                          return res.json({ success: true, sys: "nice" });
+                        });
+    
+                    }
+                } catch (error) {
+                    console.error(error)
+                }
               })
               .catch((err) => {
                 console.log("error:", err);
               });
-
-
-
-
 
             // var myURL = "https://linguee-api.herokuapp.com/api?q=" + english_word.toLowerCase() + "&src=en&dst=" + language_id.toLowerCase();
             // console.log("URL: " + myURL);
