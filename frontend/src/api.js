@@ -25,7 +25,7 @@ const fetchUsers = async () => {
 
 const getVocabs = async () => {
   try {
-    const res =  await axios.get(`${url}/Vocab/`);
+    const res = await axios.get(`${url}/Vocab/`);
     return res.data ? (res.data ? res.data.data : res) : res;
   } catch (error) {
     console.error(error);
@@ -34,7 +34,8 @@ const getVocabs = async () => {
 
 const insertVocab = async (data) => {
   try {
-    return await axios.post(`${url}/Vocab/insert`, data);
+    const res = await axios.post(`${url}/Vocab/insert`, data);
+    return res.data;
   } catch (error) {
     console.error(error);
   }

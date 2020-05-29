@@ -41,7 +41,7 @@ vocabRoutes.post("/insert", (req, res) => {
     if (!language_id && !english_word) {
         return res.json({
             success: false,
-            error: "INVALID INPUTS",
+            error: "Invalid input",
         });
     }
 
@@ -51,7 +51,7 @@ vocabRoutes.post("/insert", (req, res) => {
                 // console.log(item);
                 // console.log(item.language_id + item.english_word);
                 if (item.language_id === language_id && item.english_word === english_word) {
-                    return res.json({ success: true, info: "word already exist" })
+                    return res.json({ success: true, info: "Word already exists" })
                 }
             }
             
@@ -102,10 +102,12 @@ vocabRoutes.post("/insert", (req, res) => {
 
             // var myURL = "https://linguee-api.herokuapp.com/api?q=" + english_word.toLowerCase() + "&src=en&dst=" + language_id.toLowerCase();
             // console.log("URL: " + myURL);
+            // var myURL = "https://linguee-api.herokuapp.com/api?q=" + english_word.toLowerCase() + "&src=en&dst=" + language_id.toLowerCase();
+            // console.log("URL: " + myURL);
 
             // axios({
             //     "method": "GET",
-            //     "url": myURL              
+            //     "url": myURL
             // })
             //     .then((response) => {
             //         console.log(response)
@@ -116,13 +118,16 @@ vocabRoutes.post("/insert", (req, res) => {
             //         console.log(response.data.exact_matches[0].translations[0].text);
             //         data.save((err) => {
             //             if (err) return res.json({ success: false, error: err });
-            //             return res.json({ success: true, sys: "nice" });
+            //             var ret = { success: true, info: "New word successfully added" }
+            //             console.log("*** ret: " + ret);
+            //             console.log("*** ret.success: " + ret.success);
+            //             console.log("*** ret.info: " + ret.info);
+            //             return res.json(ret);
             //         })
             //     })
             //     .catch((error) => {
             //         console.log(error)
             //     })
-
 
         }
     });
