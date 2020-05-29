@@ -41,9 +41,12 @@ const VocabularyList = (props) => {
       return word;
     });
 
+  var i = 0;  
+
+  
   //TODO catch data as json from database
   return (
-    <div id="content" class="vocabulary_list">
+    <div id="content" className="vocabulary_list">
       <Navigation />
       <div id="vocabulary_list">
         <h1>Vocabulary overview</h1>
@@ -53,7 +56,7 @@ const VocabularyList = (props) => {
           <div className="col-xl-1 col-lg-2 col-md-3 col-4 vocabulary_list_header">Progress</div>
         </div>
         {getSortedVocab.map((vocab) => {
-          return <VocabRow vocab={vocab}/>
+          return <VocabRow key={i++} vocab={vocab}/>
         })}
       </div>
     </div>

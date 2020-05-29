@@ -24,16 +24,17 @@ const Languages = () => {
     return <Redirect to="/" />;
   }
 
-  
+  var i = 0;
 
   return (
+    
     <div>
       <ReducedNavigation />
       <h1>Languages</h1>
       <h2>Select the language you want to practise.</h2>
       <div className="row box">
         {languages.map((language) => {
-          return <LanguageButton language={language} />;
+          return <LanguageButton key={i++} language={language} />;
         })}
       </div>
       <button type="button" className="btn btn-primary margin_top">
