@@ -1,7 +1,11 @@
 const express = require('express');
 const vocabRoutes = express.Router();
 const Vocab = require('../models/vocabtest.model');
-const axios = require("axios");
+const LanguageTranslatorV3 = require('ibm-watson/language-translator/v3');
+const { IamAuthenticator } = require('ibm-watson/auth');
+
+
+
 
 // fetches all available data
 vocabRoutes.get("/", (req, res) => {
@@ -44,36 +48,78 @@ vocabRoutes.post("/insert", (req, res) => {
     Vocab.find((err, list) => {
         if (!err) {
             for (let item of list) {
-                console.log(item);
-                console.log(item.language_id + item.english_word);
+                // console.log(item);
+                // console.log(item.language_id + item.english_word);
                 if (item.language_id === language_id && item.english_word === english_word) {
                     return res.json({ success: true, info: "word already exist" })
                 }
             }
 
 
-            var myURL = "https://linguee-api.herokuapp.com/api?q=" + english_word.toLowerCase() + "&src=en&dst=" + language_id.toLowerCase();
-            console.log("URL: " + myURL);
+            
+            const languageTranslator = new LanguageTranslatorV3({
+              version: '2018-05-01',
+              authenticator: new IamAuthenticator({
+                apikey: 'dSg6yvKxrxo9Sy2SCHbV_r9LthK7ybcXnkkjGC4cyOcd',
+              }),
+              url: 'https://api.eu-de.language-translator.watson.cloud.ibm.com/instances/93ebb1a7-fe31-4268-b0b6-3bde1a15069c',
+            });
+            
+            const translateParams = {
+              text: english_word.toLowerCase(),
+              modelId: `en-${language_id.toLowerCase()}`,
+            };
+            
+            languageTranslator
+              .translate(translateParams)
+              .then((translationResult) => {
+                const translation = JSON.stringify(translationResult, null, 2);
+                console.log("####> ", translation)
 
-            axios({
-                "method": "GET",
-                "url": myURL              
-            })
-                .then((response) => {
-                    console.log(response)
-                    let data = new Vocab();
-                    data.language_id = language_id;
-                    data.english_word = english_word;
-                    data.translation = response.data.exact_matches[0].translations[0].text;
-                    console.log(response.data.exact_matches[0].translations[0].text);
-                    data.save((err) => {
-                        if (err) return res.json({ success: false, error: err });
-                        return res.json({ success: true, sys: "nice" });
-                    })
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
+
+
+
+                
+                const data = new Vocab();
+                data.language_id = language_id;
+                data.english_word = english_word;
+                data.translation = translation
+                console.log(`${english_word} > ${translation}`);
+                data.save((err) => {
+                  if (err) return res.json({ success: false, error: err });
+                  return res.json({ success: true, sys: "nice" });
+                });
+              })
+              .catch((err) => {
+                console.log("error:", err);
+              });
+
+
+
+
+
+            // var myURL = "https://linguee-api.herokuapp.com/api?q=" + english_word.toLowerCase() + "&src=en&dst=" + language_id.toLowerCase();
+            // console.log("URL: " + myURL);
+
+            // axios({
+            //     "method": "GET",
+            //     "url": myURL              
+            // })
+            //     .then((response) => {
+            //         console.log(response)
+            //         let data = new Vocab();
+            //         data.language_id = language_id;
+            //         data.english_word = english_word;
+            //         data.translation = response.data.exact_matches[0].translations[0].text;
+            //         console.log(response.data.exact_matches[0].translations[0].text);
+            //         data.save((err) => {
+            //             if (err) return res.json({ success: false, error: err });
+            //             return res.json({ success: true, sys: "nice" });
+            //         })
+            //     })
+            //     .catch((error) => {
+            //         console.log(error)
+            //     })
 
 
         }
