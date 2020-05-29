@@ -143,6 +143,14 @@ div#language_menu {
 }
 
 
+/* ---------- AddVocabulary ---------- */
+
+.inline_block {
+    display: inline-block;
+}
+
+
+
 /* ---------- VocabularyTraining ---------- */
 
 .right {
