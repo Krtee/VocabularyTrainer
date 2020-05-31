@@ -30,7 +30,7 @@ function Landing() {
         const userInfo = {
           username: userName,
           password: password,
-        };
+        }; 
 
         return new PromiseB(async (resolve, reject) => {
           const res = await api.user.createUser(userInfo);

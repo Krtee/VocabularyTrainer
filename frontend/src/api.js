@@ -58,7 +58,7 @@ export default {
   },
   user: {
     createUser: (data) => createUser(data),
-    fetchUsers: () => fetchUsers(),
+    fetchUsers: () => fetchUsers()
   },
   vocab: {
     insert: (data) => insertVocab(data),

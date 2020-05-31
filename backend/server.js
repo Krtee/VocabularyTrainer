@@ -66,7 +66,7 @@ router.delete("/deleteUsers", (req, res) => {
 router.post("/putUsers", (req, res) => {
   let data = new Users();
 
-  const { id, username, password } = req.body;
+  const { id, username, password, setting } = req.body;
 
   //TODO: Custom error Messages
   if (!id && id !== 0 && !username && !password) {
@@ -77,6 +77,7 @@ router.post("/putUsers", (req, res) => {
   }
   data.username = username;
   data.password = password;
+  data.right_guesses_in_a_row = 3;
   data.id = id;
   data.save((err) => {
     if (err) return res.json({ success: false, error: err });

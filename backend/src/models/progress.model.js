@@ -5,6 +5,7 @@ const DataSchema = new Schema(
     {
         user_id: Number,
         vocab_id: Number,
+        language_id: Number,
         progress: Number,
         right_guesses_in_a_row: Number
     },
