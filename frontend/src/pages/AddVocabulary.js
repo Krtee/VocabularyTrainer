@@ -11,6 +11,7 @@ const AddVocabulary = () => {
   let textinput = createRef();
 
   const [auth, setAuth] = useGlobal("auth");
+  const [langID, setLangID] = useGlobal("langID");
   const [color, setColor] = useState("");
   const [info, setInfo] = useState("");
 
@@ -21,7 +22,7 @@ const AddVocabulary = () => {
   const addVocab = async (event) => {
     event.preventDefault();
     const data = {
-      language_id: "fr",
+      language_id: langID,
       english_word: textinput.current.value,
     };
 

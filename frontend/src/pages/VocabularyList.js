@@ -12,30 +12,34 @@ const getVocabs = async () => {
 
 const VocabularyList = (props) => {
   const [auth, setAuth] = useGlobal("auth");
-  const [language, setLanguage] = useState("german");
-  const [languageId, setLanguageId] = useState("de");
+  const [langID, setLangID] = useGlobal("langID");
+  const [langName, setLangName] = useGlobal("langName");  
   const [vocab, setVocab] = useState([]);
 
   useEffect(() => {
     getVocabs().then((data) => setVocab(data));
   }, []);
 
-  try {
+/*   try {
     if (props.location.query.language !== language) {
       setLanguage(props.location.query.language);
       setLanguageId(props.location.query.id);
     }
   } catch (error) {
     console.info("No language selected. Using german as default.");
-  }
+  } */
 
   if (!auth) {
     return <Redirect to="/" />;
   }
 
+  if (langName === null) {
+    return <Redirect to="/Languages" />;
+  }
+
   const getSortedVocab = vocab
     .filter((word) => {
-      return word.language_id === languageId;
+      return word.language_id === langID;
     })
     .map((word) => {
       return word;
@@ -52,7 +56,7 @@ const VocabularyList = (props) => {
         <h1>Vocabulary overview</h1>
         <div className="row vocabulary_list_entry">
           <div className="col-xl-1 col-lg-2 col-md-3 col-4 vocabulary_list_header">English</div>
-          <div className="col-xl-2 col-lg-2 col-md-3 col-4 vocabulary_list_header">{language}</div>
+          <div className="col-xl-2 col-lg-2 col-md-3 col-4 vocabulary_list_header">{langName}</div>
           <div className="col-xl-1 col-lg-2 col-md-3 col-4 vocabulary_list_header">Progress</div>
         </div>
         {getSortedVocab.map((vocab) => {

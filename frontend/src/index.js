@@ -7,7 +7,7 @@ import "./style.css";
 
 // FIXME: FOR DEV REASONS SET ON TRUE, BUT SET FALSE FOR PRODUCTIVE!
 setGlobal({
-  auth: false, user: ""
+  auth: false, user: "", langName: null, langID: null
 });
 
 

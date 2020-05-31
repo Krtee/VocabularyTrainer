@@ -24,6 +24,10 @@ const Languages = () => {
     return <Redirect to="/" />;
   }
 
+  const setLang = (language) => {
+    setLang()
+    };
+
   var i = 0;
 
   return (
@@ -37,11 +41,9 @@ const Languages = () => {
           return <LanguageButton key={i++} language={language} />;
         })}
       </div>
-{/*       <button type="button" className="btn btn-primary margin_top">
-        Add new language
-      </button> */}
     </div>
   );
 };
 
 export default Languages;
+

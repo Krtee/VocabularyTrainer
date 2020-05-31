@@ -1,7 +1,3 @@
-
-
-
-
 import React from "react";
 
 class VocabularyTraining_Options extends React.Component {
