@@ -37,9 +37,9 @@ const Languages = () => {
           return <LanguageButton key={i++} language={language} />;
         })}
       </div>
-      <button type="button" className="btn btn-primary margin_top">
+{/*       <button type="button" className="btn btn-primary margin_top">
         Add new language
-      </button>
+      </button> */}
     </div>
   );
 };
