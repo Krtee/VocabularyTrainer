@@ -18,19 +18,24 @@ function Landing() {
     const password = input.password ? input.password : null;
     const passwordRepeat = input.passwordRepeat ? input.passwordRepeat : null;
     emptyHelpFields();
+    usernameAlreadyTaken(userName).then((taken) => validateCreateUser(userName, taken, password, passwordRepeat));
+  }
 
-    if (signUpDataComplete(userName, password, passwordRepeat) === true) {
+  function validateCreateUser(userName, usernameAlreadyTaken, password, passwordRepeat) {
+    if (signUpDataComplete(userName, password, passwordRepeat)) {
+      if (usernameAlreadyTaken) {
+        setUserNameHelp("Username is already taken. Please choose a different one.");
+      }
       if (password !== passwordRepeat) {
         setPasswordHelp("Passwords don't match");
         setPasswordRepeatHelp("Passwords don't match");
       } else {
-        //TODO: Check if user already exists (here or in server.js)
         console.info("Saving...", { userName, password, passwordRepeat });
 
         const userInfo = {
           username: userName,
           password: password,
-        }; 
+        };
 
         return new PromiseB(async (resolve, reject) => {
           const res = await api.user.createUser(userInfo);
@@ -45,15 +50,22 @@ function Landing() {
     } else {
       if (userName == null) {
         setUserNameHelp("Please enter a user name");
-      } 
+      }
       if (password == null) {
         setPasswordHelp("Please enter a password");
-      } 
+      }
       if (passwordRepeat == null) {
         setPasswordRepeatHelp("Please repeat the password");
-      } 
+      }
     }
 
+  }
+
+  async function usernameAlreadyTaken(userName) {
+    var allUsers = await api.user.fetchUsers();
+    var { data } = allUsers.data;
+    var existingUser = getUser(userName, data);
+    return !(existingUser === undefined);
   }
 
   function signUpDataComplete(userName, password, passwordRepeat) {
@@ -72,7 +84,7 @@ function Landing() {
     }
   }
 
-  function emptyHelpFields(){
+  function emptyHelpFields() {
     setUserNameHelp("");
     setPasswordHelp("");
     setPasswordRepeatHelp("");
@@ -85,17 +97,19 @@ function Landing() {
         if (res.status === 200) {
           const { data } = res.data;
           const userInfo = getUser(input.userName, data);
-          var userExists = false;
+
           var passwordCorrect = false;
           emptyHelpFields();
 
           if (logInDataComplete(input.userName, input.password)) {
             if (userInfo != null) {
-              userExists = true;
               passwordCorrect = authenticateUser(userInfo, input.password);
             }
             if (!passwordCorrect) {
               setPasswordHelp("Wrong user name or password");
+            } else {
+              setUser(userInfo._id);
+              alert("Current User ID: " + userInfo._id);
             }
           } else {
             if (input.userName.length === 0) {

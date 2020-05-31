@@ -70,6 +70,7 @@ vocabRoutes.post("/insert", (req, res) => {
               .translate(translateParams)
               .then((translationResult) => {
                 const ibmResponse = JSON.stringify(translationResult, null, 2);
+                console.log("+++ JSON: " + ibmResponse + "---");
 
                 try {
                     const ibmRes = JSON.parse(ibmResponse)
@@ -78,17 +79,22 @@ vocabRoutes.post("/insert", (req, res) => {
                     
                     if (ibmRes.status === 200) {
                         const translation = ibmRes.result.translations[0].translation
+                        console.log("*** ibmRes.result: ") + JSON.stringify(ibmRes.result);
+                        console.log("*** translation[0]: ") + JSON.stringify(ibmRes.result.translations[0]);
+                        console.log("*** translation[0].translation: ") + JSON.stringify(ibmRes.result.translations[0].translation);
+
                         const data = new Vocab();
                         data.language_id = language_id;
                         data.english_word = english_word;
-                        data.translation = translation
+                        data.translation = translation;
                         console.log(`${english_word} > ${translation}`);
                         
                         data.save((err) => {
                           if (err) return res.json({ success: false, error: err });
                           return res.json({ success: true, info: "New word successfully added!" });
-                        });
-    
+                        });    
+                    } else {
+                        return res.json({ success: false, error: "Unknown word. Please check the spelling." });
                     }
                 } catch (error) {
                     console.error(error)

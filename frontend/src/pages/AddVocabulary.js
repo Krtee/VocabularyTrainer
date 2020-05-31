@@ -33,6 +33,7 @@ const AddVocabulary = () => {
       setColor("right");
     } else {
       setInfo(res.error);
+      //setInfo("Unknown word. Please check the spelling.");
       setColor("wrong");
     }
 

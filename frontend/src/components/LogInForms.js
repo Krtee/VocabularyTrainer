@@ -1,5 +1,4 @@
 import React from "react";
-import { Link, Redirect } from "react-router-dom";
 
 class LogInForms extends React.Component {
   constructor(props) {
