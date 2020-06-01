@@ -4,11 +4,10 @@ import Navigation from "../components/Navigation";
  */import { Redirect } from "react-router";
 import React, { useGlobal, useState, createRef } from "reactn";
 import api from "../api";
-import { Link } from "react-router-dom";
-
+import SendVocabFom from "../components/SendVocabFom";
 
 const AddVocabulary = () => {
-  let textinput = createRef();
+  let [textinput,setTextinput] = useState();
 
   const [auth, setAuth] = useGlobal("auth");
   const [color, setColor] = useState("");
@@ -21,8 +20,8 @@ const AddVocabulary = () => {
   const addVocab = async (event) => {
     event.preventDefault();
     const data = {
-      language_id: "fr",
-      english_word: textinput.current.value,
+      language_id: "de",
+      english_word: textinput,
     };
 
     const res = await api.vocab.insert(data);
@@ -37,34 +36,15 @@ const AddVocabulary = () => {
 
   };
 
+  const onChange = (event)=>{
+    console.log(event)
+    setTextinput(event.target.value)
+  }
+
   return (
     <div id="content" className="add_vocabulary">
       <Navigation />
-      <form>
-        <h1>Add vocabulary</h1>
-        <h2>Enter the word you want to add</h2>
-        <div className="form-group row">
-          <label className="col-lg-2 col-12 no_padding_left" htmlFor="add_vocabulary_english">
-            English
-          </label>
-          <input
-            type="text"
-            className="form-control col-lg-10 col-12"
-            id="add_vocabulary_english"
-            placeholder="type in English word"
-            ref={textinput}
-          />
-        </div>
-        <button type="submit" className="btn btn-primary" onClick={addVocab}>
-          Add vocabulary
-        </button>
-        <Link to="/VocabularyList">
-          <button type="button" className="btn btn-primary margin_left grey_button">
-            Show overview
-          </button>
-        </Link>
-      </form>
-      <div className={"inline_block margin_top " + color}>{info}</div>
+      <SendVocabFom change={(e) => onChange(e)} action={addVocab}/>
     </div>
   );
 };

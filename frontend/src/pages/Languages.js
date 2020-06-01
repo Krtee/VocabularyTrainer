@@ -27,7 +27,7 @@ const Languages = () => {
   var i = 0;
 
   return (
-    
+
     <div>
       <ReducedNavigation />
       <h1>Languages</h1>

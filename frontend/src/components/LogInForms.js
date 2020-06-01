@@ -4,7 +4,7 @@ import { Link, Redirect } from "react-router-dom";
 class LogInForms extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { userName: "", password: "", passwordRepeat: "", userNameHelp: "", passwordHelp: "", passwordRepeat: "" };
+    this.state = { userName: "", password: "", passwordRepeat: "", userNameHelp: "", passwordHelp: "", passwordRepeatHelp: "" };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }

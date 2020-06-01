@@ -54,7 +54,7 @@ vocabRoutes.post("/insert", (req, res) => {
                     return res.json({ success: true, info: "Word already exists" })
                 }
             }
-            
+
             const languageTranslator = new LanguageTranslatorV3({
               version: '2018-05-01',
               authenticator: new IamAuthenticator({
@@ -62,12 +62,12 @@ vocabRoutes.post("/insert", (req, res) => {
               }),
               url: 'https://api.eu-de.language-translator.watson.cloud.ibm.com/instances/93ebb1a7-fe31-4268-b0b6-3bde1a15069c',
             });
-            
+
             const translateParams = {
               text: english_word.toLowerCase(),
               modelId: `en-${language_id.toLowerCase()}`,
             };
-            
+
             languageTranslator
               .translate(translateParams)
               .then((translationResult) => {
@@ -77,7 +77,7 @@ vocabRoutes.post("/insert", (req, res) => {
                     const ibmRes = JSON.parse(ibmResponse)
                     console.log(ibmRes);
 
-                    
+
                     if (ibmRes.status === 200) {
                         const translation = ibmRes.result.translations[0].translation
                         const data = new Vocab();
@@ -85,12 +85,12 @@ vocabRoutes.post("/insert", (req, res) => {
                         data.english_word = english_word;
                         data.translation = translation
                         console.log(`${english_word} > ${translation}`);
-                        
+
                         data.save((err) => {
                           if (err) return res.json({ success: false, error: err });
                           return res.json({ success: true, sys: "nice" });
                         });
-    
+
                     }
                 } catch (error) {
                     console.error(error)
