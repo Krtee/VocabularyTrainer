@@ -12,7 +12,6 @@ function Landing() {
   const [passwordHelp, setPasswordHelp] = useState("");
   const [passwordRepeatHelp, setPasswordRepeatHelp] = useState("");
 
-
   async function createUser(input) {
     const userName = input.userName ? input.userName : null;
     const password = input.password ? input.password : null;
@@ -24,40 +23,43 @@ function Landing() {
         setPasswordHelp("Passwords don't match");
         setPasswordRepeatHelp("Passwords don't match");
       } else {
-        //TODO: Check if user already exists (here or in server.js)
-        console.info("Saving...", { userName, password, passwordRepeat });
+        const isAvailable = await checkIfUserNameAvailable(userName);
+        if (isAvailable) {
+          console.info("Saving...", { userName, password, passwordRepeat });
 
-        const userInfo = {
-          username: userName,
-          password: password,
-        };
+          const userInfo = {
+            username: userName,
+            password: password,
+          };
 
-        return new PromiseB(async (resolve, reject) => {
-          const res = await api.user.createUser(userInfo);
-          if (res.status === 200) {
-            setAuth(true);
-            return resolve(res.data);
-          }
-          setAuth(false);
-          return reject("Something went wrong");
-        });
+          return new PromiseB(async (resolve, reject) => {
+            const res = await api.user.createUser(userInfo);
+            if (res.status === 200) {
+              setAuth(true);
+              return resolve(res.data);
+            }
+            setAuth(false);
+            return reject("Something went wrong");
+          });
+        } else {
+          setUserNameHelp("Username already exists!")
+        }
       }
     } else {
       if (userName == null) {
         setUserNameHelp("Please enter a user name");
-      } 
+      }
       if (password == null) {
         setPasswordHelp("Please enter a password");
-      } 
+      }
       if (passwordRepeat == null) {
         setPasswordRepeatHelp("Please repeat the password");
-      } 
+      }
     }
-
   }
 
   function signUpDataComplete(userName, password, passwordRepeat) {
-    if ((userName != null) && (password != null) && (passwordRepeat != null)) {
+    if (userName != null && password != null && passwordRepeat != null) {
       return true;
     } else {
       return false;
@@ -65,17 +67,31 @@ function Landing() {
   }
 
   function logInDataComplete(userName, password) {
-    if ((userName.length > 0) && (password.length > 0)) {
+    if (userName.length > 0 && password.length > 0) {
       return true;
     } else {
       return false;
     }
   }
 
-  function emptyHelpFields(){
+  function emptyHelpFields() {
     setUserNameHelp("");
     setPasswordHelp("");
     setPasswordRepeatHelp("");
+  }
+
+  async function checkIfUserNameAvailable(userName) {
+    const allUsers = await api.user.fetchUsers().then((res) => {
+      return res.data.data;
+    });
+    for (let i = 0; i < allUsers.length; i++) {
+      const element = allUsers[i];
+      if (element.username === userName) {
+        console.log("username already exists");
+        return false;
+      }
+    }
+    return true;
   }
 
   async function login(input) {
@@ -142,7 +158,14 @@ function Landing() {
       {auth ? <Redirect to="/languages" /> : null}
       <h1>Vocabulary Trainer</h1>
       <h2>Log in or sign up!</h2>
-      <SignUpButton createUser={createUser} login={login} emptyHelpFields={emptyHelpFields} userNameHelp={userNameHelp} passwordHelp={passwordHelp} passwordRepeatHelp={passwordRepeatHelp} />
+      <SignUpButton
+        createUser={createUser}
+        login={login}
+        emptyHelpFields={emptyHelpFields}
+        userNameHelp={userNameHelp}
+        passwordHelp={passwordHelp}
+        passwordRepeatHelp={passwordRepeatHelp}
+      />
     </div>
   );
 }

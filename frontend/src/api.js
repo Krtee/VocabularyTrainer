@@ -7,7 +7,7 @@ const url = "http://localhost:8080";
 
 const createUser = async (data) => {
   try {
-    return axios.post(`${url}/api/putUsers`, data);
+    return axios.post(`${url}/Users`, data);
   } catch (error) {
     console.error(error);
   }
@@ -15,11 +15,35 @@ const createUser = async (data) => {
 
 const fetchUsers = async () => {
   try {
-    return await axios.get(`${url}/api/getUsers`);
+    return await axios.get(`${url}/Users`);
   } catch (error) {
     console.error(error);
   }
 };
+
+const getUser = async (userId) => {
+  try {
+    return await axios.get(`${url}/Users/${userId}`)
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+const editUser = async (userId) => {
+  try {
+    return await axios.patch(`${url}/Users/${userId}`)
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+const deleteUser = async (userId) => {
+  try {
+    return await axios.delete(`${url}/Users/${userId}`)
+  } catch (error) {
+    console.error(error)
+  }
+}
 
 // Vocab ------------------------------------------------------------
 
@@ -44,7 +68,7 @@ const insertVocab = async (data) => {
 
 const getLanguages = async () => {
   try {
-    const res = await axios.get(`${url}/api/getLanguages`);
+    const res = await axios.get(`${url}/Languages`);
     return res.data ? (res.data ? res.data.data : res) : res;
   } catch (error) {
     console.error(error);

@@ -37,9 +37,18 @@ userRoutes.get("/:user_id", (req, res, next) => {
 
 /* Add Single User */
 userRoutes.post("/", (req, res, next) => {
+    const { id, username, password } = req.body;
+
+    if (!id && id !== 0 && !username && !password) {
+        return res.json({
+          success: false,
+          error: "INVALID INPUTS",
+        });
+      }
+
     let newUser = {
-        username: req.body.username,
-        password: req.body.password
+        username: username,
+        password: password
     };
     User.create(newUser, function(err, result) {
         if(err){
@@ -48,7 +57,7 @@ userRoutes.post("/", (req, res, next) => {
                 error: err.message
             });
         }
-        res.status(201).send({
+        res.status(200).send({
             success: true,
             data: result,
             message: "User created successfully"

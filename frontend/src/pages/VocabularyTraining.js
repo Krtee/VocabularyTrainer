@@ -14,7 +14,7 @@ function VocabularyTraining() {
   const [buttonState, setButtonState] = useState("options");
   const [buttonText, setButtonText] = useState("Start training");
   const [savedSettings, setSavedSettings] = useState(false);
-  const [numberOfVocabs, setNumberOfVocabs] = useGlobal("numberOfVocabs");
+  const [numberOfVocab, setNumberOfVocab] = useGlobal("numberOfVocab");
   const [progress, setProgress] = useGlobal("progress");
   const [direction, setDirection] = useGlobal("direction");
   const [language, setLanguage] = useGlobal("language");
@@ -50,15 +50,19 @@ function VocabularyTraining() {
   const receiveInput = (input) => {
     setSavedSettings(true);
     console.info("input: ", input);
-    setNumberOfVocabs(input.vocabNumber);
+    if (input.vocabNumber === 0){
+      setNumberOfVocab(25);
+    } else {
+      setNumberOfVocab(input.vocabNumber);
+    }
     const progressArray = [];
-    if (input.progess1) {
+    if (input.progress1) {
       progressArray.push(1);
     }
-    if (input.progess2) {
+    if (input.progress2) {
       progressArray.push(2);
     }
-    if (input.progess3) {
+    if (input.progress3) {
       progressArray.push(3);
     }
     setProgress(progressArray);
@@ -77,7 +81,7 @@ function VocabularyTraining() {
       {showQueries ? (
         <Queries
           show={false}
-          numberOfVocabs={numberOfVocabs}
+          numberOfVocabs={numberOfVocab}
           progress={progress}
           direction={direction}
           language={language}

@@ -10,7 +10,7 @@ setGlobal({
   auth: false,
   user: "",
   progress: 1,
-  numberOfVocabs: 25,
+  numberOfVocab: 25,
   direction: "fn_en",
   language: "German",
   languageId: "de",
