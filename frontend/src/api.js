@@ -41,6 +41,15 @@ const insertVocab = async (data) => {
   }
 };
 
+const getVocabAndTranslation = async (data) => {
+  try {
+    const res = await axios.post(`${url}/Vocab/getVocabAndTranslation`, data);
+    return res.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 // Language ---------------------------------------------------------
 
 const getLanguages = async () => {
@@ -51,6 +60,18 @@ const getLanguages = async () => {
     console.error(error);
   }
 };
+
+// Progress ---------------------------------------------------------
+
+const getProgress = async () => {
+  try {
+    const res = await axios.get(`${url}/Vocab/getProgress`);
+    return res.data ? (res.data ? res.data.data : res) : res;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 
 export default {
   language: {
@@ -63,5 +84,9 @@ export default {
   vocab: {
     insert: (data) => insertVocab(data),
     getVocab: () => getVocabs(),
+    getVocabAndTranslation: (data) => getVocabAndTranslation(data),
   },
+  progress: {
+    getProgress: () => getProgress(),
+  }
 };

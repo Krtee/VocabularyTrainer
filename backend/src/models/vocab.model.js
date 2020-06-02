@@ -4,33 +4,32 @@ const Schema = mongoose.Schema;
 
 const DataSchema = new Schema(
     {
-        vocab_id: Number,
-        english_word: String,
-        translation: [
-            {
-                "ar":String,
-                "cs":String,
-                "da":String,
-                "de":String,
-                "el":String,
-                "es":String,
-                "fi":String,
-                "fr":String,
-                "he":String,
-                "hi":String,
-                "it":String,
-                "ja":String,
-                "ko":String,
-                "nb":String,
-                "nl":String,
-                "pl":String,
-                "pt":String,
-                "ru":String,
-                "sv":String,
-                "tr":String,
-                "zh":String
-            }
-        ]
+        "vocab_id": String,
+        "english_word": String,
+        "translation":
+        {
+            "ar": String,
+            "cs": String,
+            "da": String,
+            "de": String,
+            "el": String,
+            "es": String,
+            "fi": String,
+            "fr": String,
+            "he": String,
+            "hi": String,
+            "it": String,
+            "ja": String,
+            "ko": String,
+            "nb": String,
+            "nl": String,
+            "pl": String,
+            "pt": String,
+            "ru": String,
+            "sv": String,
+            "tr": String,
+            "zh": String
+        }
     },
     { timestamps: true }
 );

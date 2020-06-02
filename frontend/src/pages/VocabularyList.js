@@ -5,49 +5,36 @@ import { Redirect } from "react-router";
 import api from "../api";
 import VocabRow from "../components/VocabRow";
 
-const getVocabs = async () => {
-  const res = await api.vocab.getVocab();
+const getProgress = async () => {
+  const res = await api.progress.getProgress();
   return res;
 };
 
 const VocabularyList = (props) => {
   const [auth, setAuth] = useGlobal("auth");
+  const [user, setUser] = useGlobal("user");
   const [langID, setLangID] = useGlobal("langID");
-  const [langName, setLangName] = useGlobal("langName");  
-  const [vocab, setVocab] = useState([]);
+  const [langName, setLangName] = useGlobal("langName");
+  const [prog, setProg] = useState([]);
 
   useEffect(() => {
-    getVocabs().then((data) => setVocab(data));
+    getProgress().then((data) => setProg(data));
   }, []);
-
-/*   try {
-    if (props.location.query.language !== language) {
-      setLanguage(props.location.query.language);
-      setLanguageId(props.location.query.id);
-    }
-  } catch (error) {
-    console.info("No language selected. Using german as default.");
-  } */
 
   if (!auth) {
     return <Redirect to="/" />;
   }
 
-  if (langName === null) {
-    return <Redirect to="/Languages" />;
-  }
-
-  const getSortedVocab = vocab
+  const getFilteredProgress = prog
     .filter((word) => {
-      return word.language_id === langID;
+      return word.language_id === langID && word.user_id == user;
     })
     .map((word) => {
       return word;
     });
 
-  var i = 0;  
+  var i = 0;
 
-  
   //TODO catch data as json from database
   return (
     <div id="content" className="vocabulary_list">
@@ -59,9 +46,11 @@ const VocabularyList = (props) => {
           <div className="col-xl-2 col-lg-2 col-md-3 col-4 vocabulary_list_header">{langName}</div>
           <div className="col-xl-1 col-lg-2 col-md-3 col-4 vocabulary_list_header">Progress</div>
         </div>
-        {getSortedVocab.map((vocab) => {
-          return <VocabRow key={i++} vocab={vocab}/>
+        {getFilteredProgress.map((prog) => {
+          return <VocabRow key={i++} prog={prog} />
         })}
+
+
       </div>
     </div>
   );

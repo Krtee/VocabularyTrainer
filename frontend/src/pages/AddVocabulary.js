@@ -14,6 +14,8 @@ const AddVocabulary = () => {
   const [langID, setLangID] = useGlobal("langID");
   const [color, setColor] = useState("");
   const [info, setInfo] = useState("");
+  const [user, setUser] = useGlobal("user");
+
 
   if (!auth) {
     return <Redirect to="/" />;
@@ -24,16 +26,15 @@ const AddVocabulary = () => {
     const data = {
       language_id: langID,
       english_word: textinput.current.value,
+      user_id: user,
     };
 
     const res = await api.vocab.insert(data);
-    console.log("res: " + res);
     if(res.success === true) {
       setInfo(res.info);
       setColor("right");
     } else {
       setInfo(res.error);
-      //setInfo("Unknown word. Please check the spelling.");
       setColor("wrong");
     }
 

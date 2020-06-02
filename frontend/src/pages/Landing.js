@@ -109,7 +109,6 @@ function Landing() {
               setPasswordHelp("Wrong user name or password");
             } else {
               setUser(userInfo._id);
-              alert("Current User ID: " + userInfo._id);
             }
           } else {
             if (input.userName.length === 0) {
