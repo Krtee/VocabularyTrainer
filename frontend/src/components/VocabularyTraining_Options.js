@@ -17,7 +17,6 @@ const VocabularyTraining_Options = (props) => {
     event.preventDefault();
     const { receiveInput } = props;
     receiveInput({ vocabNumber, progress1, progress2, progress3, training_options_radios });
-    console.log({ vocabNumber, progress1, progress2, progress3, training_options_radios });
     props.onClick();
   };
 

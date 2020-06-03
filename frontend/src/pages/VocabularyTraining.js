@@ -19,13 +19,11 @@ function VocabularyTraining() {
   const [direction, setDirection] = useGlobal("direction");
   const [language, setLanguage] = useGlobal("language");
 
-
   if (!auth) {
     return <Redirect to="/" />;
   }
 
   const changeView = () => {
-    console.log("buttonState: ", buttonState);
     if (buttonState === "options") {
       setButtonState("queries");
       setShowOptions(false);
@@ -50,7 +48,6 @@ function VocabularyTraining() {
 
   const receiveInput = (input) => {
     setSavedSettings(true);
-    console.info("input: ", input);
     if (input.vocabNumber === 0){
       setNumberOfVocab(25);
     } else {

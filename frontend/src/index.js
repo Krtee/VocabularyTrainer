@@ -6,14 +6,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 
 // FIXME: FOR DEV REASONS SET ON TRUE, BUT SET FALSE FOR PRODUCTIVE!
+// FIXME: REMOVE USERID AND LANGNAME AND LANGID BEFORE RELEASE!
 setGlobal({
   auth: true,
-  user: "",
+  user: "5ed3a6e3963bc20d18fa26f1",
   progress: 1,
   numberOfVocab: 25,
   direction: "fn_en",
-  langName: null,
-  langID: null,
+  langName: "German",
+  langID: "de",
+  summary: []
 });
 
 render(

@@ -10,15 +10,17 @@ const getVocabs = async () => {
 const VocabularyTraining_Queries = (props) => {
   const [vocab, setVocab] = useState([]);
   const [trainingVorab, setTrainingVorab] = useState([]);
-  const [language, setLanguage] = useGlobal("language");
-  const [languageId] = useGlobal("languageId");
+  const [langName, setLangName] = useGlobal("langName");
+  const [langID, ] = useGlobal("langID");
   const [iterate, setIterate] = useState(0);
   const [input, setInput] = useState("");
+  const [summary, setSummary] = useGlobal("summary")
 
   useEffect(() => {
     getVocabs().then((data) => {
       setVocab(data);
       getTrainingVocab(data);
+      setSummary([])
     });
   }, []);
 
@@ -26,15 +28,15 @@ const VocabularyTraining_Queries = (props) => {
     setIterate(iterate + 1);
   };
 
-  const handleClick = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     const currentWord = trainingVorab[iterate]
-    console.log(currentWord)
-    console.log("Translation in db: ", currentWord.translation)
-    console.log("Translation by user: ", input)
+    const localSummary = summary;
+    localSummary.push({currentWord, input})
+    setSummary(localSummary)
 
     if (input) {
-      if(input.toLowerCase() == currentWord.translation.toLowerCase()){
+      if(input.toLowerCase() == currentWord.translation[langID].toLowerCase()){
         // Word correct 
         // TODO: graphic reaction
         // TODO: add progress to word
@@ -53,12 +55,14 @@ const VocabularyTraining_Queries = (props) => {
     const numberOfVocab = props.numberOfVocabs;
     const vSortedByLangAndProgress = [];
     allVocab.forEach((obj) => {
-      if (obj.language_id === languageId) {
+      if (obj.translation[langID]) {    
         vSortedByLangAndProgress.push(obj);
       }
     });
 
     // TODO: Abfrage nach Progress & entsprechend eingrenzen
+    // FIXME: Dürfen Vokabeln mehrmals vorkommen? Sonst bei den aktuell 5en passiert das recht oft
+    // später dürfte das recht selten passieren. 
     const vocabChoice = [];
     while (vocabChoice.length < numberOfVocab) {
       const number = Math.floor(Math.random() * vSortedByLangAndProgress.length + 0);
@@ -89,7 +93,7 @@ const VocabularyTraining_Queries = (props) => {
               value={input}
             />
           </div>
-          <button type="submit" className="btn btn-primary" onClick={handleClick}>
+          <button type="submit" className="btn btn-primary" onClick={handleSubmit}>
             Submit and continue
           </button>
           <button type="button" className="btn btn-secondary ml-1" onClick={handleSkip}>

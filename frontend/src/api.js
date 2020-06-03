@@ -96,6 +96,15 @@ const getProgress = async () => {
   }
 };
 
+const getProgressById = async (id) => {
+  try {
+    const res = await axios.get(`${url}/Vocab/getProgressById`, {params: {id: id}});
+    return res.data ? (res.data ? res.data.data : res) : res;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 
 export default {
   language: {
@@ -112,5 +121,6 @@ export default {
   },
   progress: {
     getProgress: () => getProgress(),
+    getProgressById: (id) => getProgressById(id)
   }
 };

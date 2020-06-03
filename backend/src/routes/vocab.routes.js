@@ -40,6 +40,17 @@ vocabRoutes.get("/getProgress", (req, res) => {
     });
 });
 
+vocabRoutes.get("/getProgressById", (req, res) => {
+  const { id } = req.query;
+  Progress.findOne({vocab_id: id}, (err, data) => {
+    if (err) {
+      console.error(err);
+      return res.json({ success: false, error: err });
+    }
+    return res.json({ success: true, data: data });
+  });
+});
+
 vocabRoutes.post("/getVocabAndTranslation", (req, res) => {
     const { vocab_id, lang_id } = req.body;
     var vocab = "";
