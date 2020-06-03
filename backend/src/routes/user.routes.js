@@ -49,7 +49,7 @@ userRoutes.post("/", (req, res, next) => {
     let newUser = {
         username: req.body.username,
         password: req.body.password,
-        setting: 3
+        right_guesses_in_a_row: 3
     };
     User.create(newUser, function(err, result) {
         if(err){
