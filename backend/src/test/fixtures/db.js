@@ -1,19 +1,21 @@
-const Customer = require('../../src/models/user.model');
-const Supplier = require('../../src/models/supplier.model');
-cons
-const { customer_one, customer_two, customer_three } = require('./customer')
-const { supplier_one, supplier_two, supplier_three } = require('./supplier')
+const User = require('../../models/user.model');
+const Vocab = require('../../models/user.model');
+const { user_one, user_two, user_three } = require('./user')
+const { vocab_one,vocab_two,vocab_three} = require('./vocab')
 
 const setupDatabase = async () => {
-	await Customer.deleteMany();
-	await Supplier.deleteMany();
-	await new Customer(customer_one).save();
-	await new Customer(customer_two).save();
-	await new Customer(customer_three).save();
+	await User.deleteMany();
+	await Vocab.deleteMany();
 
-	await new Supplier(supplier_one).save();
-	await new Supplier(supplier_two).save();
-	await new Supplier(supplier_three).save();
+	await new User(user_one).save();
+	await new User(user_two).save();
+	await new User(user_three).save();
+
+	await new User(vocab_one).save();
+	await new User(vocab_two).save();
+	await new User(vocab_three).save();
+
+
 }
 
 module.exports = {

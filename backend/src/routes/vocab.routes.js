@@ -10,8 +10,8 @@ const { IamAuthenticator } = require('ibm-watson/auth');
 // fetches all available data
 vocabRoutes.get("/", (req, res) => {
     Vocab.find((err, data) => {
-        if (err) return res.json({ success: false, error: err });
-        return res.json({ success: true, data: data });
+        if (err) return res.status(400).json({ success: false, error: err });
+        return res.status(200).json({ success: true, data: data });
     });
 });
 
@@ -51,7 +51,7 @@ vocabRoutes.post("/insert", (req, res) => {
                 // console.log(item);
                 // console.log(item.language_id + item.english_word);
                 if (item.language_id === language_id && item.english_word === english_word) {
-                    return res.json({ success: true, info: "Word already exists" })
+                    return res.status(400).json({ success: false, error: "Word already exists" })
                 }
             }
 
@@ -87,8 +87,8 @@ vocabRoutes.post("/insert", (req, res) => {
                         console.log(`${english_word} > ${translation}`);
 
                         data.save((err) => {
-                          if (err) return res.json({ success: false, error: err });
-                          return res.json({ success: true, sys: "nice" });
+                          if (err) return res.status(400).json({ success: false, error: err });
+                          return res.status(200).json({ success: true, sys: "nice",data: data });
                         });
 
                     }

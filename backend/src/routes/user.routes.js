@@ -48,7 +48,7 @@ userRoutes.post("/", (req, res, next) => {
                 error: err.message
             });
         }
-        res.status(201).send({
+        res.status(200).send({
             success: true,
             data: result,
             message: "User created successfully"
