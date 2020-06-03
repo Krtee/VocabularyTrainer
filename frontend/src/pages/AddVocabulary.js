@@ -16,6 +16,8 @@ const AddVocabulary = () => {
   const [info, setInfo] = useState("");
   const [user, setUser] = useGlobal("user");
 
+  const [loading, setLoading] = useState(false)
+
 
   if (!auth) {
     return <Redirect to="/" />;
@@ -23,6 +25,7 @@ const AddVocabulary = () => {
 
   const addVocab = async (event) => {
     event.preventDefault();
+    setLoading(true)
     const data = {
       language_id: langID,
       english_word: textinput.current.value,
@@ -37,7 +40,7 @@ const AddVocabulary = () => {
       setInfo(res.error);
       setColor("wrong");
     }
-
+    setLoading(false)
   };
 
   return (
@@ -58,8 +61,15 @@ const AddVocabulary = () => {
             ref={textinput}
           />
         </div>
-        <button type="submit" className="btn btn-primary" onClick={addVocab}>
-          Add vocabulary
+        <button type="submit" className="btn btn-primary" onClick={addVocab} disabled={loading}>
+          
+          {loading ? (
+            <div class="spinner-border " role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          ) : (
+            "Add vocabulary"
+          )}
         </button>
         <Link to="/VocabularyList">
           <button type="button" className="btn btn-primary margin_left grey_button">
