@@ -5,7 +5,8 @@ const Schema = mongoose.Schema;
 const DataSchema = new Schema(
     {
         username: String,
-        password: String
+        password: String,
+        right_guesses_in_a_row: Number, 
     },
     { timestamps: true }
 );

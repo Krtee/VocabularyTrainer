@@ -47,11 +47,14 @@ userRoutes.post("/", (req, res, next) => {
       }
 
     let newUser = {
-        username: username,
-        password: password
+        username: req.body.username,
+        password: req.body.password,
+        setting: 3
     };
     User.create(newUser, function(err, result) {
         if(err){
+            console.log("didn't work");
+
             res.status(400).send({
                 success: false,
                 error: err.message

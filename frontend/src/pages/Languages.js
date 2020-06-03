@@ -12,7 +12,7 @@ const getLanguages = async () => {
 };
 
 const Languages = () => {
-  const [auth, setAuth] = useGlobal("auth");
+  const [auth, ] = useGlobal("auth");
   const [language, setLanguage] = useGlobal("language");
   const [languageId, setLanguageId] = useGlobal("languageId");
   const [languages, setLanguages] = useState([]);
@@ -38,21 +38,26 @@ const Languages = () => {
     return <Redirect to={{ pathname: `/VocabularyList`, query: { language, languageId } }} />;
   }
 
+  const setLang = (language) => {
+    setLang()
+    };
+
+  var i = 0;
+
   return (
+    
     <div>
       <ReducedNavigation />
       <h1>Languages</h1>
       <h2>Select the language you want to practise.</h2>
       <div className="row box">
         {languages.map((language) => {
-          return <LanguageButton language={language} getLanguage={getLanguage} />;
+          return <LanguageButton key={i++} language={language} getLanguage={getLanguage}  />;
         })}
       </div>
-      <button type="button" className="btn btn-primary margin_top">
-        Add new language
-      </button>
     </div>
   );
 };
 
 export default Languages;
+

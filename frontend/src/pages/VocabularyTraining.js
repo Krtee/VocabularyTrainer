@@ -44,6 +44,7 @@ function VocabularyTraining() {
       setShowQueries(false);
       setShowSummary(false);
       setButtonText("Start training");
+      setSavedSettings(false);
     }
   };
 

@@ -49,7 +49,7 @@ const deleteUser = async (userId) => {
 
 const getVocabs = async () => {
   try {
-    const res =  await axios.get(`${url}/Vocab/`);
+    const res = await axios.get(`${url}/Vocab/`);
     return res.data ? (res.data ? res.data.data : res) : res;
   } catch (error) {
     console.error(error);
@@ -58,11 +58,21 @@ const getVocabs = async () => {
 
 const insertVocab = async (data) => {
   try {
-    return await axios.post(`${url}/Vocab/insert`, data);
+    const res = await axios.post(`${url}/Vocab/insert`, data);
+    return res.data;
   } catch (error) {
     console.error(error);
   }
 };
+
+const getVocabAndTranslation = async (data) => {
+  try {
+    const res = await axios.post(`${url}/Vocab/getVocabAndTranslation`, data);
+    return res.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 // Language ---------------------------------------------------------
 
@@ -75,16 +85,32 @@ const getLanguages = async () => {
   }
 };
 
+// Progress ---------------------------------------------------------
+
+const getProgress = async () => {
+  try {
+    const res = await axios.get(`${url}/Vocab/getProgress`);
+    return res.data ? (res.data ? res.data.data : res) : res;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
 export default {
   language: {
     getLanguages: () => getLanguages(),
   },
   user: {
     createUser: (data) => createUser(data),
-    fetchUsers: () => fetchUsers(),
+    fetchUsers: () => fetchUsers()
   },
   vocab: {
     insert: (data) => insertVocab(data),
     getVocab: () => getVocabs(),
+    getVocabAndTranslation: (data) => getVocabAndTranslation(data),
   },
+  progress: {
+    getProgress: () => getProgress(),
+  }
 };
