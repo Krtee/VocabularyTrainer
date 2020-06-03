@@ -87,57 +87,6 @@ router.post("/putProgress", (req, res) => {
   });
 });
 
-//---------------------------------------------------------//
-//------------------- User DB Connection ------------------//
-//---------------------------------------------------------//
-// fetches all available data
-router.get("/getVocab", (req, res) => {
-  Vocab.find((err, data) => {
-    if (err) return res.json({ success: false, error: err });
-    return res.json({ success: true, data: data });
-  });
-});
-
-// overwrites existing data
-router.post("/updateVocab", (req, res) => {
-  const { id, update } = req.body;
-  Vocab.findByIdAndUpdate(id, update, (err) => {
-    if (err) return res.json({ success: false, error: err });
-    return res.json({ success: true });
-  });
-});
-
-// removes existing data
-router.delete("/deleteVocab", (req, res) => {
-  const { id } = req.body;
-  Vocab.findByIdAndRemove(id, (err) => {
-    if (err) return res.send(err);
-    return res.json({ success: true });
-  });
-});
-
-// adds new data
-router.post("/putVocab", (req, res) => {
-  let data = new Vocab();
-
-  const { id, language_id, english_word, translation } = req.body;
-
-  if ((!id && id !== 0) || (!language_id && !english_word && !translation)) {
-    return res.json({
-      success: false,
-      error: "INVALID INPUTS",
-    });
-  }
-  data.id = id;
-  data.language_id = language_id;
-  data.english_word = english_word;
-  data.translation = translation;
-  data.save((err) => {
-    if (err) return res.json({ success: false, error: err });
-    return res.json({ success: true });
-  });
-});
-
 // append /api for our http requests
 app.use("/api", router);
 
@@ -151,5 +100,4 @@ app.get("/express_backend", (req, res) => {
 //   res.sendFile(path.join(__dirname, "../frontend", "build", "index.html"));
 // });
 
-// launch our backend into a port
 app.listen(API_PORT, () => console.log(`Listening on port ${API_PORT}`));

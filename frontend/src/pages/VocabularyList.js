@@ -47,7 +47,6 @@ const VocabularyList = (props) => {
           <div className="col-xl-2 col-lg-2 col-md-3 col-4 vocabulary_list_header">{langName}</div>
           <div className="col-xl-1 col-lg-2 col-md-3 col-4 vocabulary_list_header">Progress</div>
         </div>
-        {console.log(getFilteredProgress)}
         {getFilteredProgress.map((prog) => {
           return <VocabRow key={i++} prog={prog} />
         })}

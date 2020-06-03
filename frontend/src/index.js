@@ -19,8 +19,6 @@ setGlobal({
 });
 
 render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
-  document.getElementById("root")
+        <App />,
+    document.getElementById("root")
 );

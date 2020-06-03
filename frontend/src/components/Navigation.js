@@ -1,6 +1,7 @@
 import React, { useGlobal } from "reactn";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import NavItem from "react-bootstrap/NavItem";
 
 const Navigation = () => {
   const [auth, setAuth] = useGlobal("auth");
@@ -12,22 +13,22 @@ const Navigation = () => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link>
+          <NavItem>
             <Link to="/VocabularyList" className="menu_option vocabulary_list">
               Overview
             </Link>
-          </Nav.Link>
-          <Nav.Link>
+          </NavItem>
+          <NavItem>
             <Link to="/AddVocabulary" className="menu_option add_vocabulary">
               Add vocabulary
             </Link>{" "}
-          </Nav.Link>
+          </NavItem>
 
-          <Nav.Link>
+          <NavItem>
             <Link to="/VocabularyTraining" className="menu_option vocabulary_training">
               Training
             </Link>{" "}
-          </Nav.Link>
+          </NavItem>
 
           <NavDropdown title="Account" id="basic-nav-dropdown" className="menu_option">
             <NavDropdown.Item className="menu_option">

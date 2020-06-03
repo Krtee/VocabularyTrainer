@@ -13,8 +13,8 @@ const getLanguages = async () => {
 
 const Languages = () => {
   const [auth, ] = useGlobal("auth");
-  const [language, setLanguage] = useGlobal("language");
-  const [languageId, setLanguageId] = useGlobal("languageId");
+  const [langName, setLangName] = useGlobal("langName");
+  const [langID, setLangID] = useGlobal("langID");
   const [languages, setLanguages] = useState([]);
   const [redirect, setRedirect] = useState(false);
 
@@ -27,15 +27,15 @@ const Languages = () => {
     return <Redirect to="/" />;
   }
 
-  const getLanguage = (languageId, language) => {
-    console.log(languageId, language);
-    setLanguage(language);
-    setLanguageId(languageId)
+  const getLanguage = (langID, langName) => {
+    console.log(langID, langName);
+    setLangName(langName);
+    setLangID(langID)
     setRedirect(true);
   };
 
   if (redirect) {
-    return <Redirect to={{ pathname: `/VocabularyList`, query: { language, languageId } }} />;
+    return <Redirect to={{ pathname: `/VocabularyList`, query: { langName, langID } }} />;
   }
 
   const setLang = (language) => {

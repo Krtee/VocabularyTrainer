@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 
 const DataSchema = new Schema(
     {
-        "vocab_id": String,
         "english_word": String,
         "translation":
         {

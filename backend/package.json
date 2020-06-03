@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "start": "node server.js"
   },
   "author": "",
@@ -23,6 +24,10 @@
     "unirest": "^0.6.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.3"
+    "chai": "^4.2.0",
+    "jest": "^26.0.1",
+    "mocha": "^7.2.0",
+    "nodemon": "^2.0.3",
+    "supertest": "^4.0.2"
   }
 }

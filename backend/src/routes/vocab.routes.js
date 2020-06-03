@@ -9,8 +9,8 @@ const { IamAuthenticator } = require('ibm-watson/auth');
 // fetches all available data
 vocabRoutes.get("/", (req, res) => {
     Vocab.find((err, data) => {
-        if (err) return res.json({ success: false, error: err });
-        return res.json({ success: true, data: data });
+        if (err) return res.status(400).json({ success: false, error: err });
+        return res.status(200).json({ success: true, data: data });
     });
 });
 

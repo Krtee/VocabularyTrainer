@@ -5,25 +5,23 @@ import Navigation from "../components/Navigation";
 import React, { useGlobal, useState, createRef } from "reactn";
 import api from "../api";
 import { Link } from "react-router-dom";
-
+import SendVocabFom from "../components/SendVocabFom";
 
 const AddVocabulary = () => {
   let textinput = createRef();
-
   const [auth, setAuth] = useGlobal("auth");
   const [langID, setLangID] = useGlobal("langID");
   const [color, setColor] = useState("");
   const [info, setInfo] = useState("");
   const [user, setUser] = useGlobal("user");
-
   const [loading, setLoading] = useState(false)
-
 
   if (!auth) {
     return <Redirect to="/" />;
   }
 
   const addVocab = async (event) => {
+    console.log(event)
     event.preventDefault();
     setLoading(true)
     const data = {
@@ -42,6 +40,7 @@ const AddVocabulary = () => {
     }
     setLoading(false)
   };
+
 
   return (
     <div id="content" className="add_vocabulary">
