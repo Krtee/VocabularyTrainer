@@ -210,18 +210,17 @@ vocabRoutes.post("/insert", (req, res) => {
 });
 
 function setTranslationForLanguage(vocab, language_id, translation) {
-   vocab.translation[language_id] = translation
+  vocab.translation[language_id] = translation;
 
-
-    // TODO: Error nicht hier abfangen! True/false zurückliefern und dann in /insert entsprechend reagieren
-    vocab.save((err) => {
-        if (err) return false;
-    });
-    return true;
+  // TODO: Error nicht hier abfangen! True/false zurückliefern und dann in /insert entsprechend reagieren
+  vocab.save((err) => {
+    if (err) return false;
+  });
+  return true;
 }
 
 function getTranslationForLanguage(vocab, language_id) {
-    return(vocab.translation[language_id])
+  return vocab.translation[language_id];
 }
 
 function createProgress(user_id, vocab_id, language_id) {
@@ -229,7 +228,7 @@ function createProgress(user_id, vocab_id, language_id) {
     prog.user_id = user_id;
     prog.vocab_id = vocab_id;
     prog.language_id = language_id;
-    prog.progress = 3;
+    prog.progress = 1;
     prog.right_guesses_in_a_row = 0;
 
     // TODO: Error nicht hier abfangen! True/false zurückliefern und dann in /insert entsprechend reagieren
