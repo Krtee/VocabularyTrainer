@@ -74,6 +74,15 @@ const getVocabAndTranslation = async (data) => {
   }
 }
 
+const getVocabById = async (id) => {
+  try {
+    const res = await axios.get(`${url}/Vocab/byId`, { params: { id: id } });
+    return res.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 // Language ---------------------------------------------------------
 
 const getLanguages = async () => {
@@ -118,6 +127,7 @@ export default {
     insert: (data) => insertVocab(data),
     getVocab: () => getVocabs(),
     getVocabAndTranslation: (data) => getVocabAndTranslation(data),
+    getVocabById: (id) => getVocabById(id)
   },
   progress: {
     getProgress: () => getProgress(),

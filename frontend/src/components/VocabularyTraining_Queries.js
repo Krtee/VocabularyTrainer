@@ -1,8 +1,12 @@
 import React, { useState, useEffect, useGlobal } from "reactn";
 import api from "../api";
-import { all } from "bluebird";
 
 const getVocabs = async () => {
+  const res = await api.vocab.getVocab();
+  return res;
+};
+
+const getProgress = async () => {
   const res = await api.vocab.getVocab();
   return res;
 };
@@ -14,13 +18,14 @@ const VocabularyTraining_Queries = (props) => {
   const [langID, ] = useGlobal("langID");
   const [iterate, setIterate] = useState(0);
   const [input, setInput] = useState("");
-  const [summary, setSummary] = useGlobal("summary")
+  const [summary, setSummary] = useGlobal("summary");
+  const [user, setUser] = useGlobal("user");
 
   useEffect(() => {
     getVocabs().then((data) => {
       setVocab(data);
       getTrainingVocab(data);
-      setSummary([])
+      setSummary([]);
     });
   }, []);
 

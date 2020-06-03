@@ -14,6 +14,18 @@ vocabRoutes.get("/", (req, res) => {
     });
 });
 
+vocabRoutes.get("/byId", (req, res) => {
+    const { id } = req.query;
+    Vocab.findOne({vocab_id: id}, (err, data) => {
+      if (err) {
+        console.error(err);
+        return res.json({ success: false, error: err });
+      }
+      return res.json({ success: true, data: data });
+    });
+  });
+  
+
 // overwrites existing data
 vocabRoutes.post("/update", (req, res) => {
     const { id, update } = req.body;
@@ -198,29 +210,9 @@ vocabRoutes.post("/insert", (req, res) => {
 });
 
 function setTranslationForLanguage(vocab, language_id, translation) {
-    switch (language_id) {
-        case "ar": vocab.translation.ar = translation; break;
-        case "cs": vocab.translation.cs = translation; break;
-        case "da": vocab.translation.da = translation; break;
-        case "de": vocab.translation.de = translation; break;
-        case "el": vocab.translation.el = translation; break;
-        case "es": vocab.translation.es = translation; break;
-        case "fi": vocab.translation.fi = translation; break;
-        case "fr": vocab.translation.fr = translation; break;
-        case "he": vocab.translation.he = translation; break;
-        case "hi": vocab.translation.hi = translation; break;
-        case "it": vocab.translation.it = translation; break;
-        case "ja": vocab.translation.ja = translation; break;
-        case "ko": vocab.translation.ko = translation; break;
-        case "nb": vocab.translation.nb = translation; break;
-        case "nl": vocab.translation.nl = translation; break;
-        case "pl": vocab.translation.pl = translation; break;
-        case "pt": vocab.translation.pt = translation; break;
-        case "ru": vocab.translation.ru = translation; break;
-        case "sv": vocab.translation.sv = translation; break;
-        case "tr": vocab.translation.tr = translation; break;
-        case "zh": vocab.translation.zh = translation; break;
-    }
+   vocab.translation[language_id] = translation
+
+
     // TODO: Error nicht hier abfangen! True/false zurückliefern und dann in /insert entsprechend reagieren
     vocab.save((err) => {
         if (err) return false;
@@ -229,30 +221,7 @@ function setTranslationForLanguage(vocab, language_id, translation) {
 }
 
 function getTranslationForLanguage(vocab, language_id) {
-    switch (language_id) {
-        case "ar": return vocab.translation.ar;
-        case "cs": return vocab.translation.cs;
-        case "da": return vocab.translation.da;
-        case "de": return vocab.translation.de;
-        case "el": return vocab.translation.el;
-        case "es": return vocab.translation.es;
-        case "fi": return vocab.translation.fi;
-        case "fr": return vocab.translation.fr;
-        case "he": return vocab.translation.he;
-        case "hi": return vocab.translation.hi;
-        case "it": return vocab.translation.it;
-        case "ja": return vocab.translation.ja;
-        case "ko": return vocab.translation.ko;
-        case "nb": return vocab.translation.nb;
-        case "nl": return vocab.translation.nl;
-        case "pl": return vocab.translation.pl;
-        case "pt": return vocab.translation.pt;
-        case "ru": return vocab.translation.ru;
-        case "sv": return vocab.translation.sv;
-        case "tr": return vocab.translation.tr;
-        case "zh": return vocab.translation.zh;
-        default: return null;
-    }
+    return(vocab.translation[language_id])
 }
 
 function createProgress(user_id, vocab_id, language_id) {
