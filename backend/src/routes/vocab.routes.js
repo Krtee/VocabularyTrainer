@@ -71,7 +71,7 @@ vocabRoutes.post("/getVocabAndTranslation", (req, res) => {
     Vocab.find((err, list) => {
         if (!err) {
             for (let item of list) {
-                if (item._id == vocab_id) {
+                if (item._id === vocab_id) {
                     vocab = item.english_word;
                     translation = getTranslationForLanguage(item, lang_id);
                 }
@@ -142,13 +142,13 @@ vocabRoutes.post("/insert", (req, res) => {
                                 if (english_word === translation.toLowerCase) {
                                     // When the API doesn't know a translation for an English input word, 
                                     // it always returns the input word.
-                                    return res.json({ success: false, error: "Unknown word. Please check the spelling." });
+                                    return res.status(400).json({ success: false, error: "Unknown word. Please check the spelling." });
                                 }
                                 // Check whether requested vocab is only missing in requested language or if it's missing completely
                                 if (existingVocab != null && !existsInSelectedLanguage) {
                                     var setTranslationWorked = setTranslationForLanguage(existingVocab, language_id, translation);
                                     if (!setTranslationWorked) {
-                                        return res.json({ success: false, error: "An error occured. Please try again later." });
+                                        return res.status(400).json({ success: false, error: "An error occured. Please try again later." });
                                     }
                                     vocab_id = existingVocab._id;
                                 } else {
@@ -157,15 +157,15 @@ vocabRoutes.post("/insert", (req, res) => {
                                     vocab_id = vocab._id;
                                     var setTranslationWorked = setTranslationForLanguage(vocab, language_id, translation);
                                     if (!setTranslationWorked) {
-                                        return res.json({ success: false, error: "An error occured. Please try again later." });
+                                        return res.status(400).json({ success: false, error: "An error occured. Please try again later." });
                                     }
                                 }
 
                                 var createProgressWorked = createProgress(user_id, vocab_id, language_id);
                                 if (!createProgressWorked) {
-                                    return res.json({ success: false, error: "An error occured. Please try again later." });
+                                    return res.status(400).json({ success: false, error: "An error occured. Please try again later." });
                                 } else {
-                                    return res.json({ success: true, info: "New word was successfully added." });
+                                    return res.status(200).json({ success: true, info: "New word was successfully added." });
                                 }
                             }
                         } catch (error) {
@@ -184,9 +184,9 @@ vocabRoutes.post("/insert", (req, res) => {
                     if (!err) {
                         for (let item of list) {
                             // If requested vocab already exists in personal collection
-                            if (item.vocab_id == existingVocab._id && item.user_id == user_id) {
+                            if (item.vocab_id === existingVocab._id && item.user_id === user_id) {
                                 existsInPersonalCollection = true;
-                                return res.json({ success: true, info: "Word already exists" });
+                                return res.status(400).json({ success: true, info: "Word already exists" });
                             }
                         }
                         if (!existsInPersonalCollection) {
@@ -194,9 +194,9 @@ vocabRoutes.post("/insert", (req, res) => {
 
                             var createProgressWorked = createProgress(user_id, existingVocab._id, language_id);
                             if (!createProgressWorked) {
-                                return res.json({ success: false, error: "An error occured. Please try again later." });
+                                return res.status(400).json({ success: false, error: "An error occured. Please try again later." });
                             } else {
-                                return res.json({ success: true, info: "New word was successfully added." });
+                                return res.status(200).json({ success: true, info: "New word was successfully added." });
                             }
                         }
                     }
