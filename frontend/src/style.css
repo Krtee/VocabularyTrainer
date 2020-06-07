@@ -127,6 +127,10 @@ div#language_menu {
     color: white;
 }
 
+.menu_padding {
+    padding: .5rem 1rem;
+}
+
 .menu_option:hover {
     color: #007bff !important;
 }

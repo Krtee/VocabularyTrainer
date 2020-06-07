@@ -12,7 +12,7 @@ function Settings() {
     }  
 
     return (
-        <div id="content" class="settings">
+        <div id="content" className="settings">
             <Navigation />
             <form>
                 <h1>Settings</h1>
