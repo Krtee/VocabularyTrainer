@@ -16,15 +16,15 @@ vocabRoutes.get("/", (req, res) => {
 
 vocabRoutes.get("/byId", (req, res) => {
     const { id } = req.query;
-    Vocab.findOne({vocab_id: id}, (err, data) => {
-      if (err) {
-        console.error(err);
-        return res.json({ success: false, error: err });
-      }
-      return res.json({ success: true, data: data });
+    Vocab.findOne({ vocab_id: id }, (err, data) => {
+        if (err) {
+            console.error(err);
+            return res.json({ success: false, error: err });
+        }
+        return res.json({ success: true, data: data });
     });
-  });
-  
+});
+
 
 // overwrites existing data
 vocabRoutes.post("/update", (req, res) => {
@@ -53,14 +53,26 @@ vocabRoutes.get("/getProgress", (req, res) => {
 });
 
 vocabRoutes.get("/getProgressById", (req, res) => {
-  const { id } = req.query;
-  Progress.findOne({vocab_id: id}, (err, data) => {
-    if (err) {
-      console.error(err);
-      return res.json({ success: false, error: err });
-    }
-    return res.json({ success: true, data: data });
-  });
+    const { id } = req.query;
+    Progress.findOne({ vocab_id: id }, (err, data) => {
+        if (err) {
+            console.error(err);
+            return res.json({ success: false, error: err });
+        }
+        return res.json({ success: true, data: data });
+    });
+});
+
+vocabRoutes.post("/getProgressForUserAndLanguage", (req, res) => {
+    const { user_id, lang_id } = req.body;
+
+    Progress.find({ user_id: user_id, language_id: lang_id }, (err, data) => {
+        if (err) {
+            console.error(err);
+            return res.json({ success: false, error: err });
+        }
+        return res.json({ success: true, data: data });
+    });
 });
 
 vocabRoutes.post("/getVocabAndTranslation", (req, res) => {
@@ -68,18 +80,17 @@ vocabRoutes.post("/getVocabAndTranslation", (req, res) => {
     var vocab = "";
     var translation = "";
 
-    Vocab.find((err, list) => {
-        if (!err) {
-            for (let item of list) {
-                if (item._id == vocab_id) {
-                    vocab = item.english_word;
-                    translation = getTranslationForLanguage(item, lang_id);
-                }
-            }
+    Vocab.findOne({ _id: vocab_id }, (err, data) => {
+        if (err) {
+            console.error(err);
+            return res.json({ success: false, error: err });
         }
+        console.log("*** data: " + JSON.stringify(data));
+        vocab = data.english_word;
+        translation = getTranslationForLanguage(data, lang_id);
         return res.json({ vocab: vocab, translation: translation });
-
     });
+
 });
 
 // adds new data
@@ -210,17 +221,17 @@ vocabRoutes.post("/insert", (req, res) => {
 });
 
 function setTranslationForLanguage(vocab, language_id, translation) {
-  vocab.translation[language_id] = translation;
+    vocab.translation[language_id] = translation;
 
-  // TODO: Error nicht hier abfangen! True/false zurückliefern und dann in /insert entsprechend reagieren
-  vocab.save((err) => {
-    if (err) return false;
-  });
-  return true;
+    // TODO: Error nicht hier abfangen! True/false zurückliefern und dann in /insert entsprechend reagieren
+    vocab.save((err) => {
+        if (err) return false;
+    });
+    return true;
 }
 
 function getTranslationForLanguage(vocab, language_id) {
-  return vocab.translation[language_id];
+    return vocab.translation[language_id];
 }
 
 function createProgress(user_id, vocab_id, language_id) {

@@ -9,6 +9,7 @@ const getVocabAndTranslation = async (vocab_id, lang_id) => {
     lang_id: lang_id,
   };
 
+
   const res = await api.vocab.getVocabAndTranslation(data);
   return res;
 };
@@ -19,7 +20,7 @@ const VocabRow = (props) => {
   const [langID, setLangID] = useGlobal("langID");
 
   useEffect(() => {
-    getVocabAndTranslation(vocab_id, langID).then((data) => setVocab(data), console.log("*** vocabID: " + vocab_id + " langID: " + langID));
+    getVocabAndTranslation(vocab_id, langID).then((data) => setVocab(data));
   }, []);
 
 
