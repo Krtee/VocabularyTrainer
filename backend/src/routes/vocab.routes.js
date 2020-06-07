@@ -71,7 +71,7 @@ vocabRoutes.post("/getVocabAndTranslation", (req, res) => {
     Vocab.find((err, list) => {
         if (!err) {
             for (let item of list) {
-                if (item._id === vocab_id) {
+                if (item._id == vocab_id) {
                     vocab = item.english_word;
                     translation = getTranslationForLanguage(item, lang_id);
                 }

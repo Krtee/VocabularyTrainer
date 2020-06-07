@@ -19,7 +19,7 @@ const VocabRow = (props) => {
   const [langID, setLangID] = useGlobal("langID");
 
   useEffect(() => {
-    getVocabAndTranslation(vocab_id, langID).then((data) => setVocab(data));
+    getVocabAndTranslation(vocab_id, langID).then((data) => setVocab(data), console.log("*** vocabID: " + vocab_id + " langID: " + langID));
   }, []);
 
 
