@@ -1,9 +1,10 @@
 import "../style.css";
 import React, { useGlobal, useState, useEffect } from "reactn";
-import Navigation from "../components/Navigation";
+import NavigationTop from "../components/NavigationTop";
 import { Redirect } from "react-router";
 import api from "../api";
 import VocabRow from "../components/VocabRow";
+import NavigationBottom from "../components/NavigationBottom";
 
 const getProgressForUserAndLanguage = async (user_id, lang_id) => {
   const data = {
@@ -41,7 +42,8 @@ const VocabularyList = (props) => {
   //TODO catch data as json from database
   return (
     <div id="content" className="vocabulary_list">
-      <Navigation />
+      <NavigationTop />
+      <NavigationBottom page={'VocabularyList'}/>
       <div id="vocabulary_list">
         <h1>Vocabulary overview</h1>
         <div className="row vocabulary_list_entry">

@@ -1,0 +1,24 @@
+
+.active{
+  background-color: #007bff;
+  fill: #007bff;
+  border-radius: 2px;
+
+}
+.navrow {
+  width: 100%;
+  .col{
+    padding-top:0.5em;
+  }
+}
+.navItem {
+  font-size: 0.7em;
+  text-align: center;
+  p{
+    margin-bottom: 0px;
+  }
+}
+
+div.navcontainer{
+  padding: 0px;
+}

@@ -71,19 +71,22 @@ userRoutes.post("/", (req, res, next) => {
 /* Edit Single User */
 userRoutes.patch("/:user_id", (req, res, next) => {
     let fieldsToUpdate = req.body;
-    User.findByIdAndUpdate(req.params.user_id,{ $set: fieldsToUpdate }, { new: true },  function (err, result) {
-        if(err){
-            res.status(400).send({
-                success: false,
-                error: err.message
+    console.log(fieldsToUpdate)
+    if(req.params.user_id!=null) {
+        User.findByIdAndUpdate(req.params.user_id, {$set: fieldsToUpdate}, {new: true,useFindAndModify: false}, function (err, result) {
+            if (err) {
+                res.status(400).send({
+                    success: false,
+                    error: err.message
+                });
+            }
+            res.status(200).send({
+                success: true,
+                data: result,
+                message: "User updated successfully"
             });
-        }
-        res.status(200).send({
-            success: true,
-            data: result,
-            message: "User updated successfully"
         });
-    });
+    }
 });
 
 /* Delete Single User */

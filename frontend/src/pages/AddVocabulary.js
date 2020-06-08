@@ -1,11 +1,12 @@
 import "../style.css";
-import Navigation from "../components/Navigation";
+import NavigationTop from "../components/NavigationTop";
 /* import axios from "axios";
  */import { Redirect } from "react-router";
 import React, { useGlobal, useState, createRef } from "reactn";
 import api from "../api";
 import { Link } from "react-router-dom";
 import SendVocabFom from "../components/SendVocabFom";
+import NavigationBottom from "../components/NavigationBottom";
 
 const AddVocabulary = () => {
   let textinput = createRef();
@@ -44,7 +45,8 @@ const AddVocabulary = () => {
 
   return (
     <div id="content" className="add_vocabulary">
-      <Navigation />
+      <NavigationTop />
+      <NavigationBottom page={'AddVocabulary'}/>
       <form>
         <h1>Add vocabulary</h1>
         <h2>Enter the word you want to add</h2>

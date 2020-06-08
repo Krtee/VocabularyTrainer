@@ -7,10 +7,10 @@ const ReducedNavigation = () => {
     setAuth(false);
   }
   return (
-<Navbar bg="light" expand="lg" id="navbar">
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+<Navbar expand="*" id="navbar">
+      <Navbar.Toggle aria-controls="basic-navbar-nav" className={'ml-auto'}/>
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
+        <Nav className="ml-auto">
           <NavDropdown title="Account" id="basic-nav-dropdown" className="menu_option">
             <NavDropdown.Item className="menu_option">
               <button type="submit" className="btn btn-primary" onClick={handleClick}>
