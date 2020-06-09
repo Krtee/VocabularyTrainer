@@ -9,10 +9,10 @@ import "./style.css";
 // FIXME: REMOVE USERID AND LANGNAME AND LANGID BEFORE RELEASE!
 setGlobal({
   auth: true,
-  user: "5ed3a6e3963bc20d18fa26f1",
-  progress: 1,
+  user: "5ed96ffe95d98c76a6571cdf",
+  progress: [1],
   numberOfVocab: 25,
-  direction: "fn_en",
+  direction: "fo_en",
   langName: "German",
   langID: "de",
   summary: []

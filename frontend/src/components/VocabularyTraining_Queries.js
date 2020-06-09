@@ -12,7 +12,6 @@ const getVocabsById = async (id) => {
 };
 
 const VocabularyTraining_Queries = (props) => {
-  const [vocab, setVocab] = useState([]);
   const [trainingVorab, setTrainingVorab] = useState([]);
   const [langName, setLangName] = useGlobal("langName");
   const [langID] = useGlobal("langID");
@@ -20,13 +19,16 @@ const VocabularyTraining_Queries = (props) => {
   const [input, setInput] = useState("");
   const [summary, setSummary] = useGlobal("summary");
   const [user, setUser] = useGlobal("user");
+  const [progress] = useGlobal("progress");
+  const [message, setMessage] = useState(null);
+  const [help, setHelp] = useState(null);
+  const [falseInputCount, setFalseInputCount] = useState(0);
 
   useEffect(() => {
-    const query = { user_id: user, language_id: langID };
+    const query = { user_id: user, language_id: langID, progress: progress };
 
     getProgress(query).then((data) => {
       if (data.success) {
-        setVocab(data.data);
         getTrainingVocab(data.data);
 
         // reset Summary
@@ -53,6 +55,16 @@ const VocabularyTraining_Queries = (props) => {
         // TODO: add progress to word
         setIterate(iterate + 1);
         setInput("");
+      } else {
+        const newInputCount = falseInputCount + 1;
+        setFalseInputCount(newInputCount);
+        if (falseInputCount >= 1) {
+          const translationByDirection =
+            props.direction === "fo_en"
+              ? currentWord.translation[langID]
+              : currentWord.english_word;
+          setHelp(translationByDirection);
+        }
       }
     }
   };
@@ -62,44 +74,60 @@ const VocabularyTraining_Queries = (props) => {
     setInput(inputValue);
   };
 
-  const getTrainingVocab = async (allVocab) => {
+  const getTrainingVocab = async (sortedVocab) => {
     const numberOfVocab = props.numberOfVocabs;
 
-    const ids = []
-    allVocab.forEach(vocab => {
-      ids.push(vocab.vocab_id)
-    })
-
-    const vSortedByLang =  await getVocabsById(ids).then((data) => {
-      console.log(data);
-      return data.data
+    // VocabIds Aus DB:Progresses
+    const ids = [];
+    sortedVocab.forEach((vocab) => {
+      ids.push(vocab.vocab_id);
     });
 
-    // TODO: Abfrage nach Progress & entsprechend eingrenzen
-    // ^ do this on getProgress obv
-    // FIXME: Dürfen Vokabeln mehrmals vorkommen? Sonst bei den aktuell 5en passiert das recht oft
-    // später dürfte das recht selten passieren.
+    // Vocabs from DB:Vocabs
+    const vocabFromDb = await getVocabsById(ids).then((data) => {
+      // console.log("%c data: ", "background: #009933; color: white", data.data);
+      return data.data;
+    });
+
     const vocabChoice = [];
-    console.log(vSortedByLang)
-    while (vocabChoice.length < numberOfVocab) {
-      const number = Math.floor(Math.random() * vSortedByLang.length + 0);
-      vocabChoice.push(vSortedByLang[number]);
+    // console.log("%c vSortedByLang: ", "background: #009933; color: white", vocabFromDb);
+    if (vocabFromDb.length < numberOfVocab) {
+      setMessage(`Your selection contains only ${vocabFromDb.length} words.`);
     }
-    console.log(vocabChoice);
+
+    while (vocabChoice.length < vocabFromDb.length && vocabChoice.length < numberOfVocab) {
+      const number = Math.floor(Math.random() * vocabFromDb.length + 0);
+      if (!vocabChoice.includes(vocabFromDb[number])) {
+        vocabChoice.push(vocabFromDb[number]);
+      }
+    }
+    // console.log("%c vocabChoice: ", "background: #00b33c; color: white", vocabChoice);
     setTrainingVorab(vocabChoice);
+  };
+
+  const renderTrainingVocab = () => {
+    if (trainingVorab[iterate]) {
+      if (props.direction === "fo_en") {
+        // default
+        return trainingVorab[iterate]["english_word"];
+      }
+      return trainingVorab[iterate].translation[langID];
+    }
+    return "error";
   };
 
   return (
     <div className="margin_top">
       {iterate < trainingVorab.length ? (
         <form>
+          {message ? <p className="bg-warning p-1">{message}</p> : null}
           <h2>{`Translate! ${iterate + 1}/${trainingVorab.length}`}</h2>
           <div className="form-group row">
             <label
               className="col-lg-3 col-xs-12 no_padding_left"
               htmlFor="train_vocabulary_translation"
             >
-              {trainingVorab[iterate] ? trainingVorab[iterate]["english_word"] : null}
+              {renderTrainingVocab()}
             </label>
             <input
               type="text"
@@ -111,6 +139,7 @@ const VocabularyTraining_Queries = (props) => {
               value={input}
             />
           </div>
+          {help ? <p className="alert-success">Translation: {help}</p> : null}
           <button type="submit" className="btn btn-primary" onClick={handleSubmit}>
             Submit and continue
           </button>

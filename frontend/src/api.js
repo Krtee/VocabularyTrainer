@@ -115,7 +115,6 @@ const getProgressByVocabId = async (id) => {
 };
 
 const filterProgress = async (query) => {
-  console.log(query)
   try {
     const res = await axios.get(`${url}/Vocab/filterProgress`,  {params: query});
     return res.data

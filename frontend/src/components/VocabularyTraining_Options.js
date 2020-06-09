@@ -9,10 +9,6 @@ const VocabularyTraining_Options = (props) => {
   const [progress3, setProgress3] = useState(true);
   const [training_options_radios, setTraining_options_radios] = useState(false);
 
-  const getOptions = () => {
-    return show;
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
     const { receiveInput } = props;
@@ -62,7 +58,7 @@ const VocabularyTraining_Options = (props) => {
           type="number"
           className="form-control col-lg-8 col-xs-12"
           id="training_options_amount"
-          placeholder="Enter number"
+          defaultValue={25}
           name="vocabNumber"
           onChange={handleChange}
         />

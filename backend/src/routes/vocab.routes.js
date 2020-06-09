@@ -104,9 +104,16 @@ vocabRoutes.post("/getVocabAndTranslation", (req, res) => {
             return res.json({ success: false, error: err });
         }
         console.log("*** data: " + JSON.stringify(data));
-        vocab = data.english_word;
-        translation = getTranslationForLanguage(data, lang_id);
-        return res.json({ vocab: vocab, translation: translation });
+        try {
+            vocab = data.english_word;
+            translation = getTranslationForLanguage(data, lang_id);
+            return res.json({ vocab: vocab, translation: translation });
+            
+        } catch (error) {
+         console.error(error)   
+
+         return null
+        }
     });
 
 });
