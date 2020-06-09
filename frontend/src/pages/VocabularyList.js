@@ -5,8 +5,12 @@ import { Redirect } from "react-router";
 import api from "../api";
 import VocabRow from "../components/VocabRow";
 
-const getProgress = async () => {
-  const res = await api.progress.getProgress();
+const getProgressForUserAndLanguage = async (user_id, lang_id) => {
+  const data = {
+    user_id: user_id,
+    lang_id: lang_id,
+  };
+  const res = await api.progress.getProgressForUserAndLanguage(data);
   return res;
 };
 
@@ -19,20 +23,18 @@ const VocabularyList = (props) => {
   const [prog, setProg] = useState([]);
 
   useEffect(() => {
-    getProgress().then((data) => {setProg(data)})
+    getProgressForUserAndLanguage(user, langID).then((data) => {setProg(data)});
   }, []);
 
   if (!auth) {
     return <Redirect to="/" />;
   }
 
-  const getFilteredProgress = prog
-    .filter((word) => {
-      return word.language_id === langID && word.user_id == user;
-    })
-    .map((word) => {
-      return word;
-    });
+  const mapProgress = prog
+  .map((word) => {
+    return word;
+  });
+
 
   var i = 0;
 
@@ -47,7 +49,7 @@ const VocabularyList = (props) => {
           <div className="col-xl-2 col-lg-2 col-md-3 col-4 vocabulary_list_header">{langName}</div>
           <div className="col-xl-1 col-lg-2 col-md-3 col-4 vocabulary_list_header">Progress</div>
         </div>
-        {getFilteredProgress.map((prog) => {
+        {mapProgress.map((prog) => {
           return <VocabRow key={i++} prog={prog} />
         })}
 

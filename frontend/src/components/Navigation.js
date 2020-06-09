@@ -8,35 +8,41 @@ const Navigation = () => {
   function handleClick() {
     setAuth(false);
   }
+
   return (
     <Navbar bg="light" expand="lg" id="navbar">
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <NavItem>
+          <NavItem className="menu_padding">
             <Link to="/VocabularyList" className="menu_option vocabulary_list">
               Overview
             </Link>
           </NavItem>
-          <NavItem>
+          <NavItem className="menu_padding">
             <Link to="/AddVocabulary" className="menu_option add_vocabulary">
               Add vocabulary
             </Link>{" "}
           </NavItem>
 
-          <NavItem>
+          <NavItem className="menu_padding">
             <Link to="/VocabularyTraining" className="menu_option vocabulary_training">
               Training
             </Link>{" "}
           </NavItem>
 
           <NavDropdown title="Account" id="basic-nav-dropdown" className="menu_option">
-            <NavDropdown.Item className="menu_option">
-              <Link to="/Languages">Change language</Link>
-            </NavDropdown.Item>
-            <NavDropdown.Item className="menu_option settings">
-              <Link to="/Settings">Settings</Link>
-            </NavDropdown.Item>
+
+            <NavItem className="menu_padding">
+              <Link to="/Languages" className="menu_option">
+                Change language
+            </Link>{" "}
+            </NavItem>
+            <NavItem className="menu_padding">
+              <Link to="/Settings" className="menu_option">
+                Settings
+            </Link>{" "}
+            </NavItem>
             <NavDropdown.Divider />
 
             <NavDropdown.Item className="menu_option">

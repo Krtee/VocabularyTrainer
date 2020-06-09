@@ -125,6 +125,16 @@ const filterProgress = async (query) => {
 };
 
 
+const getProgressForUserAndLanguage = async (data) => {
+  try {
+    const res = await axios.post(`${url}/Vocab/getProgressForUserAndLanguage`, data);
+    return res.data ? (res.data ? res.data.data : res) : res;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
 export default {
   language: {
     getLanguages: () => getLanguages(),
@@ -142,6 +152,7 @@ export default {
   progress: {
     getProgress: () => getProgress(),
     getProgressByVocabId: (id) => getProgressByVocabId(id),
-    filterProgress: (id) => filterProgress(id)
+    filterProgress: (id) => filterProgress(id),
+    getProgressForUserAndLanguage: (data) => getProgressForUserAndLanguage(data),
   }
 };

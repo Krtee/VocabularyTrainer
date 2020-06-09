@@ -1,13 +1,12 @@
-import React,{setGlobal,getGlobal} from "reactn";
-import {mount} from 'enzyme';
+import * as React from 'react';
+import {mount, shallow} from 'enzyme';
+
 import Landing from "../pages/Landing";
-import axios from "axios";
+import mockAxios from 'axios';
 import App from "../App";
-import {createMemoryHistory} from 'history'
-import Languages from "../pages/Languages";
+import {createMemoryHistory} from 'history';
 
 
-jest.mock('axios');
 
 const setUp = (props = {}) => {
     const component = mount(<App/>);
@@ -40,17 +39,18 @@ describe('App function', function () {
     let component;
     beforeEach(() => {
         component = setUp()
-        setGlobal({
-            auth: false, user: ""
-        });
+
+    });
+
+    afterEach(() => {
+        jest.clearAllMocks();
     });
 
 
-    it('landing on a bad page shows 404 page', () => {
+    it('landing on a login on bad route', () => {
         const history = createMemoryHistory()
         history.push('/some/bad/route');
         console.log(component.debug());
-        console.log(getGlobal())
 
         expect(component.find(Landing).length).toBe(1)
     })
@@ -61,33 +61,30 @@ describe('App function', function () {
 
     it('should not redirect when user is wrong', function () {
         component.find('[type="submit"]').simulate('click');
-        axios.get.mockResolvedValue(data);
-        console.log(data);
-        console.log(component.debug());
+        mockAxios.get.mockResolvedValue(data);
+        component.update()
 
         expect(component.find(Landing).length).toBe(1)
 
     });
 
-    it('should redirect when user log in', function () {
-            const username = {
-                preventDefault() {
-                },
-                target: {value: 'admin'}
-            };
-            const password = {
-                preventDefault() {
-                },
-                target: {value: 'admin'}
-            };
-            axios.get.mockResolvedValue(data);
-            component.find('[type="username"]').simulate('change', username);
-            component.find('[type="password"]').simulate('change', password);
-            component.find('[type="submit"]').simulate('click');
-            console.log(component.debug());
+    it('should set auth token', async function () {
 
-            expect(component.find(Languages).length).toBe(1)
+        mockAxios.get.mockImplementationOnce(() =>
+            Promise.resolve({
+                data: data
+            })
+        );
+        //const component = mount(<MemoryRouter><Landing/></MemoryRouter>)
+        component.find('[type="username"]').instance().value = 'admin';
+        component.find('[type="password"]').instance().value = 'admin';
+        console.log(component.find('[type="submit"]').length)
+        component.find('[type="submit"]').simulate('submit')
+        console.log(component.find('[type="password"]').instance().value)
+        component.update();
+        expect(mockAxios.get).toHaveBeenCalledTimes(1)
 
-        }
-    );
+
+
+    });
 });

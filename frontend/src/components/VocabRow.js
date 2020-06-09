@@ -9,6 +9,7 @@ const getVocabAndTranslation = async (vocab_id, lang_id) => {
     lang_id: lang_id,
   };
 
+
   const res = await api.vocab.getVocabAndTranslation(data);
   return res;
 };

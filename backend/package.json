@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "jest": {
+    "setupFilesAfterEnv": ["./__tests__/setup.js"]
+  },
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
