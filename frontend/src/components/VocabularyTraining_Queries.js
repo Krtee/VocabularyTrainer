@@ -57,11 +57,12 @@ const VocabularyTraining_Queries = (props) => {
     //TODO: What do do if word is wrong? Decrease progress? Or just reset RGIAR
 
     if (input) {
-      if (input.toLowerCase() == currentWord.translation[langID].toLowerCase()) {
+      if (input.toLowerCase().trim() == currentWord.translation[langID].toLowerCase()) {
         // Word correct
         // TODO: graphic reaction
         setIterate(iterate + 1);
         setInput("");
+        setHelp("")
 
         // progressObj contains the ProgressObj before the update!
         const progressObj = await api.progress.increaseRGIAR(idObj);
@@ -120,6 +121,7 @@ const VocabularyTraining_Queries = (props) => {
     const vocabChoice = [];
     if (vocabFromDb.length < numberOfVocab) {
       setMessage(`Your selection contains only ${vocabFromDb.length} words.`);
+      resetMessageIn5s();
     }
 
     while (vocabChoice.length < vocabFromDb.length && vocabChoice.length < numberOfVocab) {
@@ -141,6 +143,10 @@ const VocabularyTraining_Queries = (props) => {
     }
     return "error";
   };
+
+  const resetMessageIn5s = () => {
+    setTimeout(() => { setMessage(null); }, 5000);
+  }
 
   return (
     <div className="margin_top">
