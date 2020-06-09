@@ -74,9 +74,9 @@ const getVocabAndTranslation = async (data) => {
   }
 }
 
-const getVocabById = async (id) => {
+const getVocabsById = async (id) => {
   try {
-    const res = await axios.get(`${url}/Vocab/byId`, { params: { id: id } });
+    const res = await axios.post(`${url}/Vocab/getByIdArray`, id);
     return res.data;
   } catch (error) {
     console.error(error);
@@ -105,10 +105,20 @@ const getProgress = async () => {
   }
 };
 
-const getProgressById = async (id) => {
+const getProgressByVocabId = async (id) => {
   try {
-    const res = await axios.get(`${url}/Vocab/getProgressById`, {params: {id: id}});
+    const res = await axios.get(`${url}/Vocab/getProgressByVocabId`, {params: {id: id}});
     return res.data ? (res.data ? res.data.data : res) : res;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const filterProgress = async (query) => {
+  console.log(query)
+  try {
+    const res = await axios.get(`${url}/Vocab/filterProgress`,  {params: query});
+    return res.data
   } catch (error) {
     console.error(error);
   }
@@ -127,10 +137,11 @@ export default {
     insert: (data) => insertVocab(data),
     getVocab: () => getVocabs(),
     getVocabAndTranslation: (data) => getVocabAndTranslation(data),
-    getVocabById: (id) => getVocabById(id)
+    getVocabById: (id) => getVocabsById(id)
   },
   progress: {
     getProgress: () => getProgress(),
-    getProgressById: (id) => getProgressById(id)
+    getProgressByVocabId: (id) => getProgressByVocabId(id),
+    filterProgress: (id) => filterProgress(id)
   }
 };

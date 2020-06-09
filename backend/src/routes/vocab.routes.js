@@ -14,16 +14,24 @@ vocabRoutes.get("/", (req, res) => {
     });
 });
 
-vocabRoutes.get("/byId", (req, res) => {
-    const { id } = req.query;
-    Vocab.findOne({vocab_id: id}, (err, data) => {
-      if (err) {
-        console.error(err);
-        return res.json({ success: false, error: err });
-      }
-      return res.json({ success: true, data: data });
+vocabRoutes.post("/getByIdArray", (req, res) => {
+  const ids = JSON.parse(JSON.stringify(req.body));
+  const query = { _id: { $in: ids } };
+
+  Vocab.find(query, function (err, result) {
+    if (err) {
+      res.status(400).send({
+        success: false,
+        error: err.message,
+      });
+    }
+    res.status(200).send({
+      success: true,
+      data: result,
     });
   });
+});
+
   
 
 // overwrites existing data
@@ -52,9 +60,19 @@ vocabRoutes.get("/getProgress", (req, res) => {
     });
 });
 
-vocabRoutes.get("/getProgressById", (req, res) => {
+vocabRoutes.get("/getProgressByVocabId", (req, res) => {
   const { id } = req.query;
   Progress.findOne({vocab_id: id}, (err, data) => {
+    if (err) {
+      console.error(err);
+      return res.json({ success: false, error: err });
+    }
+    return res.json({ success: true, data: data });
+  });
+});
+
+vocabRoutes.get("/filterProgress", (req, res) => {
+  Progress.find(req.query, (err, data) => {
     if (err) {
       console.error(err);
       return res.json({ success: false, error: err });

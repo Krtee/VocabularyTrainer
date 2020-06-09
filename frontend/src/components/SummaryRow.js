@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "reactn";
 import api from "../api";
 
 const getProgress = async (vocabID) => {
-    const data = await api.progress.getProgressById(vocabID)
+    const data = await api.progress.getProgressByVocabId(vocabID)
     try {
         return data.progress 
     } catch (error) {
