@@ -1,10 +1,14 @@
 import React from "react";
 import Router from "./Router"
 import {BrowserRouter} from "react-router-dom";
+import Container from "react-bootstrap/Container";
+import './customs.scss'
 
 const App = () => (
     <BrowserRouter>
-        <Router />
+        <Container>
+            <Router/>
+        </Container>
     </BrowserRouter>
 );
 

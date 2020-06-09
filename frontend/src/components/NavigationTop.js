@@ -3,36 +3,17 @@ import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import NavItem from "react-bootstrap/NavItem";
 
-const Navigation = () => {
+const NavigationTop = () => {
   const [auth, setAuth] = useGlobal("auth");
   function handleClick() {
     setAuth(false);
   }
 
   return (
-    <Navbar bg="light" expand="lg" id="navbar">
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+    <Navbar expand="*" id="navbar">
+      <Navbar.Toggle aria-controls="basic-navbar-nav" className={'ml-auto'} />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <NavItem className="menu_padding">
-            <Link to="/VocabularyList" className="menu_option vocabulary_list">
-              Overview
-            </Link>
-          </NavItem>
-          <NavItem className="menu_padding">
-            <Link to="/AddVocabulary" className="menu_option add_vocabulary">
-              Add vocabulary
-            </Link>{" "}
-          </NavItem>
-
-          <NavItem className="menu_padding">
-            <Link to="/VocabularyTraining" className="menu_option vocabulary_training">
-              Training
-            </Link>{" "}
-          </NavItem>
-
-          <NavDropdown title="Account" id="basic-nav-dropdown" className="menu_option">
-
+        <Nav className="ml-auto">
             <NavItem className="menu_padding">
               <Link to="/Languages" className="menu_option">
                 Change language
@@ -50,11 +31,10 @@ const Navigation = () => {
                 Logout
               </button>
             </NavDropdown.Item>
-          </NavDropdown>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
   );
 };
 
-export default Navigation;
+export default NavigationTop;

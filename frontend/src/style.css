@@ -4,15 +4,13 @@
     font-family: 'Segoe UI','Roboto','Oxygen-Sans','Ubuntu','Cantarell','Helvetica Neue',sans-serif;
 }
 
-div#root {
-    margin: 2em;
-}
 
 h1, h2, h3 {
     font-family: "Passion One", sans-serif;
 }
 
 h1 {
+    margin-top: 2em;
     color: #007bff;
     font-weight: bold;
     margin-bottom:.5em !important;
@@ -70,7 +68,8 @@ a:hover {
 }
 
 #content {
-    padding: 1em;
+    //padding-top: 1em;
+    padding-bottom: 7em;
 }
 
 .grey_button {
@@ -84,7 +83,7 @@ a:hover {
 }
 
 
-/* Navigation */
+/* NavigationTop */
 
 .vocabulary_list .vocabulary_list,
 .add_vocabulary .add_vocabulary,
@@ -94,10 +93,6 @@ a:hover {
     color: #007bff !important;
 }
 
-#navbar {
-    width: 100% !important;
-    margin-bottom: 3em;
-}
 
 
 /* ---------- Languages page ---------- */

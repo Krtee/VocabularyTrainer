@@ -1,10 +1,11 @@
 import "../style.css";
 import React, { useGlobal, useState } from "reactn";
-import Navigation from "../components/Navigation";
+import NavigationTop from "../components/NavigationTop";
 import Options from "../components/VocabularyTraining_Options";
 import Queries from "../components/VocabularyTraining_Queries";
 import Summary from "../components/VocabularyTraining_Summary";
 import { Redirect } from "react-router";
+import NavigationBottom from "../components/NavigationBottom";
 
 function VocabularyTraining() {
   const [auth, setAuth] = useGlobal("auth");
@@ -71,7 +72,8 @@ function VocabularyTraining() {
 
   return (
     <div id="content" className="vocabulary_training">
-      <Navigation />
+      <NavigationTop />
+      <NavigationBottom page={'VocabularyTraining'}/>
       <h1>Vocabulary Training</h1>
       {showOptions && !savedSettings ? (
         <Options receiveInput={receiveInput} showButton={!savedSettings} onClick={changeView} />

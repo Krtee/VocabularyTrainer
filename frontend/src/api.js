@@ -29,9 +29,9 @@ const getUser = async (userId) => {
   }
 }
 
-const editUser = async (userId) => {
+const editUser = async (userId,data) => {
   try {
-    return await axios.patch(`${url}/Users/${userId}`)
+    return await axios.patch(`${url}/Users/${userId}`,{data})
   } catch (error) {
     console.error(error)
   }
@@ -166,7 +166,8 @@ export default {
   },
   user: {
     createUser: (data) => createUser(data),
-    fetchUsers: () => fetchUsers()
+    fetchUsers: () => fetchUsers(),
+    editUser: (id,data) => editUser(id,data)
   },
   vocab: {
     insert: (data) => insertVocab(data),
