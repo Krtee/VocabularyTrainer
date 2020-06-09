@@ -123,6 +123,32 @@ const filterProgress = async (query) => {
   }
 };
 
+const increaseRGIAR = async (data) => {
+  try {
+    const res = await axios.post(`${url}/Vocab/increaseRGIAR`, data);
+    return res.data ? (res.data ? res.data.data : res) : res;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const resetRGIAR = async (data) => {
+  try {
+    const res = await axios.post(`${url}/Vocab/resetRGIAR`, data);
+    return res.data ? (res.data ? res.data.data : res) : res;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const increaseProgress = async (data) => {
+  try {
+    const res = await axios.post(`${url}/Vocab/increaseProgress`, data);
+    return res.data ? (res.data ? res.data.data : res) : res;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 const getProgressForUserAndLanguage = async (data) => {
   try {
@@ -153,5 +179,8 @@ export default {
     getProgressByVocabId: (id) => getProgressByVocabId(id),
     filterProgress: (id) => filterProgress(id),
     getProgressForUserAndLanguage: (data) => getProgressForUserAndLanguage(data),
+    increaseRGIAR: (data) => increaseRGIAR(data),
+    resetRGIAR: (data) => resetRGIAR(data),
+    increaseProgress: (data) => increaseProgress(data),
   }
 };

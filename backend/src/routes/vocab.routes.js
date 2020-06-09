@@ -93,6 +93,63 @@ vocabRoutes.get("/filterProgress", (req, res) => {
   });
 });
 
+/**
+ * Increase right_guesses_in_a_row by one
+ */
+vocabRoutes.post("/increaseRGIAR", (req, res) => {
+  const { user_id, lang_id, vocab_id } = req.body;
+
+  Progress.findOneAndUpdate(
+    { user_id: user_id, language_id: lang_id, vocab_id: vocab_id },
+    { $inc: { right_guesses_in_a_row: 1 } },
+    (err, data) => {
+      if (err) {
+        console.error(err);
+        return res.json({ success: false, error: err });
+      }
+      console.info("%c Updated: ", "background: #0f0", data)
+      return res.json({ success: true, data: data });
+    }
+  );
+});
+
+vocabRoutes.post("/resetRGIAR", (req, res) => {
+  const { user_id, lang_id, vocab_id } = req.body;
+
+  Progress.findOneAndUpdate(
+    { user_id: user_id, language_id: lang_id, vocab_id: vocab_id },
+    { right_guesses_in_a_row: 0  },
+    (err, data) => {
+      if (err) {
+        console.error(err);
+        return res.json({ success: false, error: err });
+      }
+      console.info("%c reset: ", "background: #0f0", data)
+      return res.json({ success: true, data: data });
+    }
+  );
+});
+
+/**
+ * Increase progress by one
+ */
+vocabRoutes.post("/increaseProgress", (req, res) => {
+    const { user_id, lang_id, vocab_id } = req.body;
+  
+    Progress.findOneAndUpdate(
+      { user_id: user_id, language_id: lang_id, vocab_id: vocab_id },
+      { $inc: { progress: 1 } },
+      (err, data) => {
+        if (err) {
+          console.error(err);
+          return res.json({ success: false, error: err });
+        }
+        console.info("%c Updated: ", "background: #0f0", data)
+        return res.json({ success: true, data: data });
+      }
+    );
+  });
+
 vocabRoutes.post("/getVocabAndTranslation", (req, res) => {
     const { vocab_id, lang_id } = req.body;
     var vocab = "";

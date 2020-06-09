@@ -41,21 +41,59 @@ const VocabularyTraining_Queries = (props) => {
     setIterate(iterate + 1);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const currentWord = trainingVorab[iterate];
     const localSummary = summary;
     localSummary.push({ currentWord, input });
     setSummary(localSummary);
 
+    const idObj = {
+      user_id: user,
+      vocab_id: currentWord["_id"],
+      lang_id: langID,
+    };
+
+    //TODO: What do do if word is wrong? Decrease progress? Or just reset RGIAR
+
     if (input) {
       if (input.toLowerCase() == currentWord.translation[langID].toLowerCase()) {
         // Word correct
         // TODO: graphic reaction
-        // TODO: add progress to word
         setIterate(iterate + 1);
         setInput("");
+
+        // progressObj contains the ProgressObj before the update!
+        const progressObj = await api.progress.increaseRGIAR(idObj);
+
+        if (progressObj.progress === 1) {
+          if (progressObj.right_guesses_in_a_row === 2) {
+            api.progress.increaseProgress(idObj);
+            console.info("%c Progress updated!", "Background: #00ff55");
+          }
+        } else if (progressObj.progress === 2) {
+          if (
+            progressObj.right_guesses_in_a_row === 2 ||
+            progressObj.right_guesses_in_a_row === 5
+          ) {
+            api.progress.increaseProgress(idObj);
+            console.info("%c Progress updated!", "Background: #33ff77");
+          }
+        } else if (progressObj.progress === 3) {
+          if (
+            progressObj.right_guesses_in_a_row === 2 ||
+            progressObj.right_guesses_in_a_row === 5 ||
+            progressObj.right_guesses_in_a_row === 8 
+          ) {
+            api.progress.increaseProgress(idObj);
+            console.info("%c Progress updated!", "Background: #66ff99");
+          }
+        } else {
+          console.info("%c Maximum Progress level already achieved!", "Background: #0f0");
+        }
       } else {
+        api.progress.resetRGIAR(idObj);
+
         const newInputCount = falseInputCount + 1;
         setFalseInputCount(newInputCount);
         if (falseInputCount >= 1) {
@@ -85,12 +123,10 @@ const VocabularyTraining_Queries = (props) => {
 
     // Vocabs from DB:Vocabs
     const vocabFromDb = await getVocabsById(ids).then((data) => {
-      // console.log("%c data: ", "background: #009933; color: white", data.data);
       return data.data;
     });
 
     const vocabChoice = [];
-    // console.log("%c vSortedByLang: ", "background: #009933; color: white", vocabFromDb);
     if (vocabFromDb.length < numberOfVocab) {
       setMessage(`Your selection contains only ${vocabFromDb.length} words.`);
     }
@@ -101,7 +137,6 @@ const VocabularyTraining_Queries = (props) => {
         vocabChoice.push(vocabFromDb[number]);
       }
     }
-    // console.log("%c vocabChoice: ", "background: #00b33c; color: white", vocabChoice);
     setTrainingVorab(vocabChoice);
   };
 
