@@ -5,7 +5,7 @@ const VocabularyTraining_Summary = (props) => {
   const [summary, setSummary] = useGlobal("summary");
   const [langID, setLangID] = useGlobal("langID");
 
-  console.log(summary);
+  console.log("%c Summary: ", "Background: #33ff77", summary);
 
   return (
     <div id="training_summary" className="margin_top">

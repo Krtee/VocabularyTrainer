@@ -79,15 +79,6 @@ const VocabularyTraining_Queries = (props) => {
             api.progress.increaseProgress(idObj);
             console.info("%c Progress updated!", "Background: #33ff77");
           }
-        } else if (progressObj.progress === 3) {
-          if (
-            progressObj.right_guesses_in_a_row === 2 ||
-            progressObj.right_guesses_in_a_row === 5 ||
-            progressObj.right_guesses_in_a_row === 8 
-          ) {
-            api.progress.increaseProgress(idObj);
-            console.info("%c Progress updated!", "Background: #66ff99");
-          }
         } else {
           console.info("%c Maximum Progress level already achieved!", "Background: #0f0");
         }

@@ -1,11 +1,9 @@
 import "../style.css";
 import Navigation from "../components/Navigation";
-/* import axios from "axios";
- */import { Redirect } from "react-router";
+import { Redirect } from "react-router";
 import React, { useGlobal, useState, createRef } from "reactn";
 import api from "../api";
 import { Link } from "react-router-dom";
-import SendVocabFom from "../components/SendVocabFom";
 
 const AddVocabulary = () => {
   let textinput = createRef();
@@ -21,7 +19,6 @@ const AddVocabulary = () => {
   }
 
   const addVocab = async (event) => {
-    console.log(event)
     event.preventDefault();
     setLoading(true)
     const data = {

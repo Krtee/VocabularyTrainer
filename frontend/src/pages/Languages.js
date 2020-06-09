@@ -28,9 +28,12 @@ const Languages = () => {
   }
 
   const getLanguage = (langID, langName) => {
-    console.log(langID, langName);
+    console.group("Language");
+      console.log("%c langID ", "Background: #0CE66E", langID);
+      console.log("%c langName ", "Background: #0CE6E2", langName);
+    console.groupEnd();
     setLangName(langName);
-    setLangID(langID)
+    setLangID(langID);
     setRedirect(true);
   };
 
