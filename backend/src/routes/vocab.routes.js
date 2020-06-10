@@ -108,6 +108,9 @@ vocabRoutes.post("/getVocabAndTranslation", (req, res) => {
 // adds new data
 vocabRoutes.post("/insert", (req, res) => {
     const { language_id, english_word, user_id } = req.body;
+    console.log("*** language_id: " + language_id);
+    console.log("*** english_word: " + english_word);
+    console.log("*** user_id: " + user_id);
     var existingVocab = null;
     var existsInSelectedLanguage = false;
     var vocab_id = null;
@@ -135,6 +138,8 @@ vocabRoutes.post("/insert", (req, res) => {
 
             // If requested vocab doesn't exist at all or if it doesn't exist in requested language
             if (existingVocab == null || (existingVocab != null && !existsInSelectedLanguage)) {
+
+                console.log("*** This means the requested vocab isn't in the vocab collection yet");
 
                 const languageTranslator = new LanguageTranslatorV3({
                     version: '2018-05-01',
@@ -202,26 +207,44 @@ vocabRoutes.post("/insert", (req, res) => {
 
             } else { // If requested vocab already exists in Vocab collection
 
+                console.log("*** This means the requested vocab is already in the vocab collection");
+
                 Progress.find((err, list) => {
+
+                    console.log("*** Step 1");
                     var existsInPersonalCollection = false;
+
                     if (!err) {
+
+                        console.log("*** Step 2");
                         for (let item of list) {
+                            console.log("*** Step 3");
                             // If requested vocab already exists in personal collection
-                            if (item.vocab_id == existingVocab._id && item.user_id == user_id) {
+                            if (item.vocab_id == existingVocab._id && item.user_id == user_id && item.language_id == language_id) {
                                 existsInPersonalCollection = true;
-                                return res.status(200).json({ success: true, info: "Word already exists" });
+                                console.log("*** Step 4");
+                                return res.status(200).json({ success: true, info: "Word already exists" });                                
                             }
                         }
+                        console.log("*** Step 5");
+                        console.log("*** existInPersonalCollection: " + existsInPersonalCollection);
                         if (!existsInPersonalCollection) {
+                            console.log("*** Step 6");
+                            console.log("*** Requested vocab doesn't exist in personal collection yet");
                             // If requested vocab doesn't exist in personal collection yet
 
                             var createProgressWorked = createProgress(user_id, existingVocab._id, language_id);
                             if (!createProgressWorked) {
+                                console.log("*** Step 7");
                                 return res.status(200).json({ success: false, error: "An error occured. Please try again later." });
                             } else {
+                                console.log("*** Step 8");
                                 return res.status(200).json({ success: true, info: "New word was successfully added." });
                             }
                         }
+                    } else {
+                        console.log("*** Step 9");
+                        console.log("error: " + err);
                     }
                 });
             }
