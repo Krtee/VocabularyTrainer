@@ -1,9 +1,9 @@
-import React, {useGlobal, useState} from "reactn";
+import React, { useGlobal, useState } from "reactn";
 import SignUpButton from "../components/SignUpButton";
 import "../style.css";
 import api from "../api";
 import PromiseB from "bluebird";
-import {Redirect} from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 function Landing() {
     const [auth, setAuth] = useGlobal("auth");
@@ -20,6 +20,7 @@ function Landing() {
         usernameAlreadyTaken(userName).then((taken) => validateCreateUser(userName, taken, password, passwordRepeat));
     }
 
+
     async function validateCreateUser(userName, usernameAlreadyTaken, password, passwordRepeat) {
         if (signUpDataComplete(userName, password, passwordRepeat)) {
             if (usernameAlreadyTaken) {
@@ -31,7 +32,7 @@ function Landing() {
             } else {
                 const isAvailable = await checkIfUserNameAvailable(userName);
                 if (isAvailable) {
-                    console.info("Saving...", {userName, password, passwordRepeat});
+                    console.info("Saving...", { userName, password, passwordRepeat });
 
                     const userInfo = {
                         username: userName,
@@ -42,6 +43,8 @@ function Landing() {
                         const res = await api.user.createUser(userInfo);
                         if (res.status === 200) {
                             setAuth(true);
+                            const userId = await getIdForUserName(userName);
+                            setUser(userId);
                             return resolve(res.data);
                         }
                         setAuth(false);
@@ -66,7 +69,7 @@ function Landing() {
 
     async function usernameAlreadyTaken(userName) {
         var allUsers = await api.user.fetchUsers();
-        var {data} = allUsers.data;
+        var { data } = allUsers.data;
         var existingUser = getUser(userName, data);
         return !(existingUser === undefined);
     }
@@ -112,7 +115,7 @@ function Landing() {
             new PromiseB(async (resolve, reject) => {
                 const res = await api.user.fetchUsers();
                 if (res.status === 200) {
-                    const {data} = res.data;
+                    const { data } = res.data;
                     const userInfo = getUser(input.userName, data);
 
                     var passwordCorrect = false;
@@ -159,6 +162,15 @@ function Landing() {
         }
     }
 
+    async function getIdForUserName(userName) {
+        const data = {
+            userName: userName
+        };
+        const res = await api.user.getIdForUserName(data);
+        const userId = res.userId;
+        return userId;
+    }
+
     function authenticateUser(userInfo, password) {
         try {
             return userInfo.password === password;
@@ -169,7 +181,7 @@ function Landing() {
 
     return (
         <div>
-            {auth ? <Redirect to="/languages"/> : null}
+            {auth ? <Redirect to="/languages" /> : null}
             <h1>Vocabulary Trainer</h1>
             <h2>Log in or sign up!</h2>
             <SignUpButton

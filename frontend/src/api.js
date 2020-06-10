@@ -21,6 +21,15 @@ const fetchUsers = async () => {
   }
 };
 
+const getIdForUserName = async (data) => {
+  try {
+    const res = await axios.post(`${url}/Users/getIdForUserName`, data);
+    return res.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 const getUser = async (userId) => {
   try {
     return await axios.get(`${url}/Users/${userId}`)
@@ -131,7 +140,8 @@ export default {
   },
   user: {
     createUser: (data) => createUser(data),
-    fetchUsers: () => fetchUsers()
+    fetchUsers: () => fetchUsers(),
+    getIdForUserName: (data) => getIdForUserName(data)
   },
   vocab: {
     insert: (data) => insertVocab(data),
