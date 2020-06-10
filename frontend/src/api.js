@@ -3,7 +3,11 @@ import axios from "axios";
 // constants
 const url = "http://localhost:8080";
 
+
 // User -------------------------------------------------------------
+  const getStatus = async () => {
+    return axios.get(`${url}/Users/status`)
+  }
 
 const createUser = async (data) => {
   try {
@@ -183,5 +187,8 @@ export default {
     increaseRGIAR: (data) => increaseRGIAR(data),
     resetRGIAR: (data) => resetRGIAR(data),
     increaseProgress: (data) => increaseProgress(data),
+  }, 
+  status: {
+    get: () => getStatus()
   }
 };

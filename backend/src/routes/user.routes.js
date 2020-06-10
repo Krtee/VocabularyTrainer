@@ -2,6 +2,10 @@ const express = require('express');
 const userRoutes = express.Router();
 const User = require('../models/user.model'); // user model
 
+userRoutes.get("/status", (req, res) => {
+   return res.status(200).send({status: "ok"})
+})
+
 /* Get all User */
 userRoutes.get('/', (req, res, next) => {
     User.find({} , function(err, result){

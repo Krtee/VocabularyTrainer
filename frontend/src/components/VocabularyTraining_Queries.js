@@ -12,17 +12,20 @@ const getVocabsById = async (id) => {
 };
 
 const VocabularyTraining_Queries = (props) => {
-  const [trainingVorab, setTrainingVorab] = useState([]);
-  const [langName, setLangName] = useGlobal("langName");
   const [langID] = useGlobal("langID");
-  const [iterate, setIterate] = useState(0);
-  const [input, setInput] = useState("");
+  const [langName, setLangName] = useGlobal("langName");
+  const [progress] = useGlobal("progress");
   const [summary, setSummary] = useGlobal("summary");
   const [user, setUser] = useGlobal("user");
-  const [progress] = useGlobal("progress");
-  const [message, setMessage] = useState(null);
-  const [help, setHelp] = useState(null);
+  const [progressSetting] = useGlobal("progressSetting");
+  const [direction] = useGlobal("direction");
+
   const [falseInputCount, setFalseInputCount] = useState(0);
+  const [help, setHelp] = useState(null);
+  const [input, setInput] = useState("");
+  const [iterate, setIterate] = useState(0);
+  const [message, setMessage] = useState(null);
+  const [trainingVorab, setTrainingVorab] = useState([]);
 
   useEffect(() => {
     const query = { user_id: user, language_id: langID, progress: progress };
@@ -54,28 +57,31 @@ const VocabularyTraining_Queries = (props) => {
       lang_id: langID,
     };
 
-    //TODO: What do do if word is wrong? Decrease progress? Or just reset RGIAR
-
     if (input) {
-      if (input.toLowerCase().trim() == currentWord.translation[langID].toLowerCase()) {
+      const correct =
+        direction === "fo_en"
+          ? input.toLowerCase().trim() == currentWord.translation[langID].toLowerCase()
+          : input.toLowerCase().trim() == currentWord.english_word.toLowerCase();
+
+      if (correct) {
         // Word correct
         // TODO: graphic reaction
         setIterate(iterate + 1);
         setInput("");
-        setHelp("")
+        setHelp("");
 
         // progressObj contains the ProgressObj before the update!
         const progressObj = await api.progress.increaseRGIAR(idObj);
 
         if (progressObj.progress === 1) {
-          if (progressObj.right_guesses_in_a_row === 2) {
+          if (progressObj.right_guesses_in_a_row === progressSetting - 1) {
             api.progress.increaseProgress(idObj);
             console.info("%c Progress updated!", "Background: #00ff55");
           }
         } else if (progressObj.progress === 2) {
           if (
-            progressObj.right_guesses_in_a_row === 2 ||
-            progressObj.right_guesses_in_a_row === 5
+            progressObj.right_guesses_in_a_row === progressSetting - 1 ||
+            progressObj.right_guesses_in_a_row === progressSetting * 2 - 1
           ) {
             api.progress.increaseProgress(idObj);
             console.info("%c Progress updated!", "Background: #33ff77");
@@ -145,8 +151,10 @@ const VocabularyTraining_Queries = (props) => {
   };
 
   const resetMessageIn5s = () => {
-    setTimeout(() => { setMessage(null); }, 5000);
-  }
+    setTimeout(() => {
+      setMessage(null);
+    }, 5000);
+  };
 
   return (
     <div className="margin_top">

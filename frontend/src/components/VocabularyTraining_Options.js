@@ -1,7 +1,7 @@
 import React, { useGlobal, useState } from "reactn";
 
 const VocabularyTraining_Options = (props) => {
-  const [language, setLanguage] = useGlobal("language");
+  const [language, setLanguage] = useGlobal("langName");
   const show = props.show;
   const [vocabNumber, setVocabNumber] = useState(0);
   const [progress1, setProgress1] = useState(true);
@@ -125,7 +125,8 @@ const VocabularyTraining_Options = (props) => {
               type="radio"
               name="training_options_radios"
               id="training_options_radios_1"
-              value="en_fo"
+              value="fo_en"
+              defaultChecked={true}
               onChange={handleChange}
             />
             <label className="form-check-label" htmlFor="training_options_radios_1">
@@ -138,7 +139,7 @@ const VocabularyTraining_Options = (props) => {
               type="radio"
               name="training_options_radios"
               id="training_options_radios_2"
-              value="fo_en"
+              value="en_fo"
               onChange={handleChange}
             />
             <label className="form-check-label" htmlFor="training_options_radios_2">

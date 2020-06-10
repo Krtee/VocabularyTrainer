@@ -7,7 +7,9 @@ import {Redirect} from "react-router-dom";
 
 function Landing() {
     const [auth, setAuth] = useGlobal("auth");
-    const [user, setUser] = useGlobal("user");
+    const [, setUser] = useGlobal("user");
+    const [, setProgressSetting] = useGlobal("progressSetting");
+    
     const [userNameHelp, setUserNameHelp] = useState("");
     const [passwordHelp, setPasswordHelp] = useState("");
     const [passwordRepeatHelp, setPasswordRepeatHelp] = useState("");
@@ -114,6 +116,7 @@ function Landing() {
                 if (res.status === 200) {
                     const {data} = res.data;
                     const userInfo = getUser(input.userName, data);
+                    console.log("login -> userInfo", userInfo)
 
                     var passwordCorrect = false;
                     emptyHelpFields();
@@ -126,6 +129,7 @@ function Landing() {
                             setPasswordHelp("Wrong user name or password");
                         } else {
                             setUser(userInfo._id);
+                            setProgressSetting(userInfo.right_guesses_in_a_row)
                         }
                     } else {
                         if (input.userName.length === 0) {

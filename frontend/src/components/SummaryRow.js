@@ -22,7 +22,7 @@ const SummaryRow = (props) => {
     }, [])
     
   return (
-    <div className={`row vocabulary_list_entry ${correct.toLowerCase() === input.toLowerCase() ? "right" : "wrong"}`}>
+    <div className={`row vocabulary_list_entry ${correct.toLowerCase().trim() === input.toLowerCase().trim() ? "right" : "wrong"}`}>
       <div className="col-3">{vocab}</div>
       <div className="col-3">{input}</div>
       <div className="col-3">{correct}</div>
