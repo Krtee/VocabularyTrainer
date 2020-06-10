@@ -8,13 +8,13 @@ import "./style.css";
 // FIXME: FOR DEV REASONS SET ON TRUE, BUT SET FALSE FOR PRODUCTIVE!
 // FIXME: REMOVE USERID AND LANGNAME AND LANGID BEFORE RELEASE!
 setGlobal({
-  auth: true,
-  user: "5ed96ffe95d98c76a6571cdf",
+  auth: false,
+  user: null,
   progress: [1],
   numberOfVocab: 25,
   direction: "fo_en",
-  langName: "German",
-  langID: "de",
+  langName: null,
+  langID: null,
   summary: []
 });
 
