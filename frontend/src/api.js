@@ -25,6 +25,15 @@ const fetchUsers = async () => {
   }
 };
 
+const getIdForUserName = async (data) => {
+  try {
+    const res = await axios.post(`${url}/Users/getIdForUserName`, data);
+    return res.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 const getUser = async (userId) => {
   try {
     return await axios.get(`${url}/Users/${userId}`)
@@ -163,6 +172,15 @@ const getProgressForUserAndLanguage = async (data) => {
   }
 };
 
+const createProgress = async (data) => {
+  try {
+    const res = await axios.post(`${url}/Vocab/createProgress`, data);
+    return res.data ? (res.data ? res.data.data : res) : res;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 
 export default {
   language: {
@@ -171,7 +189,8 @@ export default {
   user: {
     createUser: (data) => createUser(data),
     fetchUsers: () => fetchUsers(),
-    editUser: (id,data) => editUser(id,data)
+    editUser: (id,data) => editUser(id,data),
+    getIdForUserName: (data) => getIdForUserName(data)
   },
   vocab: {
     insert: (data) => insertVocab(data),
@@ -189,6 +208,7 @@ export default {
     increaseProgress: (data) => increaseProgress(data),
   }, 
   status: {
-    get: () => getStatus()
+    get: () => getStatus(),
+    createProgress: (data)=> createProgress(data)
   }
 };
