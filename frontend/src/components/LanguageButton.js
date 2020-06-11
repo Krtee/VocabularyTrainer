@@ -29,24 +29,30 @@ const LanguageButton = (props) => {
       console.log("*** res.length: " + res.length);
 
     if (res.length < 50) {
-      createBasicVocab();
+      console.time("time")
+      await createBasicVocab();
+      console.timeEnd("time")
     }
+    console.log("%c UND WARUM RENDERT ES DIE LISTE JETZT NET? ", "background: red; margin: 10px;")
   }
 
   const createBasicVocab = async () => {
     const basics = require('../basic_vocab.json');
     const vocabulary = basics.vocabulary;
 
-    for (var key in vocabulary) {
-      var currentVocab = vocabulary[key].toString();
-      console.log("*** " + id + ": add vocab " + currentVocab + " for user: " + user);
-      const data = {
+    // for (var key in vocabulary) {
+    //   var currentVocab = vocabulary[key].toString();
+    //   // console.log("*** " + id + ": add vocab " + currentVocab + " for user: " + user);
+    //   api.vocab.insert(data);
+    // }
+    Object.entries(vocabulary).forEach(([index, word]) => {
+            const data = {
         language_id: id,
-        english_word: currentVocab,
+        english_word: word,
         user_id: user,
       };
-      await api.vocab.insert(data);
-    }
+      api.vocab.insert(data);
+    })
     return true;
   }
 

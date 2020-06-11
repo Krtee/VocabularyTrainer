@@ -30,7 +30,7 @@ const DataSchema = new Schema(
             "zh": String
         }
     },
-    { timestamps: true }
+    { timestamps: true,  minimize: false  }
 );
 
 // export the new Schema so we could modify it using Node.js
