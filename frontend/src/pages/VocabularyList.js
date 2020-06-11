@@ -11,30 +11,51 @@ const getProgressForUserAndLanguage = async (user_id, lang_id) => {
     lang_id: lang_id,
   };
   const res = await api.progress.getProgressForUserAndLanguage(data);
+  console.log("getProgressForUserAndLanguage -> res", res);
+  if (res.length === 0) {
+    // true if all words created
+    await createBasicVocab(user_id, lang_id);
+    return getProgressForUserAndLanguage(user_id, lang_id);
+  }
   return res;
 };
 
+const createBasicVocab = async (user, id) => {
+  const basics = require("../basic_vocab.json");
+  const vocabulary = basics.vocabulary;
+
+  Object.entries(vocabulary).forEach(([index, word]) => {
+    const data = {
+      language_id: id,
+      english_word: word,
+      user_id: user,
+    };
+    api.vocab.insert(data);
+    api.progress.createProgress(data);
+  });
+  return true;
+};
+
 const VocabularyList = (props) => {
-  const [auth, ] = useGlobal("auth");
-  const [user, setUser] = useGlobal("user");
-  const [langID, setLangID] = useGlobal("langID");
-  const [langName, setLangName] = useGlobal("langName");
+  const [auth] = useGlobal("auth");
+  const [user] = useGlobal("user");
+  const [langID] = useGlobal("langID");
+  const [langName] = useGlobal("langName");
 
   const [prog, setProg] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getProgressForUserAndLanguage(user, langID).then((data) => {setProg(data)});
+    getProgressForUserAndLanguage(user, langID).then((data) => {
+      setProg(data);
+
+      setLoading(false);
+    });
   }, []);
 
   if (!auth) {
     return <Redirect to="/" />;
   }
-
-  const mapProgress = prog
-  .map((word) => {
-    return word;
-  });
-
 
   var i = 0;
 
@@ -49,11 +70,18 @@ const VocabularyList = (props) => {
           <div className="col-xl-2 col-lg-2 col-md-3 col-4 vocabulary_list_header">{langName}</div>
           <div className="col-xl-1 col-lg-2 col-md-3 col-4 vocabulary_list_header">Progress</div>
         </div>
-        {mapProgress.map((prog) => {
-          return <VocabRow key={i++} prog={prog} />
-        })}
-
-
+        {!loading && prog && prog.length > 0
+          ? console.log("not ready prog: ", prog)
+          : console.log("ready prog: ", prog)}
+        {!loading && prog && prog.length > 0 ? (
+          prog.map((progress) => {
+            return <VocabRow key={i++} prog={progress} />;
+          })
+        ) : (
+          <div className="spinner-border m-5" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
+        )}
       </div>
     </div>
   );

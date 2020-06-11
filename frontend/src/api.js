@@ -133,6 +133,15 @@ const getProgressForUserAndLanguage = async (data) => {
   }
 };
 
+const createProgress = async (data) => {
+  try {
+    const res = await axios.post(`${url}/Vocab/createProgress`, data);
+    return res.data ? (res.data ? res.data.data : res) : res;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 
 export default {
   language: {
@@ -153,5 +162,6 @@ export default {
     getProgress: () => getProgress(),
     getProgressById: (id) => getProgressById(id),
     getProgressForUserAndLanguage: (data) => getProgressForUserAndLanguage(data),
+    createProgress: (data)=> createProgress(data)
   }
 };

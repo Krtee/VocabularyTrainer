@@ -50,6 +50,32 @@ vocabRoutes.get("/getProgress", (req, res) => {
   });
 });
 
+vocabRoutes.post("/createProgress", (req, res) => {
+  const { user_id, english_word, language_id } = req.body;
+
+  Progress.find(
+    { english_word: english_word, user_id: user_id, language_id: language_id },
+    (entry) => {
+        if (entry !== null) {
+            res.json({ success: true, data: entry })
+        }
+    }
+  );
+
+  const prog = new Progress({
+    english_word: english_word,
+    user_id: user_id,
+    language_id: language_id,
+    progress: 1,
+    right_guesses_in_a_row: 0,
+  });
+
+  prog.save((err) => {
+    if (err) return res.json({ success: false, error: err });
+  });
+  return res.json({ success: true, data: prog });
+});
+
 vocabRoutes.get("/getProgressById", (req, res) => {
   const { id } = req.query;
   Progress.findOne({ vocab_id: id }, (err, data) => {
@@ -66,7 +92,6 @@ vocabRoutes.post("/getProgressForUserAndLanguage", (req, res) => {
 
   Progress.find({ user_id: user_id, language_id: lang_id }, (err, data) => {
     if (err) {
-      // console.error(err);
       return res.json({ success: false, error: err });
     }
     return res.json({ success: true, data: data });
@@ -75,30 +100,30 @@ vocabRoutes.post("/getProgressForUserAndLanguage", (req, res) => {
 
 vocabRoutes.get("/getNumberOfVocabByUserID", (req, res) => {
   const { id } = req.query;
-  // // console.log("*** userID: " + id);
   Progress.find({ user_id: id }, (err, data) => {
     if (err) {
-      // console.error(err);
+      console.error(err);
       return res.json({ success: false, error: err });
     }
-    // // console.log("*** data: " + JSON.stringify(data));
     return res.json({ success: true, data: data });
   });
 });
 
 vocabRoutes.post("/getVocabAndTranslation", (req, res) => {
-  const { vocab_id, lang_id } = req.body;
+  const { english_word, lang_id } = req.body;
   var vocab = "";
   var translation = "";
 
-  Vocab.findOne({ _id: vocab_id }, (err, data) => {
-    if (err) {
+  Vocab.findOne({ english_word: english_word }, (err, data) => {
+    if (err || !data) {
       // console.error(err);
       return res.json({ success: false, error: err });
     }
-    vocab = data.english_word;
-    translation = getTranslationForLanguage(data, lang_id);
-    return res.json({ vocab: vocab, translation: translation });
+    try {
+      return res.json({ vocab: data.english_word, translation: data.translation[lang_id] });
+    } catch (error) {
+      console.error(error);
+    }
   });
 });
 
@@ -106,16 +131,17 @@ vocabRoutes.post("/getVocabAndTranslation", (req, res) => {
 vocabRoutes.post("/insert", (req, res) => {
   try {
     const { language_id, english_word, user_id } = req.body;
-    const en_word = english_word.toLowerCase();
-    const lang_id = language_id.toLowerCase();
 
     // Check if input form is empty
-    if (!lang_id || !en_word) {
+    if (!language_id || !english_word) {
       return res.json({
         success: false,
         error: "Invalid input",
       });
     }
+
+    const en_word = english_word.toLowerCase();
+    const lang_id = language_id.toLowerCase();
 
     // Check if requested vocab does exist in Vocab collection
     Vocab.find({ english_word: en_word }, async (err, existingVocab) => {
@@ -143,13 +169,13 @@ vocabRoutes.post("/insert", (req, res) => {
         }
 
         // Word does not exist --> create new db entry with first translation
-        const vocab = new Vocab({ english_word: en_word, translation: { [lang_id]: translation.translation } });
+        const vocab = new Vocab({
+          english_word: en_word,
+          translation: { [lang_id]: translation.translation },
+        });
         vocab.save((err) => {
           if (err) {
-              console.error(err)
-            // return res
-            //   .status(400)
-            //   .json({ success: false, error: "An error occurred. Please try again later." });
+            console.error(err);
           }
         });
       } // if is NOT in collection
@@ -163,8 +189,7 @@ vocabRoutes.post("/insert", (req, res) => {
         );
 
         // check if already in this language available
-        const isAlreadyTranslated = getTranslationForLanguage(existingVocab, lang_id);
-        console.log("isAlreadyTranslated", isAlreadyTranslated);
+        const isAlreadyTranslated = getTranslationForLanguage(existingVocab[0], lang_id);
         if (isAlreadyTranslated) {
           return res
             .status(200)
@@ -173,11 +198,9 @@ vocabRoutes.post("/insert", (req, res) => {
 
         const translation = await getTranslation(lang_id, en_word);
         if (translation.status !== 200) {
-            return res
-            .status(translation.status)
-            .json(translation);
+          return res.status(translation.status).json(translation);
         }
-        
+
         setTranslationForLanguage(existingVocab[0], lang_id, translation.translation);
       } // IS in collection
 
@@ -201,7 +224,7 @@ function setTranslationForLanguage(vocab, language_id, translation) {
 
 function getTranslationForLanguage(vocab, language_id) {
   try {
-    return vocab[0].translation[language_id] ? true : false;
+    return vocab.translation[language_id] ? true : false;
   } catch (error) {
     console.error(error);
     return false;
@@ -237,15 +260,11 @@ async function getTranslation(lang_id, en_word) {
   }
 
   const translation = ibmRes.result.translations[0].translation;
-  console.log(`${en_word} > ${translation}`);
+  // console.log(`${en_word} > ${translation}`);
 
   // Check if API found a translation
   if (en_word === translation.toLowerCase()) {
-    console.log(
-        "\x1b[41m\x1b[30m%s\x1b[0m",
-        "IBM SEEMS NOT TO KNOW THIS WORD!",
-      );
-
+    console.log("\x1b[41m\x1b[30m%s\x1b[0m", "IBM SEEMS NOT TO KNOW THIS WORD!");
 
     // When the API doesn't know a translation for an English input word,
     // it always returns the input word.

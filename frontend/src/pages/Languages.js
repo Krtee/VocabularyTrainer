@@ -31,7 +31,7 @@ const Languages = () => {
     console.log(langID, langName);
     setLangName(langName);
     setLangID(langID)
-    setRedirect(true);
+      setRedirect(true);
   };
 
   if (redirect) {

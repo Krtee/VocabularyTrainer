@@ -42,6 +42,7 @@
         "brown",
         "grey",
         "black",
+        "be",
         "have",
         "make",
         "go",
@@ -51,6 +52,7 @@
         "read",
         "give",
         "want",
+        "the ",
         "and",
         "or",
         "but",
@@ -100,4 +102,3 @@
         "practise"
     ]
 }
-
