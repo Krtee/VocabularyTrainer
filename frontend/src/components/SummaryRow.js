@@ -19,6 +19,7 @@ const SummaryRow = (props) => {
         getProgress(vocabID).then((data) => {
             setProgress(data)
         })
+    // eslint-disable-next-line
     }, [])
     
   return (

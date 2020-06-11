@@ -13,12 +13,11 @@ const getVocabsById = async (id) => {
 
 const VocabularyTraining_Queries = (props) => {
   const [trainingVorab, setTrainingVorab] = useState([]);
-  const [langName, setLangName] = useGlobal("langName");
   const [langID] = useGlobal("langID");
   const [iterate, setIterate] = useState(0);
   const [input, setInput] = useState("");
   const [summary, setSummary] = useGlobal("summary");
-  const [user, setUser] = useGlobal("user");
+  const [user, ] = useGlobal("user");
   const [progress] = useGlobal("progress");
   const [message, setMessage] = useState(null);
   const [help, setHelp] = useState(null);
@@ -35,6 +34,7 @@ const VocabularyTraining_Queries = (props) => {
         setSummary([]);
       }
     });
+    // eslint-disable-next-line
   }, []);
 
   const handleSkip = () => {
@@ -57,7 +57,7 @@ const VocabularyTraining_Queries = (props) => {
     //TODO: What do do if word is wrong? Decrease progress? Or just reset RGIAR
 
     if (input) {
-      if (input.toLowerCase().trim() == currentWord.translation[langID].toLowerCase()) {
+      if (input.toLowerCase().trim() === currentWord.translation[langID].toLowerCase()) {
         // Word correct
         // TODO: graphic reaction
         setIterate(iterate + 1);

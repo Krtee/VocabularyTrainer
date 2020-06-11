@@ -17,14 +17,15 @@ const getProgressForUserAndLanguage = async (user_id, lang_id) => {
 
 const VocabularyList = (props) => {
   const [auth, ] = useGlobal("auth");
-  const [user, setUser] = useGlobal("user");
-  const [langID, setLangID] = useGlobal("langID");
-  const [langName, setLangName] = useGlobal("langName");
+  const [user, ] = useGlobal("user");
+  const [langID, ] = useGlobal("langID");
+  const [langName, ] = useGlobal("langName");
 
   const [prog, setProg] = useState([]);
 
   useEffect(() => {
     getProgressForUserAndLanguage(user, langID).then((data) => {setProg(data)});
+    // eslint-disable-next-line
   }, []);
 
   if (!auth) {

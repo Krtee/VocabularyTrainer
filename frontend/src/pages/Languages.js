@@ -41,10 +41,6 @@ const Languages = () => {
     return <Redirect to={{ pathname: `/VocabularyList`, query: { langName, langID } }} />;
   }
 
-  const setLang = (language) => {
-    setLang()
-    };
-
   var i = 0;
 
   return (

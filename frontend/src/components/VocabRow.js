@@ -17,10 +17,11 @@ const getVocabAndTranslation = async (vocab_id, lang_id) => {
 const VocabRow = (props) => {
   const { vocab_id, progress } = props.prog;
   const [vocab, setVocab] = useState([]);
-  const [langID, setLangID] = useGlobal("langID");
+  const [langID, ] = useGlobal("langID");
 
   useEffect(() => {
     getVocabAndTranslation(vocab_id, langID).then((data) => setVocab(data));
+    // eslint-disable-next-line
   }, []);
 
 

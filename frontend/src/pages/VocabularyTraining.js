@@ -8,7 +8,7 @@ import { Redirect } from "react-router";
 import NavigationBottom from "../components/NavigationBottom";
 
 function VocabularyTraining() {
-  const [auth, setAuth] = useGlobal("auth");
+  const [auth, ] = useGlobal("auth");
   const [showOptions, setShowOptions] = useState(true);
   const [showQueries, setShowQueries] = useState(false);
   const [showSummary, setShowSummary] = useState(false);
@@ -18,7 +18,7 @@ function VocabularyTraining() {
   const [numberOfVocab, setNumberOfVocab] = useGlobal("numberOfVocab");
   const [progress, setProgress] = useGlobal("progress");
   const [direction, setDirection] = useGlobal("direction");
-  const [language, setLanguage] = useGlobal("language");
+  const [language, ] = useGlobal("language");
 
   if (!auth) {
     return <Redirect to="/" />;

@@ -2,10 +2,9 @@ import React, { useGlobal } from "reactn";
 import SummaryRow from "../components/SummaryRow";
 
 const VocabularyTraining_Summary = (props) => {
-  const [summary, setSummary] = useGlobal("summary");
-  const [langID, setLangID] = useGlobal("langID");
-
-  console.log("%c Summary: ", "Background: #33ff77", summary);
+  const [summary, ] = useGlobal("summary");
+  const [langID, ] = useGlobal("langID");
+  var i = 0;
 
   return (
     <div id="training_summary" className="margin_top">
@@ -17,9 +16,10 @@ const VocabularyTraining_Summary = (props) => {
         <div className="col-3 vocabulary_list_header">Current Progress</div>
       </div>
       {summary.map((entry) => {
-        // console.log(entry)
+        
         return (
           <SummaryRow
+            key={i++}
             vocab={entry.currentWord.english_word}
             input={entry.input}
             correct={entry.currentWord.translation[langID]}

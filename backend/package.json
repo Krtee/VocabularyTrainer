@@ -4,7 +4,9 @@
   "description": "",
   "main": "server.js",
   "jest": {
-    "setupFilesAfterEnv": ["./__tests__/setup.js"]
+    "setupFilesAfterEnv": [
+      "./__tests__/setup.js"
+    ]
   },
   "scripts": {
     "test": "jest",

@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import NavItem from "react-bootstrap/NavItem";
 import Container from "react-bootstrap/Container";
-import {LinkContainer} from "react-router-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 import plus from '../assets/icons/003-plus.svg';
 import train from '../assets/icons/007-bearbeiten.svg';
 import overview from '../assets/icons/005-liste.svg';
@@ -28,8 +28,10 @@ const NavigationBottom = (props) => {
             case 'VocabularyList':
                 setActive3('active');
                 break;
+            default: setActive3('active');
         }
-    },[])
+        // eslint-disable-next-line
+    }, [])
 
     return (
         <div>
@@ -40,7 +42,7 @@ const NavigationBottom = (props) => {
                             <Col className={active1}>
                                 <LinkContainer className={'navItem'} to="/VocabularyTraining">
                                     <NavItem>
-                                        <img src={train} width="20" height="20" alt={'go to Training'}/>
+                                        <img src={train} width="20" height="20" alt={'go to Training'} />
                                         <p>Train</p>
                                     </NavItem>
                                 </LinkContainer>
@@ -48,7 +50,7 @@ const NavigationBottom = (props) => {
                             <Col className={active2}>
                                 <LinkContainer className={'navItem'} to="/AddVocabulary">
                                     <NavItem>
-                                        <img src={plus} width="20" height="20" alt={'add Vocabulary'}/>
+                                        <img src={plus} width="20" height="20" alt={'add Vocabulary'} />
                                         <p>Add</p>
                                     </NavItem>
                                 </LinkContainer>
@@ -56,7 +58,7 @@ const NavigationBottom = (props) => {
                             <Col className={active3}>
                                 <LinkContainer className={'navItem'} to="/VocabularyList">
                                     <NavItem>
-                                        <img src={overview} width="20" height="20" alt={'go to overview'}/>
+                                        <img src={overview} width="20" height="20" alt={'go to overview'} />
                                         <p>Overview</p>
                                     </NavItem>
                                 </LinkContainer>

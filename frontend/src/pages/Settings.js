@@ -10,13 +10,12 @@ import Button from "react-bootstrap/Button";
 
 
 function Settings() {
-    const [auth, setAuth] = useGlobal("auth");
-    const [user, setUser] = useGlobal("user");
+    const [auth, ] = useGlobal("auth");
+    const [user, ] = useGlobal("user");
     let newName = createRef();
     let newProgress = createRef();
     const [show, setShow] = useState(false);
     const [changed, setChanged] = useState(false);
-    const [info, setInfo] = useState();
 
     if (!auth) {
         return <Redirect to="/"/>;

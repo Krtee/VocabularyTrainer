@@ -21,14 +21,6 @@ const fetchUsers = async () => {
   }
 };
 
-const getUser = async (userId) => {
-  try {
-    return await axios.get(`${url}/Users/${userId}`)
-  } catch (error) {
-    console.error(error)
-  }
-}
-
 const editUser = async (userId,data) => {
   try {
     return await axios.patch(`${url}/Users/${userId}`,{data})
@@ -37,13 +29,6 @@ const editUser = async (userId,data) => {
   }
 }
 
-const deleteUser = async (userId) => {
-  try {
-    return await axios.delete(`${url}/Users/${userId}`)
-  } catch (error) {
-    console.error(error)
-  }
-}
 
 // Vocab ------------------------------------------------------------
 

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import NavItem from "react-bootstrap/NavItem";
 
 const NavigationTop = () => {
-  const [auth, setAuth] = useGlobal("auth");
+  const [, setAuth] = useGlobal("auth");
   function handleClick() {
     setAuth(false);
   }

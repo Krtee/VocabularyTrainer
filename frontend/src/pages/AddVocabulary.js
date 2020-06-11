@@ -5,16 +5,15 @@ import NavigationTop from "../components/NavigationTop";
 import React, { useGlobal, useState, createRef } from "reactn";
 import api from "../api";
 import { Link } from "react-router-dom";
-import SendVocabFom from "../components/SendVocabFom";
 import NavigationBottom from "../components/NavigationBottom";
 
 const AddVocabulary = () => {
   let textinput = createRef();
-  const [auth, setAuth] = useGlobal("auth");
-  const [langID, setLangID] = useGlobal("langID");
+  const [auth, ] = useGlobal("auth");
+  const [langID, ] = useGlobal("langID");
   const [color, setColor] = useState("");
   const [info, setInfo] = useState("");
-  const [user, setUser] = useGlobal("user");
+  const [user, ] = useGlobal("user");
   const [loading, setLoading] = useState(false)
 
   if (!auth) {

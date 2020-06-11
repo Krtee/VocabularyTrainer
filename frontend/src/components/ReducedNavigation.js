@@ -2,7 +2,7 @@ import React, { useGlobal } from "reactn";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
 const ReducedNavigation = () => {
-  const [auth, setAuth] = useGlobal("auth");
+  const [, setAuth] = useGlobal("auth");
   function handleClick() {
     setAuth(false);
   }

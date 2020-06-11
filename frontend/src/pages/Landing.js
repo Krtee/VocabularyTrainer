@@ -7,7 +7,7 @@ import {Redirect} from "react-router-dom";
 
 function Landing() {
     const [auth, setAuth] = useGlobal("auth");
-    const [user, setUser] = useGlobal("user");
+    const [, setUser] = useGlobal("user");
     const [userNameHelp, setUserNameHelp] = useState("");
     const [passwordHelp, setPasswordHelp] = useState("");
     const [passwordRepeatHelp, setPasswordRepeatHelp] = useState("");
