@@ -118,9 +118,9 @@ const getProgress = async () => {
   }
 };
 
-const getProgressByVocabId = async (id) => {
+const searchProgress = async (data) => {
   try {
-    const res = await axios.get(`${url}/Vocab/getProgressByVocabId`, {params: {id: id}});
+    const res = await axios.post(`${url}/Vocab/searchProgress`, data);
     return res.data ? (res.data ? res.data.data : res) : res;
   } catch (error) {
     console.error(error);
@@ -200,15 +200,15 @@ export default {
   },
   progress: {
     getProgress: () => getProgress(),
-    getProgressByVocabId: (id) => getProgressByVocabId(id),
+    searchProgress: (data) => searchProgress(data),
     filterProgress: (id) => filterProgress(id),
     getProgressForUserAndLanguage: (data) => getProgressForUserAndLanguage(data),
     increaseRGIAR: (data) => increaseRGIAR(data),
     resetRGIAR: (data) => resetRGIAR(data),
     increaseProgress: (data) => increaseProgress(data),
+    createProgress: (data)=> createProgress(data)
   }, 
   status: {
     get: () => getStatus(),
-    createProgress: (data)=> createProgress(data)
   }
 };

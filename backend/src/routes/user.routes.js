@@ -57,8 +57,6 @@ userRoutes.post("/", (req, res, next) => {
     };
     User.create(newUser, function(err, result) {
         if(err){
-            console.log("didn't work");
-
             res.status(400).send({
                 success: false,
                 error: err.message
@@ -112,16 +110,13 @@ userRoutes.delete("/:user_id", (req, res, next) => {
 
 userRoutes.post("/getIdForUserName", (req, res) => {
     const { userName } = req.body;
-    console.log("*** userName: " + userName);
 
     User.findOne({ username: userName }, (err, data) => {
         if (err) {
             console.error(err);
             return res.json({ success: false, error: err });
         }
-        console.log("*** data: " + JSON.stringify(data));
         const userId = data._id;
-        console.log("*** userId: " + userId);
         return res.json({ userId:userId });
     });
 

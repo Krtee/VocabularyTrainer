@@ -4,10 +4,9 @@ import SummaryRow from "../components/SummaryRow";
 const VocabularyTraining_Summary = (props) => {
   const [summary, setSummary] = useGlobal("summary");
   const [langID, setLangID] = useGlobal("langID");
-  
-  let i = 0
+  const [user] = useGlobal("user");
 
-  // console.log("%c Summary: ", "Background: #33ff77", summary);
+  let i = 0;
 
   return (
     <div id="training_summary" className="margin_top">
@@ -19,13 +18,18 @@ const VocabularyTraining_Summary = (props) => {
         <div className="col-3 vocabulary_list_header">Current Progress</div>
       </div>
       {summary.map((entry) => {
-        i++
+        const test = entry.currentWord.translation[langID]
+          ? entry.currentWord.translation[langID]
+          : "HOOOOOOW";
+        i++;
         return (
           <SummaryRow
             vocab={entry.currentWord.english_word}
             input={entry.input}
-            correct={entry.currentWord.translation[langID]}
-            vocabID={entry.currentWord["_id"]}
+            correct={test}
+            english_word={entry.currentWord.english_word}
+            langID={langID}
+            user={user}
             key={i}
           />
         );

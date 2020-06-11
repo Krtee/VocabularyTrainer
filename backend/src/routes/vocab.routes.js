@@ -14,17 +14,17 @@ vocabRoutes.get("/", (req, res) => {
 });
 
 vocabRoutes.post("/getByIdArray", (req, res) => {
-  const ids = JSON.parse(JSON.stringify(req.body));
-  const query = { _id: { $in: ids } };
+  const en_words = JSON.parse(JSON.stringify(req.body));
+  const query = { english_word: { $in: en_words } };
 
   Vocab.find(query, function (err, result) {
-    if (err) {
-      res.status(400).send({
-        success: false,
-        error: err.message,
-      });
-    }
-    res.status(200).send({
+  if (err) {
+    res.status(400).send({
+      success: false,
+      error: err.message,
+    });
+  }
+  res.status(200).send({
       success: true,
       data: result,
     });
@@ -95,9 +95,9 @@ vocabRoutes.post("/createProgress", (req, res) => {
 });
 
 
-vocabRoutes.get("/getProgressById", (req, res) => {
-  const { id } = req.query;
-  Progress.findOne({ vocab_id: id }, (err, data) => {
+vocabRoutes.post("/searchProgress", (req, res) => {
+  
+  Progress.findOne(req.body, (err, data) => {
     if (err) {
       // console.error(err);
       return res.json({ success: false, error: err });
@@ -131,10 +131,10 @@ vocabRoutes.get("/filterProgress", (req, res) => {
  * Increase right_guesses_in_a_row by one
  */
 vocabRoutes.post("/increaseRGIAR", (req, res) => {
-  const { user_id, lang_id, vocab_id } = req.body;
+  const { user_id, lang_id, english_word } = req.body;
 
   Progress.findOneAndUpdate(
-    { user_id: user_id, language_id: lang_id, vocab_id: vocab_id },
+    { user_id: user_id, language_id: lang_id, english_word: english_word },
     { $inc: { right_guesses_in_a_row: 1 } },
     (err, data) => {
       if (err) {
@@ -148,17 +148,16 @@ vocabRoutes.post("/increaseRGIAR", (req, res) => {
 });
 
 vocabRoutes.post("/resetRGIAR", (req, res) => {
-  const { user_id, lang_id, vocab_id } = req.body;
-
+  const { user_id, lang_id, english_word } = req.body;
   Progress.findOneAndUpdate(
-    { user_id: user_id, language_id: lang_id, vocab_id: vocab_id },
+    { user_id: user_id, language_id: lang_id, english_word: english_word },
     { right_guesses_in_a_row: 0  },
     (err, data) => {
       if (err) {
         console.error(err);
         return res.json({ success: false, error: err });
       }
-      console.info("%c reset: ", "background: #0f0", data)
+      console.info("%c reset: > ", "background: #0f0", data)
       return res.json({ success: true, data: data });
     }
   );
@@ -168,10 +167,9 @@ vocabRoutes.post("/resetRGIAR", (req, res) => {
  * Increase progress by one
  */
 vocabRoutes.post("/increaseProgress", (req, res) => {
-    const { user_id, lang_id, vocab_id } = req.body;
-  
+    const { user_id, lang_id, language_id } = req.body;
     Progress.findOneAndUpdate(
-      { user_id: user_id, language_id: lang_id, vocab_id: vocab_id },
+      { user_id: user_id, language_id: lang_id, language_id: language_id },
       { $inc: { progress: 1 } },
       (err, data) => {
         if (err) {
@@ -355,11 +353,10 @@ async function getTranslation(lang_id, en_word) {
   }
 
   const translation = ibmRes.result.translations[0].translation;
-  // console.log(`${en_word} > ${translation}`);
 
   // Check if API found a translation
   if (en_word === translation.toLowerCase()) {
-    console.log("\x1b[41m\x1b[30m%s\x1b[0m", "IBM SEEMS NOT TO KNOW THIS WORD!");
+    console.log("\x1b[41m\x1b[30m%s\x1b[0m", "IBM SEEMS NOT TO KNOW THIS WORD:", " ", en_word);
 
     // When the API doesn't know a translation for an English input word,
     // it always returns the input word.

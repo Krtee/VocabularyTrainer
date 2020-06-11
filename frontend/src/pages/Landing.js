@@ -119,7 +119,6 @@ function Landing() {
                 if (res.status === 200) {
                     const { data } = res.data;
                     const userInfo = getUser(input.userName, data);
-                    console.log("login -> userInfo", userInfo)
 
                     var passwordCorrect = false;
                     emptyHelpFields();

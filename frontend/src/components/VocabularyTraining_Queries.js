@@ -53,17 +53,26 @@ const VocabularyTraining_Queries = (props) => {
 
     const idObj = {
       user_id: user,
-      vocab_id: currentWord["_id"],
+      english_word: currentWord.english_word,
       lang_id: langID,
     };
 
     if (input) {
-      const correct =
-        direction === "fo_en"
-          ? input.toLowerCase().trim() == currentWord.translation[langID].toLowerCase()
-          : input.toLowerCase().trim() == currentWord.english_word.toLowerCase();
+      let wellJustFakeIt = false;
+      let correct;
 
-      if (correct) {
+      if (!currentWord.translation[langID]) {
+        // TODO: WHY CAN THIS EVEN HAPPEN? IT SHOULD NOT APPEAR FOR THIS LANGUAGE THEN!!!
+        console.error("Word not found in current language.");
+        wellJustFakeIt = true;
+      } else {
+        correct =
+          direction === "fo_en"
+            ? input.toLowerCase().trim() == currentWord.translation[langID].toLowerCase()
+            : input.toLowerCase().trim() == currentWord.english_word.toLowerCase();
+      }
+
+      if (correct || wellJustFakeIt) {
         // Word correct
         // TODO: graphic reaction
         setIterate(iterate + 1);
@@ -114,13 +123,13 @@ const VocabularyTraining_Queries = (props) => {
     const numberOfVocab = props.numberOfVocabs;
 
     // VocabIds Aus DB:Progresses
-    const ids = [];
+    const en_words = [];
     sortedVocab.forEach((vocab) => {
-      ids.push(vocab.vocab_id);
+      en_words.push(vocab.english_word);
     });
 
     // Vocabs from DB:Vocabs
-    const vocabFromDb = await getVocabsById(ids).then((data) => {
+    const vocabFromDb = await getVocabsById(en_words).then((data) => {
       return data.data;
     });
 
