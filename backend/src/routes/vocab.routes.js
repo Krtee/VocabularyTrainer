@@ -205,8 +205,6 @@ vocabRoutes.post("/insert", (req, res) => {
             // If requested vocab doesn't exist at all or if it doesn't exist in requested language
             if (existingVocab == null || (existingVocab != null && !existsInSelectedLanguage)) {
 
-                console.log("*** IBM API has to be called");
-
                 const languageTranslator = new LanguageTranslatorV3({
                     version: '2018-05-01',
                     authenticator: new IamAuthenticator({
@@ -234,7 +232,6 @@ vocabRoutes.post("/insert", (req, res) => {
                                 console.log(`${english_word} > ${translation}`);
                                 // Check if API found a translation
                                 if (english_word == translation.toLowerCase()) {
-                                    console.log("*** Words are identical. Means that word does not exist");
                                     // When the API doesn't know a translation for an English input word, 
                                     // it always returns the input word.
                                     return res.status(200).json({ success: false, error: "Unknown word. Please check the spelling." });
@@ -273,8 +270,6 @@ vocabRoutes.post("/insert", (req, res) => {
 
 
             } else { // If requested vocab already exists in Vocab collection
-
-                console.log("*** Word already exists");
 
                 Progress.find((err, list) => {
                     var existsInPersonalCollection = false;
