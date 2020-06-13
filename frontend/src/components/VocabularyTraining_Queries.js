@@ -26,7 +26,6 @@ const VocabularyTraining_Queries = (props) => {
   const [input, setInput] = useState("");
   const [iterate, setIterate] = useState(0);
   const [message, setMessage] = useState(null);
-  const [trainingVorab, setTrainingVorab] = useState([]);
 
   useEffect(() => {
     const query = { user_id: user, language_id: langID, progress: progress };
