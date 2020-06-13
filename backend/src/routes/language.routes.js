@@ -57,9 +57,8 @@ router.post("/", (req, res, next) => {
         error: err.message,
       });
     }
-    res.status(200).send({
+    res.send({
       success: true,
-      data: result,
       message: "User created successfully",
     });
   });

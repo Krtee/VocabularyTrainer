@@ -3,7 +3,11 @@ import axios from "axios";
 // constants
 const url = "http://localhost:8080";
 
+
 // User -------------------------------------------------------------
+  const getStatus = async () => {
+    return axios.get(`${url}/Users/status`)
+  }
 
 const createUser = async (data) => {
   try {
@@ -20,6 +24,23 @@ const fetchUsers = async () => {
     console.error(error);
   }
 };
+
+const getIdForUserName = async (data) => {
+  try {
+    const res = await axios.post(`${url}/Users/getIdForUserName`, data);
+    return res.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+const getUser = async (userId) => {
+  try {
+    return await axios.get(`${url}/Users/${userId}`)
+  } catch (error) {
+    console.error(error)
+  }
+}
 
 const editUser = async (userId,data) => {
   try {
@@ -90,9 +111,9 @@ const getProgress = async () => {
   }
 };
 
-const getProgressByVocabId = async (id) => {
+const searchProgress = async (data) => {
   try {
-    const res = await axios.get(`${url}/Vocab/getProgressByVocabId`, {params: {id: id}});
+    const res = await axios.post(`${url}/Vocab/searchProgress`, data);
     return res.data ? (res.data ? res.data.data : res) : res;
   } catch (error) {
     console.error(error);
@@ -144,6 +165,15 @@ const getProgressForUserAndLanguage = async (data) => {
   }
 };
 
+const createProgress = async (data) => {
+  try {
+    const res = await axios.post(`${url}/Vocab/createProgress`, data);
+    return res.data ? (res.data ? res.data.data : res) : res;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 
 export default {
   language: {
@@ -152,7 +182,8 @@ export default {
   user: {
     createUser: (data) => createUser(data),
     fetchUsers: () => fetchUsers(),
-    editUser: (id,data) => editUser(id,data)
+    editUser: (id,data) => editUser(id,data),
+    getIdForUserName: (data) => getIdForUserName(data)
   },
   vocab: {
     insert: (data) => insertVocab(data),
@@ -162,11 +193,15 @@ export default {
   },
   progress: {
     getProgress: () => getProgress(),
-    getProgressByVocabId: (id) => getProgressByVocabId(id),
+    searchProgress: (data) => searchProgress(data),
     filterProgress: (id) => filterProgress(id),
     getProgressForUserAndLanguage: (data) => getProgressForUserAndLanguage(data),
     increaseRGIAR: (data) => increaseRGIAR(data),
     resetRGIAR: (data) => resetRGIAR(data),
     increaseProgress: (data) => increaseProgress(data),
+    createProgress: (data)=> createProgress(data)
+  }, 
+  status: {
+    get: () => getStatus(),
   }
 };

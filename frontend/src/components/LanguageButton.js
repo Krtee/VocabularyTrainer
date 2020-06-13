@@ -1,5 +1,4 @@
-import React, { useGlobal} from "reactn";
-
+import React, { useGlobal, useState } from "reactn";
 
 const LanguageButton = (props) => {
   const { language, id } = props.language;

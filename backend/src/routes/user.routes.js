@@ -2,6 +2,10 @@ const express = require('express');
 const userRoutes = express.Router();
 const User = require('../models/user.model'); // user model
 
+userRoutes.get("/status", (req, res) => {
+   return res.status(200).send({status: "ok"})
+})
+
 /* Get all User */
 userRoutes.get('/', (req, res, next) => {
     User.find({} , function(err, result){
@@ -53,8 +57,6 @@ userRoutes.post("/", (req, res, next) => {
     };
     User.create(newUser, function(err, result) {
         if(err){
-            console.log("didn't work");
-
             res.status(400).send({
                 success: false,
                 error: err.message
@@ -104,6 +106,20 @@ userRoutes.delete("/:user_id", (req, res, next) => {
             message: "User deleted successfully"
         });
     });
+});
+
+userRoutes.post("/getIdForUserName", (req, res) => {
+    const { userName } = req.body;
+
+    User.findOne({ username: userName }, (err, data) => {
+        if (err) {
+            console.error(err);
+            return res.json({ success: false, error: err });
+        }
+        const userId = data._id;
+        return res.json({ userId:userId });
+    });
+
 });
 
 

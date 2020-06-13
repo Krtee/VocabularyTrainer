@@ -14,14 +14,19 @@ const getVocabsById = async (id) => {
 const VocabularyTraining_Queries = (props) => {
   const [trainingVorab, setTrainingVorab] = useState([]);
   const [langID] = useGlobal("langID");
-  const [iterate, setIterate] = useState(0);
-  const [input, setInput] = useState("");
-  const [summary, setSummary] = useGlobal("summary");
-  const [user, ] = useGlobal("user");
+  const [langName, setLangName] = useGlobal("langName");
   const [progress] = useGlobal("progress");
-  const [message, setMessage] = useState(null);
-  const [help, setHelp] = useState(null);
+  const [summary, setSummary] = useGlobal("summary");
+  const [user, setUser] = useGlobal("user");
+  const [progressSetting] = useGlobal("progressSetting");
+  const [direction] = useGlobal("direction");
+
   const [falseInputCount, setFalseInputCount] = useState(0);
+  const [help, setHelp] = useState(null);
+  const [input, setInput] = useState("");
+  const [iterate, setIterate] = useState(0);
+  const [message, setMessage] = useState(null);
+  const [trainingVorab, setTrainingVorab] = useState([]);
 
   useEffect(() => {
     const query = { user_id: user, language_id: langID, progress: progress };
@@ -50,32 +55,44 @@ const VocabularyTraining_Queries = (props) => {
 
     const idObj = {
       user_id: user,
-      vocab_id: currentWord["_id"],
+      english_word: currentWord.english_word,
       lang_id: langID,
     };
 
-    //TODO: What do do if word is wrong? Decrease progress? Or just reset RGIAR
-
     if (input) {
-      if (input.toLowerCase().trim() === currentWord.translation[langID].toLowerCase()) {
+      let wellJustFakeIt = false;
+      let correct;
+
+      if (!currentWord.translation[langID]) {
+        // TODO: WHY CAN THIS EVEN HAPPEN? IT SHOULD NOT APPEAR FOR THIS LANGUAGE THEN!!!
+        console.error("Word not found in current language.");
+        wellJustFakeIt = true;
+      } else {
+        correct =
+          direction === "fo_en"
+            ? input.toLowerCase().trim() == currentWord.translation[langID].toLowerCase()
+            : input.toLowerCase().trim() == currentWord.english_word.toLowerCase();
+      }
+
+      if (correct || wellJustFakeIt) {
         // Word correct
         // TODO: graphic reaction
         setIterate(iterate + 1);
         setInput("");
-        setHelp("")
+        setHelp("");
 
         // progressObj contains the ProgressObj before the update!
         const progressObj = await api.progress.increaseRGIAR(idObj);
 
         if (progressObj.progress === 1) {
-          if (progressObj.right_guesses_in_a_row === 2) {
+          if (progressObj.right_guesses_in_a_row === progressSetting - 1) {
             api.progress.increaseProgress(idObj);
             console.info("%c Progress updated!", "Background: #00ff55");
           }
         } else if (progressObj.progress === 2) {
           if (
-            progressObj.right_guesses_in_a_row === 2 ||
-            progressObj.right_guesses_in_a_row === 5
+            progressObj.right_guesses_in_a_row === progressSetting - 1 ||
+            progressObj.right_guesses_in_a_row === progressSetting * 2 - 1
           ) {
             api.progress.increaseProgress(idObj);
             console.info("%c Progress updated!", "Background: #33ff77");
@@ -108,13 +125,13 @@ const VocabularyTraining_Queries = (props) => {
     const numberOfVocab = props.numberOfVocabs;
 
     // VocabIds Aus DB:Progresses
-    const ids = [];
+    const en_words = [];
     sortedVocab.forEach((vocab) => {
-      ids.push(vocab.vocab_id);
+      en_words.push(vocab.english_word);
     });
 
     // Vocabs from DB:Vocabs
-    const vocabFromDb = await getVocabsById(ids).then((data) => {
+    const vocabFromDb = await getVocabsById(en_words).then((data) => {
       return data.data;
     });
 
@@ -145,8 +162,10 @@ const VocabularyTraining_Queries = (props) => {
   };
 
   const resetMessageIn5s = () => {
-    setTimeout(() => { setMessage(null); }, 5000);
-  }
+    setTimeout(() => {
+      setMessage(null);
+    }, 5000);
+  };
 
   return (
     <div className="margin_top">

@@ -8,7 +8,7 @@ class LogInForms extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
+  handleChange(event) {    
     const target = event.target;
     const value = target.value;
     const name = target.name;
