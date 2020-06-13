@@ -182,24 +182,6 @@ vocabRoutes.post("/increaseProgress", (req, res) => {
     );
   });
 
-  vocabRoutes.post("/getVocabAndTranslation", (req, res) => {
-    const { english_word, lang_id } = req.body;
-    var vocab = "";
-    var translation = "";
-  
-    Vocab.findOne({ english_word: english_word }, (err, data) => {
-      if (err || !data) {
-        // console.error(err);
-        return res.json({ success: false, error: err });
-      }
-      try {
-        return res.json({ vocab: data.english_word, translation: data.translation[lang_id] });
-      } catch (error) {
-        console.error(error);
-      }
-    });
-  });
-  
 
 vocabRoutes.post("/getVocabAndTranslation", (req, res) => {
   const { english_word, lang_id } = req.body;
@@ -355,7 +337,7 @@ async function getTranslation(lang_id, en_word) {
   const translation = ibmRes.result.translations[0].translation;
 
   // Check if API found a translation
-  if (en_word === translation.toLowerCase()) {
+  if (en_word == translation.toLowerCase()) {
     console.log("\x1b[41m\x1b[30m%s\x1b[0m", "IBM SEEMS NOT TO KNOW THIS WORD:", " ", en_word);
 
     // When the API doesn't know a translation for an English input word,
