@@ -18,13 +18,13 @@ vocabRoutes.post("/getByIdArray", (req, res) => {
   const query = { english_word: { $in: en_words } };
 
   Vocab.find(query, function (err, result) {
-  if (err) {
-    res.status(400).send({
-      success: false,
-      error: err.message,
-    });
-  }
-  res.status(200).send({
+    if (err) {
+      res.status(400).send({
+        success: false,
+        error: err.message,
+      });
+    }
+    res.status(200).send({
       success: true,
       data: result,
     });
@@ -74,9 +74,9 @@ vocabRoutes.post("/createProgress", (req, res) => {
   Progress.find(
     { english_word: english_word, user_id: user_id, language_id: language_id },
     (entry) => {
-        if (entry !== null) {
-            res.json({ success: true, data: entry })
-        }
+      if (entry !== null) {
+        res.json({ success: true, data: entry });
+      }
     }
   );
 
@@ -94,9 +94,7 @@ vocabRoutes.post("/createProgress", (req, res) => {
   return res.json({ success: true, data: prog });
 });
 
-
 vocabRoutes.post("/searchProgress", (req, res) => {
-  
   Progress.findOne(req.body, (err, data) => {
     if (err) {
       // console.error(err);
@@ -141,7 +139,7 @@ vocabRoutes.post("/increaseRGIAR", (req, res) => {
         console.error(err);
         return res.json({ success: false, error: err });
       }
-      console.info("%c Updated: ", "background: #0f0", data)
+      console.info("%c Updated: ", "background: #0f0", data);
       return res.json({ success: true, data: data });
     }
   );
@@ -151,13 +149,13 @@ vocabRoutes.post("/resetRGIAR", (req, res) => {
   const { user_id, lang_id, english_word } = req.body;
   Progress.findOneAndUpdate(
     { user_id: user_id, language_id: lang_id, english_word: english_word },
-    { right_guesses_in_a_row: 0  },
+    { right_guesses_in_a_row: 0 },
     (err, data) => {
       if (err) {
         console.error(err);
         return res.json({ success: false, error: err });
       }
-      console.info("%c reset: > ", "background: #0f0", data)
+      console.info("%c reset: > ", "background: #0f0", data);
       return res.json({ success: true, data: data });
     }
   );
@@ -167,26 +165,23 @@ vocabRoutes.post("/resetRGIAR", (req, res) => {
  * Increase progress by one
  */
 vocabRoutes.post("/increaseProgress", (req, res) => {
-    const { user_id, lang_id, english_word } = req.body;
-    Progress.findOneAndUpdate(
-      { user_id: user_id, language_id: lang_id, english_word: english_word },
-      { $inc: { progress: 1 } },
-      (err, data) => {
-        if (err) {
-          console.error(err);
-          return res.json({ success: false, error: err });
-        }
-        console.info("%c Updated: ", "background: #0f0", data)
-        return res.json({ success: true, data: data });
+  const { user_id, lang_id, english_word } = req.body;
+  Progress.findOneAndUpdate(
+    { user_id: user_id, language_id: lang_id, english_word: english_word },
+    { $inc: { progress: 1 } },
+    (err, data) => {
+      if (err) {
+        console.error(err);
+        return res.json({ success: false, error: err });
       }
-    );
-  });
-
+      console.info("%c Updated: ", "background: #0f0", data);
+      return res.json({ success: true, data: data });
+    }
+  );
+});
 
 vocabRoutes.post("/getVocabAndTranslation", (req, res) => {
   const { english_word, lang_id } = req.body;
-  var vocab = "";
-  var translation = "";
 
   Vocab.findOne({ english_word: english_word }, (err, data) => {
     if (err || !data) {
@@ -200,7 +195,6 @@ vocabRoutes.post("/getVocabAndTranslation", (req, res) => {
     }
   });
 });
-
 
 // adds new data
 vocabRoutes.post("/insert", (req, res) => {
@@ -240,7 +234,7 @@ vocabRoutes.post("/insert", (req, res) => {
 
         const translation = await getTranslation(lang_id, english_word);
         if (translation.status !== 200) {
-          return res.status(translation.status).json(translation);
+          return res.status(translation.status).send("Word not found. Please try another.");
         }
 
         // Word does not exist --> create new db entry with first translation
@@ -280,7 +274,7 @@ vocabRoutes.post("/insert", (req, res) => {
       } // IS in collection
 
       // if all good
-      return res.status(200).json({ success: true });
+      return res.status(200).json({ success: true, message: "Word added to database!" });
     });
   } catch (error) {
     console.error(error);
@@ -345,21 +339,6 @@ async function getTranslation(lang_id, en_word) {
     return { status: 502, error: "Unknown word. Please check the spelling." };
   }
   return { status: 200, translation: translation };
-}
-
-function createProgress(user_id, vocab_id, language_id) {
-  const prog = new Progress();
-  prog.user_id = user_id;
-  prog.vocab_id = vocab_id;
-  prog.language_id = language_id;
-  prog.progress = 1;
-  prog.right_guesses_in_a_row = 0;
-
-  // TODO: Error nicht hier abfangen! True/false zurückliefern und dann in /insert entsprechend reagieren
-  prog.save((err) => {
-    if (err) return false;
-  });
-  return true;
 }
 
 module.exports = vocabRoutes;

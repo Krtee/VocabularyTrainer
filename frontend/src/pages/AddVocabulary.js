@@ -28,13 +28,14 @@ const AddVocabulary = () => {
       english_word: textinput.current.value,
       user_id: user,
     };
-
-    const res = await api.vocab.insert(data);
-    if(res.success === true) {
-      setInfo(res.info);
+    const res = await api.vocab.insert(data)
+    if(res.status === 200) {
+      await api.progress.createProgress(data)
+      setInfo(res.data.message);
       setColor("right");
     } else {
-      setInfo(res.error);
+      console.log("addVocab -> res", res)
+      setInfo("Word not found. Please try another one.");
       setColor("wrong");
     }
     setLoading(false)
@@ -76,7 +77,7 @@ const AddVocabulary = () => {
           </button>
         </Link>
       </form>
-      <div className={"inline_block margin_top " + color}>{info}</div>
+      <div className={"p-1 inline_block margin_top " + color}>{info}</div>
     </div>
   );
 };

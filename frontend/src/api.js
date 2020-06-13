@@ -57,9 +57,9 @@ const getVocabs = async () => {
 const insertVocab = async (data) => {
   try {
     const res = await axios.post(`${url}/Vocab/insert`, data);
-    return res.data;
+    return res;
   } catch (error) {
-    console.error(error);
+    return error
   }
 };
 
