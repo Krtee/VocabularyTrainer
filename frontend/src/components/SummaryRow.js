@@ -19,6 +19,7 @@ const SummaryRow = (props) => {
     getProgress(english_word, user, langID).then((data) => {
       setProgress(data);
     });
+    // eslint-disable-next-line
   }, []);
 
   return (

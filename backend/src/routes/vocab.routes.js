@@ -18,13 +18,13 @@ vocabRoutes.post("/getByIdArray", (req, res) => {
   const query = { english_word: { $in: en_words } };
 
   Vocab.find(query, function (err, result) {
-  if (err) {
-    res.status(400).send({
-      success: false,
-      error: err.message,
-    });
-  }
-  res.status(200).send({
+    if (err) {
+      res.status(400).send({
+        success: false,
+        error: err.message,
+      });
+    }
+    res.status(200).send({
       success: true,
       data: result,
     });
@@ -182,6 +182,24 @@ vocabRoutes.post("/increaseProgress", (req, res) => {
     );
   });
 
+  vocabRoutes.post("/getVocabAndTranslation", (req, res) => {
+    const { english_word, lang_id } = req.body;
+    var vocab = "";
+    var translation = "";
+  
+    Vocab.findOne({ english_word: english_word }, (err, data) => {
+      if (err || !data) {
+        // console.error(err);
+        return res.json({ success: false, error: err });
+      }
+      try {
+        return res.json({ vocab: data.english_word, translation: data.translation[lang_id] });
+      } catch (error) {
+        console.error(error);
+      }
+    });
+  });
+  
 
 vocabRoutes.post("/getVocabAndTranslation", (req, res) => {
   const { english_word, lang_id } = req.body;

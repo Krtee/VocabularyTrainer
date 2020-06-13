@@ -34,14 +34,6 @@ const getIdForUserName = async (data) => {
   }
 }
 
-const getUser = async (userId) => {
-  try {
-    return await axios.get(`${url}/Users/${userId}`)
-  } catch (error) {
-    console.error(error)
-  }
-}
-
 const editUser = async (userId,data) => {
   try {
     return await axios.patch(`${url}/Users/${userId}`,{data})
@@ -73,9 +65,9 @@ const getVocabs = async () => {
 const insertVocab = async (data) => {
   try {
     const res = await axios.post(`${url}/Vocab/insert`, data);
-    return res.data;
+    return res;
   } catch (error) {
-    console.error(error);
+    return error
   }
 };
 
