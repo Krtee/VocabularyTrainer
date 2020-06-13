@@ -2,8 +2,8 @@ import React, { useGlobal } from "reactn";
 import SummaryRow from "../components/SummaryRow";
 
 const VocabularyTraining_Summary = (props) => {
-  const [summary, setSummary] = useGlobal("summary");
-  const [langID, setLangID] = useGlobal("langID");
+  const [summary, ] = useGlobal("summary");
+  const [langID, ] = useGlobal("langID");
   const [user] = useGlobal("user");
 
   let i = 0;
@@ -31,7 +31,6 @@ const VocabularyTraining_Summary = (props) => {
             english_word={entry.currentWord.english_word}
             langID={langID}
             user={user}
-            key={i}
           />
         );
       })}

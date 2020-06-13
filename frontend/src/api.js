@@ -34,14 +34,6 @@ const getIdForUserName = async (data) => {
   }
 }
 
-const getUser = async (userId) => {
-  try {
-    return await axios.get(`${url}/Users/${userId}`)
-  } catch (error) {
-    console.error(error)
-  }
-}
-
 const editUser = async (userId,data) => {
   try {
     return await axios.patch(`${url}/Users/${userId}`,{data})

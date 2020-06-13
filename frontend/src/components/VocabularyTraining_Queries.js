@@ -14,10 +14,9 @@ const getVocabsById = async (id) => {
 const VocabularyTraining_Queries = (props) => {
   const [trainingVorab, setTrainingVorab] = useState([]);
   const [langID] = useGlobal("langID");
-  const [langName, setLangName] = useGlobal("langName");
   const [progress] = useGlobal("progress");
   const [summary, setSummary] = useGlobal("summary");
-  const [user, setUser] = useGlobal("user");
+  const [user, ] = useGlobal("user");
   const [progressSetting] = useGlobal("progressSetting");
   const [direction] = useGlobal("direction");
 
@@ -69,8 +68,8 @@ const VocabularyTraining_Queries = (props) => {
       } else {
         correct =
           direction === "fo_en"
-            ? input.toLowerCase().trim() == currentWord.translation[langID].toLowerCase()
-            : input.toLowerCase().trim() == currentWord.english_word.toLowerCase();
+            ? input.toLowerCase().trim() === currentWord.translation[langID].toLowerCase()
+            : input.toLowerCase().trim() === currentWord.english_word.toLowerCase();
       }
 
       if (correct || wellJustFakeIt) {

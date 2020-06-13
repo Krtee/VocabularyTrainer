@@ -48,9 +48,9 @@ const VocabularyList = (props) => {
   useEffect(() => {
     getProgressForUserAndLanguage(user, langID).then((data) => {
       setProg(data);
-
       setLoading(false);
     });
+    // eslint-disable-next-line
   }, []);
 
   if (!auth) {
