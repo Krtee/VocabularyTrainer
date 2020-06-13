@@ -16,7 +16,7 @@ const VocabularyTraining_Queries = (props) => {
   const [langID] = useGlobal("langID");
   const [progress] = useGlobal("progress");
   const [summary, setSummary] = useGlobal("summary");
-  const [user, ] = useGlobal("user");
+  const [user] = useGlobal("user");
   const [progressSetting] = useGlobal("progressSetting");
   const [direction] = useGlobal("direction");
 
@@ -42,6 +42,7 @@ const VocabularyTraining_Queries = (props) => {
 
   const handleSkip = () => {
     setIterate(iterate + 1);
+    setInput("");
   };
 
   const handleSubmit = async (event) => {
@@ -100,7 +101,7 @@ const VocabularyTraining_Queries = (props) => {
         }
       } else {
         api.progress.resetRGIAR(idObj);
-
+        setHelp("Unfortunately not correct!");
         const newInputCount = falseInputCount + 1;
         setFalseInputCount(newInputCount);
         if (falseInputCount >= 1) {
@@ -108,7 +109,8 @@ const VocabularyTraining_Queries = (props) => {
             props.direction === "fo_en"
               ? currentWord.translation[langID]
               : currentWord.english_word;
-          setHelp(translationByDirection);
+          setHelp(`Translation: ${translationByDirection}`);
+          setFalseInputCount(0);
         }
       }
     }
@@ -188,7 +190,7 @@ const VocabularyTraining_Queries = (props) => {
               value={input}
             />
           </div>
-          {help ? <p className="alert-success">Translation: {help}</p> : null}
+          {help ? <p className="alert-warning">{help}</p> : null}
           <button type="submit" className="btn btn-primary" onClick={handleSubmit}>
             Submit and continue
           </button>
