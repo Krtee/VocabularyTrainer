@@ -49,7 +49,6 @@ const VocabularyList = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [vocabsPerPage ] = useState(50);
 
-  console.log("______________ neuer List-Aufbau ______________");
 
   useEffect(() => {
     getProgressForUserAndLanguage(user, langID).then((data) => {
@@ -63,13 +62,11 @@ const VocabularyList = (props) => {
     return <Redirect to="/" />;
   }
 
-  var i = 0;
+  var key = 0;
 
   const indexOfLastVocab = currentPage * vocabsPerPage;
   const indexOfFirstVocab = indexOfLastVocab - vocabsPerPage;
   const currentVocabs = prog.slice(indexOfFirstVocab, indexOfLastVocab);
-
-  //console.log("*** currentVocabs: " + JSON.stringify(currentVocabs));
 
   // Change page
 
@@ -92,7 +89,7 @@ const VocabularyList = (props) => {
 
         {!loading && currentVocabs && currentVocabs.length > 0 ? (
           currentVocabs.map((progressObject) => {
-            return <VocabRow key={i++} english_word={progressObject.english_word} progress={progressObject.progress} />;
+            return <VocabRow key={new Date().getTime() + (key++) } english_word={progressObject.english_word} progress={progressObject.progress} translation=""/>;
           })
         ) : (
           <div className="spinner-border m-5" role="status">

@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { useState } from "reactn";
 
 const Pagination = ({ vocabsPerPage, totalVocabs, paginate }) => {
     const pageNumbers = [];
+    const [currentPage, setCurrentPage] = useState(1);
 
     for (let i = 1; i <= Math.ceil(totalVocabs / vocabsPerPage); i++) {
         pageNumbers.push(i);
     }
 
+    const handleClick = (number) => {
+        paginate(number);
+        setCurrentPage(number);
+    }
+
+    const checkIfCurrentPage = (number) => {
+        if (currentPage === number) {
+            return "page_link_active";
+        } else {
+            return "";
+        }
+    }
 
     return (
         <nav className="margin_top">
@@ -14,9 +27,9 @@ const Pagination = ({ vocabsPerPage, totalVocabs, paginate }) => {
                 {
                     pageNumbers.map(number => (
                         <li key={number} className="page-item">
-                            <a onClick={() => paginate(number)} className="page-link">
+                            <span onClick={() => handleClick(number) } className={"page-link page_link " + checkIfCurrentPage(number)}>
                                 {number}
-                            </a>
+                            </span>
                         </li>
 
                     ))
