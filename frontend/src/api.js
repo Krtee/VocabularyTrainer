@@ -50,6 +50,14 @@ const editUser = async (userId,data) => {
   }
 }
 
+const deleteUser = async (userId) =>{
+  try {
+    return await axios.delete(`${url}/Users/${userId}`)
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 
 // Vocab ------------------------------------------------------------
 
@@ -183,7 +191,8 @@ export default {
     createUser: (data) => createUser(data),
     fetchUsers: () => fetchUsers(),
     editUser: (id,data) => editUser(id,data),
-    getIdForUserName: (data) => getIdForUserName(data)
+    getIdForUserName: (data) => getIdForUserName(data),
+    deleteUser: (data)=> deleteUser(data)
   },
   vocab: {
     insert: (data) => insertVocab(data),

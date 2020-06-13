@@ -1,6 +1,6 @@
 import React, { useGlobal, useState } from "reactn";
 import SignUpButton from "../components/SignUpButton";
-import "../style.css";
+import "../style.scss";
 import api from "../api";
 import PromiseB from "bluebird";
 import { Redirect } from "react-router-dom";

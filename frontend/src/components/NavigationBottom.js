@@ -35,10 +35,16 @@ const NavigationBottom = (props) => {
 
     return (
         <div>
+            <style>
+                {`
+                .navItem{
+                }
+                `}
+            </style>
             <Navbar>
                 <Nav className="fixed-bottom">
                     <Container className={"justify-content-center navcontainer"}>
-                        <Row className={'navrow'}>
+                        <Row className={'navrow'} style={{backgroundColor: "white"}}>
                             <Col className={active1}>
                                 <LinkContainer className={'navItem'} to="/VocabularyTraining">
                                     <NavItem>

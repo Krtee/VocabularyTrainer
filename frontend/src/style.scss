@@ -49,6 +49,7 @@ a {
 
 a:hover {
     text-decoration: none !important;
+
 }
 
 .box {
@@ -65,6 +66,8 @@ a:hover {
 
 #navbar a:active{
     color: #007bff;
+    border-radius : 5px;
+
 }
 
 #content {
@@ -90,7 +93,7 @@ a:hover {
 .vocabulary_training .vocabulary_training,
 .settings .settings
 {
-    color: #007bff !important;
+    //color: #007bff !important;
 }
 
 
@@ -126,9 +129,15 @@ div#language_menu {
     padding: .5rem 1rem;
 }
 
-.menu_option:hover {
-    color: #007bff !important;
+.menu_option {
+    border-radius : 5px;
 }
+.menu_option:hover{
+    border-radius : 5px;
+    color: white !important;
+    background-color: #61adff;
+}
+
 
 
 /* ---------- VocabularyList ---------- */

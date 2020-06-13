@@ -75,7 +75,7 @@ userRoutes.patch("/:user_id", (req, res, next) => {
     let fieldsToUpdate = req.body;
     console.log(fieldsToUpdate)
     if(req.params.user_id!=null) {
-        User.findByIdAndUpdate(req.params.user_id, {$set: fieldsToUpdate}, {new: true,useFindAndModify: false}, function (err, result) {
+        User.findByIdAndUpdate(req.params.user_id, {$set: fieldsToUpdate.data}, {new: true,useFindAndModify: false}, function (err, result) {
             if (err) {
                 res.status(400).send({
                     success: false,

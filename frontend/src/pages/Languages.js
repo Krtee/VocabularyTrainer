@@ -1,4 +1,4 @@
-import "../style.css";
+import "../style.scss";
 import React, { useEffect, useState } from "react";
 import ReducedNavigation from "../components/ReducedNavigation";
 import { Redirect } from "react-router-dom";

@@ -1,4 +1,4 @@
-import "../style.css";
+import "../style.scss";
 import React, { useGlobal, useState } from "reactn";
 import NavigationTop from "../components/NavigationTop";
 import Options from "../components/VocabularyTraining_Options";
@@ -6,6 +6,7 @@ import Queries from "../components/VocabularyTraining_Queries";
 import Summary from "../components/VocabularyTraining_Summary";
 import { Redirect } from "react-router";
 import NavigationBottom from "../components/NavigationBottom";
+import useWindowDimensions from "../components/Windowsize";
 
 function VocabularyTraining() {
   const [auth, ] = useGlobal("auth");
@@ -19,6 +20,8 @@ function VocabularyTraining() {
   const [progress, setProgress] = useGlobal("progress");
   const [direction, setDirection] = useGlobal("direction");
   const [language, ] = useGlobal("language");
+  let {height, width} = useWindowDimensions();
+
 
   if (!auth) {
     return <Redirect to="/" />;
@@ -72,8 +75,8 @@ function VocabularyTraining() {
 
   return (
     <div id="content" className="vocabulary_training">
-      <NavigationTop />
-      <NavigationBottom page={'VocabularyTraining'}/>
+      <NavigationTop width={width} />
+      {width < 700 && <NavigationBottom page={'VocabularyTraining'}/>}
       <h1>Vocabulary Training</h1>
       {showOptions && !savedSettings ? (
         <Options receiveInput={receiveInput} showButton={!savedSettings} onClick={changeView} />

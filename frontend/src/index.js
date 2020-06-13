@@ -2,7 +2,7 @@ import React, { setGlobal } from "reactn";
 import { render } from "react-dom";
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./style.css";
+import "./style.scss";
 
 // FIXME: FOR DEV REASONS SET ON TRUE, BUT SET FALSE FOR PRODUCTIVE!
 // FIXME: REMOVE USERID AND LANGNAME AND LANGID BEFORE RELEASE!

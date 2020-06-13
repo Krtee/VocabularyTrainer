@@ -1,4 +1,4 @@
-import "../style.css";
+import "../style.scss";
 import NavigationTop from "../components/NavigationTop";
 /* import axios from "axios";
  */import { Redirect } from "react-router";
@@ -6,6 +6,7 @@ import React, { useGlobal, useState, createRef } from "reactn";
 import api from "../api";
 import { Link } from "react-router-dom";
 import NavigationBottom from "../components/NavigationBottom";
+import useWindowDimensions from "../components/Windowsize";
 
 const AddVocabulary = () => {
   let textinput = createRef();
@@ -15,6 +16,7 @@ const AddVocabulary = () => {
   const [info, setInfo] = useState("");
   const [user, ] = useGlobal("user");
   const [loading, setLoading] = useState(false)
+  let {height, width} = useWindowDimensions();
 
   if (!auth) {
     return <Redirect to="/" />;
@@ -43,8 +45,8 @@ const AddVocabulary = () => {
 
   return (
     <div id="content" className="add_vocabulary">
-      <NavigationTop />
-      <NavigationBottom page={'AddVocabulary'}/>
+      <NavigationTop width={width}/>
+      {width < 700 && <NavigationBottom page={'AddVocabulary'}/>}
       <form>
         <h1>Add vocabulary</h1>
         <h2>Enter the word you want to add</h2>
