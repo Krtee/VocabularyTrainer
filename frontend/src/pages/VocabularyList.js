@@ -4,6 +4,7 @@ import NavigationTop from "../components/NavigationTop";
 import { Redirect } from "react-router";
 import api from "../api";
 import VocabRow from "../components/VocabRow";
+import Pagination from "../components/Pagination";
 import NavigationBottom from "../components/NavigationBottom";
 
 const getProgressForUserAndLanguage = async (user_id, lang_id) => {
@@ -45,6 +46,11 @@ const VocabularyList = (props) => {
   const [prog, setProg] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [vocabsPerPage ] = useState(50);
+
+  console.log("______________ neuer List-Aufbau ______________");
+
   useEffect(() => {
     getProgressForUserAndLanguage(user, langID).then((data) => {
       setProg(data);
@@ -59,6 +65,18 @@ const VocabularyList = (props) => {
 
   var i = 0;
 
+  const indexOfLastVocab = currentPage * vocabsPerPage;
+  const indexOfFirstVocab = indexOfLastVocab - vocabsPerPage;
+  const currentVocabs = prog.slice(indexOfFirstVocab, indexOfLastVocab);
+
+  //console.log("*** currentVocabs: " + JSON.stringify(currentVocabs));
+
+  // Change page
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  }
+
   //TODO catch data as json from database
   return (
     <div id="content" className="vocabulary_list">
@@ -72,15 +90,16 @@ const VocabularyList = (props) => {
           <div className="col-xl-1 col-lg-2 col-md-3 col-4 vocabulary_list_header">Progress</div>
         </div>
 
-        {!loading && prog && prog.length > 0 ? (
-          prog.map((progress) => {
-            return <VocabRow key={i++} prog={progress} />;
+        {!loading && currentVocabs && currentVocabs.length > 0 ? (
+          currentVocabs.map((progressObject) => {
+            return <VocabRow key={i++} english_word={progressObject.english_word} progress={progressObject.progress} />;
           })
         ) : (
           <div className="spinner-border m-5" role="status">
             <span className="sr-only">Loading...</span>
           </div>
         )}
+        <Pagination vocabsPerPage={vocabsPerPage} totalVocabs={prog.length} paginate={paginate}/>
       </div>
     </div>
   );
