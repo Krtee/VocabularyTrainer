@@ -167,9 +167,9 @@ vocabRoutes.post("/resetRGIAR", (req, res) => {
  * Increase progress by one
  */
 vocabRoutes.post("/increaseProgress", (req, res) => {
-    const { user_id, lang_id, language_id } = req.body;
+    const { user_id, lang_id, english_word } = req.body;
     Progress.findOneAndUpdate(
-      { user_id: user_id, language_id: lang_id, language_id: language_id },
+      { user_id: user_id, language_id: lang_id, english_word: english_word },
       { $inc: { progress: 1 } },
       (err, data) => {
         if (err) {
