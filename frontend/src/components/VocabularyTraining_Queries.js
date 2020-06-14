@@ -41,6 +41,8 @@ const VocabularyTraining_Queries = (props) => {
   }, []);
 
   const handleSkip = () => {
+    setHelp("");
+    setFalseInputCount(0);
     setIterate(iterate + 1);
     setInput("");
   };
@@ -79,6 +81,7 @@ const VocabularyTraining_Queries = (props) => {
         setIterate(iterate + 1);
         setInput("");
         setHelp("");
+        setFalseInputCount(0);
 
         // progressObj contains the ProgressObj before the update!
         const progressObj = await api.progress.increaseRGIAR(idObj);
@@ -109,8 +112,7 @@ const VocabularyTraining_Queries = (props) => {
             props.direction === "fo_en"
               ? currentWord.translation[langID]
               : currentWord.english_word;
-          setHelp(`Translation: ${translationByDirection}`);
-          setFalseInputCount(0);
+          setHelp(`Correct translation: ${translationByDirection} \nPlease type it in to increase your learning effect.`);
         }
       }
     }
