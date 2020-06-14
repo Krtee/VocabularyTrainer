@@ -4,6 +4,7 @@ import NavigationTop from "../components/NavigationTop";
 import { Redirect } from "react-router";
 import api from "../api";
 import VocabRow from "../components/VocabRow";
+import Pagination from "../components/Pagination";
 import NavigationBottom from "../components/NavigationBottom";
 import useWindowDimensions from "../components/Windowsize";
 
@@ -49,6 +50,10 @@ const VocabularyList = (props) => {
 
 
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [vocabsPerPage ] = useState(50);
+
+
   useEffect(() => {
     getProgressForUserAndLanguage(user, langID).then((data) => {
       setProg(data);
@@ -61,7 +66,17 @@ const VocabularyList = (props) => {
     return <Redirect to="/" />;
   }
 
-  var i = 0;
+  var key = 0;
+
+  const indexOfLastVocab = currentPage * vocabsPerPage;
+  const indexOfFirstVocab = indexOfLastVocab - vocabsPerPage;
+  const currentVocabs = prog.slice(indexOfFirstVocab, indexOfLastVocab);
+
+  // Change page
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  }
 
   //TODO catch data as json from database
   return (
@@ -76,15 +91,16 @@ const VocabularyList = (props) => {
           <div className="col-xl-1 col-lg-2 col-md-3 col-4 vocabulary_list_header">Progress</div>
         </div>
 
-        {!loading && prog && prog.length > 0 ? (
-          prog.map((progress) => {
-            return <VocabRow key={i++} prog={progress} />;
+        {!loading && currentVocabs && currentVocabs.length > 0 ? (
+          currentVocabs.map((progressObject) => {
+            return <VocabRow key={new Date().getTime() + (key++) } english_word={progressObject.english_word} progress={progressObject.progress} translation=""/>;
           })
         ) : (
           <div className="spinner-border m-5" role="status">
             <span className="sr-only">Loading...</span>
           </div>
         )}
+        <Pagination vocabsPerPage={vocabsPerPage} totalVocabs={prog.length} paginate={paginate}/>
       </div>
     </div>
   );

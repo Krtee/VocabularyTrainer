@@ -151,6 +151,16 @@ div#language_menu {
     margin-top: .5em;
 }
 
+/* ---------- Pagination ---------- */
+.page_link:hover {
+    cursor: pointer;
+
+}
+
+.page_link_active {
+    background-color: #007bff !important;
+    color: white !important;
+}
 
 /* ---------- AddVocabulary ---------- */
 
