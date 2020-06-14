@@ -52,7 +52,7 @@ const NavigationTop = (props) => {
                             <NavDropdown.Item className="menu_option">
                                 <LinkContainer to="/Settings" className="menu_option settings">
                                     <NavItem className="menu_padding">
-                                        Account Settings
+                                        Account settings
                                     </NavItem>
                                 </LinkContainer>
                             </NavDropdown.Item>

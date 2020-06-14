@@ -1,7 +1,7 @@
 import React, { useGlobal, useState } from "reactn";
 
 const VocabularyTraining_Options = (props) => {
-  const [language, ] = useGlobal("langName");
+  const [language,] = useGlobal("langName");
   const [vocabNumber, setVocabNumber] = useState(25);
   const [progress1, setProgress1] = useState(true);
   const [progress2, setProgress2] = useState(true);
@@ -50,21 +50,23 @@ const VocabularyTraining_Options = (props) => {
     <form onSubmit={handleSubmit}>
       <h2>Please set your training prefrences</h2>
       <div className="form-group row">
-        <label className="col-lg-4 col-xs-12 no_padding_left" htmlFor="training_options_amount">
+        <label className="col-lg-4 col-xs-12" htmlFor="training_options_amount">
           How many vocabulary do you want to practise?
         </label>
-        <input
-          type="number"
-          className="form-control col-lg-8 col-xs-12"
-          id="training_options_amount"
-          defaultValue={25}
-          name="vocabNumber"
-          onChange={handleChange}
-        />
+        <div className="col-lg-8 col-xs-12">
+          <input
+            type="number"
+            className="form-control col-12"
+            id="training_options_amount"
+            defaultValue={25}
+            name="vocabNumber"
+            onChange={handleChange}
+          />
+        </div>
       </div>
 
       <div className="form-group row">
-        <label className="col-lg-4 col-xs-12 no_padding_left" htmlFor="training_options_amount">
+        <label className="col-lg-4 col-xs-12" htmlFor="training_options_amount">
           Train vocabulary with following progress:
         </label>
         <div className="col-lg-8 col-xs-12">

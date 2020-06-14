@@ -114,27 +114,27 @@ function Settings() {
             <NavigationTop width={width}/>
             {width < 700 && <NavigationBottom/>}
             <form>
-                <h1>Settings</h1>
-                <p className={"lead"}>choose the property that you want to change</p>
+                <h1 className="margin_top_small">Settings</h1>
+                <h2 className={"lead"}>Choose the property that you want to change</h2>
                 <div className="form-group row">
-                    <label className="col-lg-10 col-xs-12 no_padding_left" htmlFor="settings">How many correct answers
+                    <label className="col-lg-4 col-xs-12 no-padding-left" htmlFor="settings">How many correct answers
                         in a row lead to a new progress level?</label>
-                    <input type="number" className="form-control col-lg-2 col-xs-12" id="settings" placeholder=""
+                    <input type="number" className="form-control col-lg-8 col-xs-12" id="settings" placeholder=""
                            ref={newProgress}/>
                 </div>
                 <div className="form-group row">
-                    <label className="col-lg-10 col-xs-12 no_padding_left" htmlFor="settings">Change Username</label>
-                    <input type="text" className="form-control col-lg-2 col-xs-12" id="settings" placeholder=""
+                    <label className="col-lg-4 col-xs-12 no-padding-left" htmlFor="settings">Change username</label>
+                    <input type="text" className="form-control col-lg-8 col-xs-12" id="settings" placeholder=""
                            ref={newName}/>
                 </div>
                 <div className="form-group row">
-                    <label className="col-lg-10 col-xs-12 no_padding_left" htmlFor="settings">Change password</label>
-                    <input type="password" className="form-control col-lg-2 col-xs-12" id="settings" placeholder="" onChange={handleOnChange}
+                    <label className="col-lg-4 col-xs-12 no-padding-left" htmlFor="settings">Change password</label>
+                    <input type="password" className="form-control col-lg-8 col-xs-12" id="settings" placeholder="" onChange={handleOnChange}
                            ref={newpassword}/>
                 </div>
                 {passw && <div className="form-group row">
-                    <label className="col-lg-10 col-xs-12 no_padding_left" htmlFor="settings">re-enter password</label>
-                    <input type="password" className="form-control col-lg-2 col-xs-12" id="settings" placeholder=""
+                    <label className="col-lg-4 col-xs-12 no-padding-left" htmlFor="settings">Re-enter password</label>
+                    <input type="password" className="form-control col-lg-8 col-xs-12" id="settings" placeholder=""
                            ref={newpassword2}/>
                 </div>}
                 <button className="btn btn-primary" onClick={(e) => handleShow(e,"changeButton")}>Save settings</button>

@@ -177,7 +177,7 @@ const VocabularyTraining_Queries = (props) => {
           <h2>{`Translate! ${iterate + 1}/${trainingVorab.length}`}</h2>
           <div className="form-group row">
             <label
-              className="col-lg-3 col-xs-12 no_padding_left"
+              className="col-lg-3 col-xs-12 no-padding-left"
               htmlFor="train_vocabulary_translation"
             >
               {renderTrainingVocab()}

@@ -24,15 +24,43 @@ const SummaryRow = (props) => {
 
   return (
     <div
-      className={`row vocabulary_list_entry ${
+      className={`vocabulary_list_entry ${
         correct.toLowerCase().trim() === input.toLowerCase().trim() ? "right" : "wrong"
-      }`}
+        }`}
     >
-      <div className="col-3">{vocab}</div>
-      <div className="col-3">{input}</div>
-      <div className="col-3">{correct}</div>
-      <div className="col-3">{progress}</div>
+
+      {
+        props.width > 700 ?
+          <div className="row">
+            <div className="col-3">{vocab}</div>
+            <div className="col-3">{input}</div>
+            <div className="col-3">{correct}</div>
+            <div className="col-3">{progress}</div>
+          </div>
+          :
+          <>
+            <div className="row">
+              <div className="col-6 bold">Given word: </div>
+              <div className="col-6">{vocab}</div>
+            </div>
+            <div className="row">
+              <div className="col-6 bold">Your translation: </div>
+              <div className="col-6">{input}</div>
+            </div>
+            <div className="row">
+              <div className="col-6 bold">Correct translation: </div>
+              <div className="col-6">{correct}</div>
+            </div>
+            <div className="row">
+              <div className="col-6 bold">Current progress: </div>
+              <div className="col-6">{progress}</div>
+            </div>
+          </>
+      }
+
     </div>
+
+
   );
 };
 

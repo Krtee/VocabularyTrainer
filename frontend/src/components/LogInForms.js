@@ -49,7 +49,7 @@ class LogInForms extends React.Component {
               <label className="col-lg-2 col-xs-12 no-padding" htmlFor="login-username">
                 User name
               </label>
-              <div className="col-lg-10 col-xs-12">
+              <div className="col-lg-10 col-xs-12 no-padding">
                 <input
                   name="userName"
                   type="text"
@@ -66,7 +66,7 @@ class LogInForms extends React.Component {
               <label className="col-lg-2 col-xs-12 no-padding" htmlFor="login-password">
                 Password
               </label>
-              <div className="col-lg-10 col-xs-12">
+              <div className="col-lg-10 col-xs-12 no-padding">
                 <input
                   name="password"
                   type="password"
@@ -82,7 +82,7 @@ class LogInForms extends React.Component {
               <label className="col-lg-2 col-xs-12 no-padding" htmlFor="login-password">
                 Repeat password
               </label>
-              <div className="col-lg-10 col-xs-12">
+              <div className="col-lg-10 col-xs-12 no-padding">
                 <input
                   name="passwordRepeat"
                   type="password"
@@ -106,7 +106,7 @@ class LogInForms extends React.Component {
               <label className="col-lg-2 col-xs-12 no-padding" htmlFor="login-username">
                 User name
               </label>
-              <div className="col-lg-10 col-xs-12">
+              <div className="col-lg-10 col-xs-12 no-padding">
                 <input
                   type="username"
                   className="form-control"
@@ -122,7 +122,7 @@ class LogInForms extends React.Component {
               <label className="col-lg-2 col-xs-12 no-padding" htmlFor="login-password">
                 Password
               </label>
-              <div className="col-lg-10 col-xs-12">
+              <div className="col-lg-10 col-xs-12 no-padding">
                 <input
                   type="password"
                   className="form-control"
