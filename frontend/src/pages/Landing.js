@@ -185,7 +185,7 @@ function Landing() {
     return (
         <div>
             {auth ? <Redirect to="/languages" /> : null}
-            <h1>Vocabulary Trainer</h1>
+            <h1 className="margin_top_small">Vocabulary Trainer</h1>
             <h2>Log in or sign up!</h2>
             <SignUpButton
                 createUser={createUser}

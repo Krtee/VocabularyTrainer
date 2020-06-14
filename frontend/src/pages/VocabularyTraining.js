@@ -77,7 +77,7 @@ function VocabularyTraining() {
     <div id="content" className="vocabulary_training">
       <NavigationTop width={width} />
       {width < 700 && <NavigationBottom page={'VocabularyTraining'}/>}
-      <h1>Vocabulary Training</h1>
+      <h1 className="margin_top_small">Vocabulary Training</h1>
       {showOptions && !savedSettings ? (
         <Options receiveInput={receiveInput} showButton={!savedSettings} onClick={changeView} />
       ) : null}

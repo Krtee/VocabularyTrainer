@@ -110,7 +110,7 @@ function Settings() {
     }
 
     return (
-        <div id="content" className="settings">
+        <div id="content" className="settings margin_top">
             <NavigationTop width={width}/>
             {width < 700 && <NavigationBottom/>}
             <form>

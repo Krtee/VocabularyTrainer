@@ -69,7 +69,7 @@ const VocabularyList = (props) => {
       <NavigationTop width={width}/>
       {width < 700 && <NavigationBottom page={'VocabularyList'}/>}
       <div id="vocabulary_list">
-        <h1>Vocabulary overview</h1>
+        <h1 className="margin_top_small">Vocabulary overview</h1>
         <div className="row vocabulary_list_entry">
           <div className="col-xl-1 col-lg-2 col-md-3 col-4 vocabulary_list_header">English</div>
           <div className="col-xl-2 col-lg-2 col-md-3 col-4 vocabulary_list_header">{langName}</div>

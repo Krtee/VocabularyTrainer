@@ -35,6 +35,10 @@ h2 {
     margin-top: 2em;
 }
 
+.margin_top_small {
+    margin-top: 1em;
+}
+
 .no-padding {
     padding: 0 !important;
 }
@@ -66,8 +70,6 @@ a:hover {
 
 #navbar a:active{
     color: #007bff;
-    border-radius : 5px;
-
 }
 
 #content {
@@ -133,9 +135,8 @@ div#language_menu {
     border-radius : 5px;
 }
 .menu_option:hover{
-    border-radius : 5px;
-    color: white !important;
-    background-color: #61adff;
+    color: #007bff !important;
+    cursor: pointer;
 }
 
 

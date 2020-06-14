@@ -49,7 +49,7 @@ const AddVocabulary = () => {
       <NavigationTop width={width}/>
       {width < 700 && <NavigationBottom page={'AddVocabulary'}/>}
       <form>
-        <h1>Add vocabulary</h1>
+        <h1 className="margin_top_small">Add vocabulary</h1>
         <h2>Enter the word you want to add</h2>
         <div className="form-group row">
           <label className="col-lg-2 col-12 no_padding_left" htmlFor="add_vocabulary_english">
@@ -63,7 +63,7 @@ const AddVocabulary = () => {
             ref={textinput}
           />
         </div>
-        <button type="submit" className="btn btn-primary" onClick={addVocab} disabled={loading}>
+        <button type="submit" className="btn btn-primary margin_top_small" onClick={addVocab} disabled={loading}>
           
           {loading ? (
             <div className="spinner-border " role="status">
@@ -74,7 +74,7 @@ const AddVocabulary = () => {
           )}
         </button>
         <Link to="/VocabularyList">
-          <button type="button" className="btn btn-primary margin_left grey_button">
+          <button type="button" className="btn btn-primary margin_left grey_button margin_top_small">
             Show overview
           </button>
         </Link>

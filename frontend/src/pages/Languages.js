@@ -47,7 +47,7 @@ const Languages = () => {
     
     <div>
       <ReducedNavigation />
-      <h1>Languages</h1>
+      <h1 className="margin_top_small">Languages</h1>
       <h2>Select the language you want to practise.</h2>
       <div className="row box">
         {languages.map((language) => {

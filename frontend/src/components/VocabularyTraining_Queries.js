@@ -101,7 +101,7 @@ const VocabularyTraining_Queries = (props) => {
         }
       } else {
         api.progress.resetRGIAR(idObj);
-        setHelp("Unfortunately not correct!");
+        setHelp("Unfortunately not correct! Please try again.");
         const newInputCount = falseInputCount + 1;
         setFalseInputCount(newInputCount);
         if (falseInputCount >= 1) {
