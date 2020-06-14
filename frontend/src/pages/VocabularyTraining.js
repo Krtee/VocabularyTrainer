@@ -20,7 +20,7 @@ function VocabularyTraining() {
   const [progress, setProgress] = useGlobal("progress");
   const [direction, setDirection] = useGlobal("direction");
   const [language, ] = useGlobal("language");
-  let {height, width} = useWindowDimensions();
+  let {width} = useWindowDimensions();
 
 
   if (!auth) {

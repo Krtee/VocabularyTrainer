@@ -16,7 +16,7 @@ const AddVocabulary = () => {
   const [info, setInfo] = useState("");
   const [user, ] = useGlobal("user");
   const [loading, setLoading] = useState(false)
-  let {height, width} = useWindowDimensions();
+  let {width} = useWindowDimensions();
 
   if (!auth) {
     return <Redirect to="/" />;

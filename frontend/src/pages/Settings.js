@@ -4,7 +4,7 @@ import NavigationTop from "../components/NavigationTop";
 import {Redirect} from "react-router";
 import NavigationBottom from "../components/NavigationBottom";
 import api from "../api";
-import {createRef, useEffect, useState} from "react";
+import {createRef, useState} from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import useWindowDimensions from "../components/Windowsize";
@@ -21,7 +21,7 @@ function Settings() {
     const [show2, setShow2] = useState(false);
     const [changed, setChanged] = useState(false);
     const [passw, setpassw] = useState(false);
-    let {height, width} = useWindowDimensions();
+    let {width} = useWindowDimensions();
 
 
 

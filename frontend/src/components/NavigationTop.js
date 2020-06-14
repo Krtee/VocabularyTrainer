@@ -1,9 +1,8 @@
 import React, {useGlobal} from "reactn";
 import {Navbar, Nav, NavDropdown} from "react-bootstrap";
-import {Link} from "react-router-dom";
 import NavItem from "react-bootstrap/NavItem";
 import {LinkContainer} from "react-router-bootstrap";
-import useWindowDimensions from "./Windowsize";
+//import useWindowDimensions from "./Windowsize";
 
 const NavigationTop = (props) => {
     const [, setAuth] = useGlobal("auth");

@@ -1,9 +1,8 @@
-import React, {useEffect} from "react";
+import React from "reactn";
 import Router from "./Router"
 import {BrowserRouter} from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import './customs.scss';
-import {useGlobal} from "reactn";
 
 const App = () => {
 

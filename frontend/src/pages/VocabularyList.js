@@ -46,7 +46,7 @@ const VocabularyList = (props) => {
 
   const [prog, setProg] = useState([]);
   const [loading, setLoading] = useState(true);
-  let {height, width} = useWindowDimensions();
+  let {width} = useWindowDimensions();
 
 
 
