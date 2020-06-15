@@ -147,7 +147,7 @@ function Settings() {
                 <Modal.Header closeButton>
                     <Modal.Title>Warning</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>{changed ? 'changed.' : 'Are you sure,that you want to make these changes ?'}</Modal.Body>
+                <Modal.Body>{changed ? 'Changed.' : 'Are you sure that you want to save these changes?'}</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={(e)=>handleClose(e,"1")}>
                         Close
@@ -162,7 +162,7 @@ function Settings() {
                 <Modal.Header closeButton>
                     <Modal.Title>Warning</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>{changed ? 'Account Deleted.' : 'Are you sure,that you want to delete this account ?'}</Modal.Body>
+                <Modal.Body>{changed ? 'Account Deleted.' : 'Are you sure that you want to delete this account?'}</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={(e)=>handleClose(e,"2")}>
                         Close

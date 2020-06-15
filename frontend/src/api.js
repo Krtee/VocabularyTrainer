@@ -168,7 +168,7 @@ const getProgressForUserAndLanguage = async (data) => {
 const createProgress = async (data) => {
   try {
     const res = await axios.post(`${url}/Vocab/createProgress`, data);
-    return res.data ? (res.data ? res.data.data : res) : res;
+    return res.data;
   } catch (error) {
     console.error(error);
   }

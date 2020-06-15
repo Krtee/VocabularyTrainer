@@ -10,13 +10,13 @@ import useWindowDimensions from "../components/Windowsize";
 
 const AddVocabulary = () => {
   let textinput = createRef();
-  const [auth, ] = useGlobal("auth");
-  const [langID, ] = useGlobal("langID");
+  const [auth,] = useGlobal("auth");
+  const [langID,] = useGlobal("langID");
   const [color, setColor] = useState("");
   const [info, setInfo] = useState("");
-  const [user, ] = useGlobal("user");
+  const [user,] = useGlobal("user");
   const [loading, setLoading] = useState(false)
-  let {width} = useWindowDimensions();
+  let { width } = useWindowDimensions();
 
   if (!auth) {
     return <Redirect to="/" />;
@@ -24,30 +24,46 @@ const AddVocabulary = () => {
 
   const addVocab = async (event) => {
     event.preventDefault();
+    setInfo("");
+    setColor("no-color");
     setLoading(true)
     const data = {
       language_id: langID,
       english_word: textinput.current.value,
       user_id: user,
     };
-    const res = await api.vocab.insert(data)
-    if(res.status === 200) {
-      await api.progress.createProgress(data)
-      setInfo(res.data.message);
-      setColor("right");
-    } else {
+    const res = await api.vocab.insert(data);
+    console.log("*** res.status: " + JSON.stringify(res.status));
+
+    if (res.status === 200) {
+      const resProg = await api.progress.createProgress(data);
+      console.log("*** resProg: " + JSON.stringify(resProg));
+      if (resProg.success) {
+        if (resProg.didAlreadyExist) {
+          setInfo("This word is already in your collection.");
+          setColor("info");
+        } else {
+          setInfo("Your word was successfully added.");
+          setColor("right");
+        }
+      } else {
+        setInfo("An error occured. Please try again later.");
+        setColor("wrong");
+      }
+    }
+    else {
       console.log("addVocab -> res", res)
-      setInfo("Word not found. Please try another one.");
+      setInfo("Word not found. Please check the spelling.");
       setColor("wrong");
     }
-    setLoading(false)
+    setLoading(false);
   };
 
 
   return (
     <div id="content" className="add_vocabulary">
-      <NavigationTop width={width}/>
-      {width < 700 && <NavigationBottom page={'AddVocabulary'}/>}
+      <NavigationTop width={width} />
+      {width < 700 && <NavigationBottom page={'AddVocabulary'} />}
       <form>
         <h1 className="margin_top_small">Add vocabulary</h1>
         <h2>Enter the word you want to add</h2>
@@ -64,14 +80,14 @@ const AddVocabulary = () => {
           />
         </div>
         <button type="submit" className="btn btn-primary margin_top_small" onClick={addVocab} disabled={loading}>
-          
+
           {loading ? (
             <div className="spinner-border " role="status">
               <span className="sr-only">Loading...</span>
             </div>
           ) : (
-            "Add vocabulary"
-          )}
+              "Add vocabulary"
+            )}
         </button>
         <Link to="/VocabularyList">
           <button type="button" className="btn btn-primary margin_left grey_button margin_top_small">
