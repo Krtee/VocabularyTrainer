@@ -137,8 +137,13 @@ div#language_menu {
     font-weight: bold;
 }
 
-.vocabulary_list_entry + .vocabulary_list_entry {
-    margin-top: .5em;
+.vocabulary_list_entry > div {
+    padding-top: .25em;
+    padding-bottom: .25em;
+}
+
+.blue_background {
+    background-color: #cce5ff;
 }
 
 /* ---------- Pagination ---------- */

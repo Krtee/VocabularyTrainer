@@ -46,12 +46,12 @@ const VocabularyList = (props) => {
 
   const [prog, setProg] = useState([]);
   const [loading, setLoading] = useState(true);
-  let {width} = useWindowDimensions();
+  let { width } = useWindowDimensions();
 
 
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [vocabsPerPage ] = useState(50);
+  const [vocabsPerPage] = useState(50);
 
 
   useEffect(() => {
@@ -81,26 +81,26 @@ const VocabularyList = (props) => {
   //TODO catch data as json from database
   return (
     <div id="content" className="vocabulary_list">
-      <NavigationTop width={width}/>
-      {width < 700 && <NavigationBottom page={'VocabularyList'}/>}
+      <NavigationTop width={width} />
+      {width < 700 && <NavigationBottom page={'VocabularyList'} />}
       <div id="vocabulary_list">
         <h1 className="margin_top_small">Vocabulary overview</h1>
         <div className="row vocabulary_list_entry">
-          <div className="col-xl-1 col-lg-2 col-md-3 col-4 vocabulary_list_header">English</div>
+          <div className="col-xl-2 col-lg-2 col-md-3 col-4 vocabulary_list_header">English</div>
           <div className="col-xl-2 col-lg-2 col-md-3 col-4 vocabulary_list_header">{langName}</div>
           <div className="col-xl-1 col-lg-2 col-md-3 col-4 vocabulary_list_header">Progress</div>
         </div>
 
         {!loading && currentVocabs && currentVocabs.length > 0 ? (
           currentVocabs.map((progressObject) => {
-            return <VocabRow key={new Date().getTime() + (key++) } english_word={progressObject.english_word} progress={progressObject.progress} translation=""/>;
+            return <VocabRow key={new Date().getTime() + (key++)} english_word={progressObject.english_word} progress={progressObject.progress} translation="" even={(key % 2 === 0) ? true : false} />;
           })
         ) : (
-          <div className="spinner-border m-5" role="status">
-            <span className="sr-only">Loading...</span>
-          </div>
-        )}
-        <Pagination vocabsPerPage={vocabsPerPage} totalVocabs={prog.length} paginate={paginate}/>
+            <div className="spinner-border m-5" role="status">
+              <span className="sr-only">Loading...</span>
+            </div>
+          )}
+        <Pagination vocabsPerPage={vocabsPerPage} totalVocabs={prog.length} paginate={paginate} />
       </div>
     </div>
   );

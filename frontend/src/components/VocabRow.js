@@ -14,7 +14,7 @@ const getTranslation = async (english_word, lang_id, user) => {
   return res.translation;
 };
 
-const VocabRow = ({ english_word, progress }) => {
+const VocabRow = ({ english_word, progress, even }) => {
   const [langID] = useGlobal("langID");
   const [user] = useGlobal("user");
   const [translation, setTranslation] = useState("");
@@ -26,11 +26,13 @@ const VocabRow = ({ english_word, progress }) => {
     // eslint-disable-next-line
   }, []);
 
+
+
   return (
-    <div className="row vocabulary_list_entry">
-      <div className="col-xl-1 col-lg-2 col-md-3 col-4 vocabulary_list_english">{english_word}</div>
-      <div className="col-xl-2 col-lg-2 col-md-3 col-4 vocabulary_list_foreign">{translation}</div>
-      <div className="col-xl-1 col-lg-2 col-md-3 col-4 vocabulary_list_progress">{progress}</div>
+    <div className={"row vocabulary_list_entry"}>
+      <div className={"col-xl-2 col-lg-2 col-md-3 col-4" + (even ? " blue_background" : "")}>{english_word}</div>
+      <div className={"col-xl-2 col-lg-2 col-md-3 col-4" + (even ? " blue_background" : "")}>{translation}</div>
+      <div className={"col-xl-1 col-lg-2 col-md-3 col-4" + (even ? " blue_background" : "")}>{progress}</div>
     </div>
   );
 };

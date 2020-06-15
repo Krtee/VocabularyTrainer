@@ -8,11 +8,16 @@
   }
   .active{
     background-color: #007bff;
-    fill: #007bff;
+    color: white !important;
     border-radius: 2px;
 
   }
 }
+
+.active img {
+  filter: invert(100%);
+}
+
 .navItem {
   font-size: 0.7em;
   text-align: center;

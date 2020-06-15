@@ -48,7 +48,7 @@ const NavigationBottom = (props) => {
                             <Col className={active1}>
                                 <LinkContainer className={'navItem'} to="/VocabularyTraining">
                                     <NavItem>
-                                        <img src={train} width="20" height="20" alt={'go to Training'} />
+                                        <img className="svg" src={train} width="20" height="20" alt={'go to Training'} />
                                         <p>Train</p>
                                     </NavItem>
                                 </LinkContainer>

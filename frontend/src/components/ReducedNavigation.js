@@ -17,7 +17,7 @@ const ReducedNavigation = () => {
                     <NavDropdown.Item>
                         <LinkContainer to="/Settings" className="menu_option settings">
                             <NavItem className="menu_padding">
-                                Settings
+                                Account settings
                             </NavItem>
                         </LinkContainer>
                     </NavDropdown.Item>
