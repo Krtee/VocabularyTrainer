@@ -11,7 +11,6 @@ WORKDIR /usr/src/app
 
 # Install Dependencies
 COPY package.json /usr/src/app/
-
 RUN npm i
 
 # Bundle app source
