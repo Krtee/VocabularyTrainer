@@ -1,14 +1,16 @@
-
 .active{
-  background-color: #007bff;
-  fill: #007bff;
-  border-radius: 2px;
-
+  color: #007bff !important;
 }
 .navrow {
   width: 100%;
   .col{
     padding-top:0.5em;
+  }
+  .active{
+    background-color: #007bff;
+    fill: #007bff;
+    border-radius: 2px;
+
   }
 }
 .navItem {
@@ -21,4 +23,21 @@
 
 div.navcontainer{
   padding: 0px;
+}
+
+#navbar a:active{
+  color: #007bff;
+}
+
+
+.menu_padding {
+  padding: .5rem 1rem;
+}
+
+.menu_option {
+  border-radius : 5px;
+}
+.menu_option:hover{
+  color: #73b6ff !important;
+  cursor: pointer;
 }

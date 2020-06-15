@@ -12,11 +12,10 @@ const NavigationTop = (props) => {
     }
 
     return (
-        <Navbar expand="lg" id="navbar">
+        <Navbar expand="lg" id="navbar" sticky="top">
             <Navbar.Toggle aria-controls="basic-navbar-nav" className={'ml-auto'}/>
             <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="mr-auto">
-
+                <Nav className="mr-auto" >
 
                     {props.width > 700 &&
                     <>
@@ -41,7 +40,7 @@ const NavigationTop = (props) => {
 
 
                     {props.width > 700 ?
-                        <NavDropdown className={"mr-sm-2"} id={"basic-nav-dropdown"} title={"Settings"}>
+                        <NavDropdown className={"mr-sm-2 menu_option"} id={"basic-nav-dropdown"} title={"Settings"}>
                             <NavDropdown.Item className="menu_option">
                                 <LinkContainer to="/Languages" className="menu_option mr-sm-2">
                                     <NavItem className="menu_padding">
