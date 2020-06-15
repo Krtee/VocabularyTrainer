@@ -70,7 +70,6 @@ vocabRoutes.get("/getProgress", (req, res) => {
 
 vocabRoutes.post("/createProgress", (req, res) => {
     const { user_id, english_word, language_id } = req.body;
-    console.log("*** english_word: " + english_word + ", user_id: " + user_id + ", language_id: " + language_id);
 
     Progress.find({ english_word: english_word, user_id: user_id, language_id: language_id }, async (err, entry) => {
 

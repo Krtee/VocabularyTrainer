@@ -33,11 +33,9 @@ const AddVocabulary = () => {
       user_id: user,
     };
     const res = await api.vocab.insert(data);
-    console.log("*** res.status: " + JSON.stringify(res.status));
 
     if (res.status === 200) {
       const resProg = await api.progress.createProgress(data);
-      console.log("*** resProg: " + JSON.stringify(resProg));
       if (resProg.success) {
         if (resProg.didAlreadyExist) {
           setInfo("This word is already in your collection.");
