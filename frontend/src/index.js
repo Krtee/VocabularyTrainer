@@ -15,10 +15,8 @@ setGlobal({
   langName: "German",
   langID: "de",
   summary: [],
-  progressSetting: 3
+  progressSetting: 3,
+  serverError: false,
 });
 
-render(
-        <App />,
-    document.getElementById("root")
-);
+render(<App />, document.getElementById("root"));

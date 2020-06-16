@@ -27,16 +27,16 @@ const VocabularyTraining_Queries = (props) => {
   const [message, setMessage] = useState(null);
 
   useEffect(() => {
-    const query = { user_id: user, language_id: langID, progress: progress };
-
-    getProgress(query).then((data) => {
-      if (data.success) {
-        getTrainingVocab(data.data);
-
-        // reset Summary
-        setSummary([]);
-      }
-    });
+      const query = { user_id: user, language_id: langID, progress: progress };
+      getProgress(query).then((data) => {
+        if (data && data.success) {
+          getTrainingVocab(data.data);
+  
+          // reset Summary
+          setSummary([]);
+        }
+      });
+  
     // eslint-disable-next-line
   }, []);
 

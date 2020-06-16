@@ -71,35 +71,30 @@ vocabRoutes.get("/getProgress", (req, res) => {
 vocabRoutes.post("/createProgress", (req, res) => {
     const { user_id, english_word, language_id } = req.body;
 
-    Progress.find({ english_word: english_word, user_id: user_id, language_id: language_id }, async (err, entry) => {
-
-
-
-        /*     Progress.find(
-                {english_word: english_word, user_id: user_id, language_id: language_id},
-                async (entry) => { */
+    Progress.find(
+      { english_word: english_word, user_id: user_id, language_id: language_id },
+      async (err, entry) => {
         if (err) {
-            return res.json({ success: false, error: err });
+          return res.json({ success: false, error: err });
         } else {
-            if (entry[0] !== undefined) {
-                return res.json({ didAlreadyExist: true, success: true, data: entry })
-            } else {
-                const prog = new Progress({
-                    english_word: english_word,
-                    user_id: user_id,
-                    language_id: language_id,
-                    progress: 1,
-                    right_guesses_in_a_row: 0,
-                });
+          if (entry[0] !== undefined) {
+            return res.json({ didAlreadyExist: true, success: true, data: entry });
+          } else {
+            const prog = new Progress({
+              english_word: english_word,
+              user_id: user_id,
+              language_id: language_id,
+              progress: 1,
+              right_guesses_in_a_row: 0,
+            });
 
-                prog.save((err) => {
-                    if (err) return res.json({ didAlreadyExist: false, success: false, error: err });
-                });
-                return res.json({ didAlreadyExist: false, success: true, data: prog });
-            }
+            prog.save((err) => {
+              if (err) return res.json({ didAlreadyExist: false, success: false, error: err });
+            });
+            return res.json({ didAlreadyExist: false, success: true, data: prog });
+          }
         }
-
-    }
+      }
     );
 
 
@@ -355,21 +350,6 @@ async function getTranslation(lang_id, en_word) {
         return { status: 502, error: "Unknown word. Please check the spelling." };
     }
     return { status: 200, translation: translation };
-}
-
-function createProgress(user_id, vocab_id, language_id) {
-    const prog = new Progress();
-    prog.user_id = user_id;
-    prog.vocab_id = vocab_id;
-    prog.language_id = language_id;
-    prog.progress = 1;
-    prog.right_guesses_in_a_row = 0;
-
-    // TODO: Error nicht hier abfangen! True/false zurückliefern und dann in /insert entsprechend reagieren
-    prog.save((err) => {
-        if (err) return false;
-    });
-    return true;
 }
 
 module.exports = vocabRoutes;

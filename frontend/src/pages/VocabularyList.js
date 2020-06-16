@@ -9,31 +9,37 @@ import NavigationBottom from "../components/NavigationBottom";
 import useWindowDimensions from "../components/Windowsize";
 
 const getProgressForUserAndLanguage = async (user_id, lang_id) => {
-  const data = {
-    user_id: user_id,
-    lang_id: lang_id,
-  };
-  const res = await api.progress.getProgressForUserAndLanguage(data);
-  if (res.length === 0) {
-    // true if all words created
-    await createBasicVocab(user_id, lang_id);
-    return getProgressForUserAndLanguage(user_id, lang_id);
+  try {
+    const data = {
+      user_id: user_id,
+      lang_id: lang_id,
+    };
+    const res = await api.progress.getProgressForUserAndLanguage(data);
+    if (res.length === 0) {
+      // true if all words created
+      await createBasicVocab(user_id, lang_id);
+      return getProgressForUserAndLanguage(user_id, lang_id);
+    }
+    return res;
+  } catch (error) {
+    console.error(error);
   }
-  return res;
 };
 
 const createBasicVocab = async (user, id) => {
   const basics = require("../basic_vocab.json");
   const vocabulary = basics.vocabulary;
 
-  Object.entries(vocabulary).forEach(([index, word]) => {
+  Object.entries(vocabulary).forEach(async ([index, word]) => {
     const data = {
       language_id: id,
       english_word: word,
       user_id: user,
     };
-    api.vocab.insert(data);
-    api.progress.createProgress(data);
+      const res = await api.vocab.insert(data);
+      if(res.status === 200){
+        api.progress.createProgress(data);
+      }
   });
   return true;
 };
@@ -48,11 +54,8 @@ const VocabularyList = (props) => {
   const [loading, setLoading] = useState(true);
   let { width } = useWindowDimensions();
 
-
-
   const [currentPage, setCurrentPage] = useState(1);
   const [vocabsPerPage] = useState(50);
-
 
   useEffect(() => {
     getProgressForUserAndLanguage(user, langID).then((data) => {
@@ -76,13 +79,13 @@ const VocabularyList = (props) => {
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
-  }
+  };
 
   //TODO catch data as json from database
   return (
     <div id="content" className="vocabulary_list">
       <NavigationTop width={width} />
-      {width < 700 && <NavigationBottom page={'VocabularyList'} />}
+      {width < 700 && <NavigationBottom page={"VocabularyList"} />}
       <div id="vocabulary_list">
         <h1 className="margin_top_small">Vocabulary overview</h1>
         <div className="row vocabulary_list_entry">
@@ -93,13 +96,21 @@ const VocabularyList = (props) => {
 
         {!loading && currentVocabs && currentVocabs.length > 0 ? (
           currentVocabs.map((progressObject) => {
-            return <VocabRow key={new Date().getTime() + (key++)} english_word={progressObject.english_word} progress={progressObject.progress} translation="" even={(key % 2 === 0) ? true : false} />;
+            return (
+              <VocabRow
+                key={new Date().getTime() + key++}
+                english_word={progressObject.english_word}
+                progress={progressObject.progress}
+                translation=""
+                even={key % 2 === 0 ? true : false}
+              />
+            );
           })
         ) : (
-            <div className="spinner-border m-5" role="status">
-              <span className="sr-only">Loading...</span>
-            </div>
-          )}
+          <div className="spinner-border m-5" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
+        )}
         <Pagination vocabsPerPage={vocabsPerPage} totalVocabs={prog.length} paginate={paginate} />
       </div>
     </div>

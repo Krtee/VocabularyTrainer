@@ -1,13 +1,11 @@
 import React, { useState, useGlobal, useEffect } from "reactn";
 import api from "../api";
 
-
 const getTranslation = async (english_word, lang_id, user) => {
-
   const data = {
     english_word: english_word,
     lang_id: lang_id,
-    user_id: user
+    user_id: user,
   };
 
   const res = await api.vocab.getVocabAndTranslation(data);
@@ -27,12 +25,18 @@ const VocabRow = ({ english_word, progress, even }) => {
   }, []);
 
 
-
+  
   return (
     <div className={"row vocabulary_list_entry"}>
-      <div className={"col-xl-2 col-lg-2 col-md-3 col-4" + (even ? " blue_background" : "")}>{english_word}</div>
-      <div className={"col-xl-2 col-lg-2 col-md-3 col-4" + (even ? " blue_background" : "")}>{translation}</div>
-      <div className={"col-xl-1 col-lg-2 col-md-3 col-4" + (even ? " blue_background" : "")}>{progress}</div>
+      <div className={"col-xl-2 col-lg-2 col-md-3 col-4" + (even ? " blue_background" : "")}>
+        {english_word}
+      </div>
+      <div className={"col-xl-2 col-lg-2 col-md-3 col-4" + (even ? " blue_background" : "")}>
+        {translation}
+      </div>
+      <div className={"col-xl-1 col-lg-2 col-md-3 col-4" + (even ? " blue_background" : "")}>
+        {progress}
+      </div>
     </div>
   );
 };

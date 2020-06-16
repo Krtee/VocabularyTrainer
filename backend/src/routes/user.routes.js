@@ -3,7 +3,10 @@ const userRoutes = express.Router();
 const User = require('../models/user.model'); // user model
 
 userRoutes.get("/status", (req, res) => {
-   return res.status(200).send({status: "ok"})
+    console.log(
+        "\x1b[5m\x1b[30m\x1b[42m\x1b[0m",
+        "Server up and running!"
+      );   return res.status(200).send({status: "ok"})
 })
 
 /* Get all User */
@@ -73,7 +76,6 @@ userRoutes.post("/", (req, res, next) => {
 /* Edit Single User */
 userRoutes.patch("/:user_id", (req, res, next) => {
     let fieldsToUpdate = req.body;
-    console.log(fieldsToUpdate)
     if(req.params.user_id!=null) {
         User.findByIdAndUpdate(req.params.user_id, {$set: fieldsToUpdate.data}, {new: true,useFindAndModify: false}, function (err, result) {
             if (err) {
