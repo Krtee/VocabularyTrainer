@@ -1,12 +1,16 @@
+import React, { useGlobal, useState, useEffect } from "reactn";
+import { Link } from "react-router-dom";
+
 import "../style.scss";
-import React, { useGlobal, useState } from "reactn";
+import NavigationBottom from "../components/NavigationBottom";
 import NavigationTop from "../components/NavigationTop";
 import Options from "../components/VocabularyTraining_Options";
 import Queries from "../components/VocabularyTraining_Queries";
 import Summary from "../components/VocabularyTraining_Summary";
-import { Redirect } from "react-router";
-import NavigationBottom from "../components/NavigationBottom";
+import serverIsRunning from "../helper"
 import useWindowDimensions from "../components/Windowsize";
+import { Redirect } from "react-router";
+
 
 function VocabularyTraining() {
   const [auth, ] = useGlobal("auth");
@@ -21,7 +25,17 @@ function VocabularyTraining() {
   const [direction, setDirection] = useGlobal("direction");
   const [language, ] = useGlobal("language");
   let {width} = useWindowDimensions();
+  const [serverError, setserverError] = useGlobal("serverError")
 
+  useEffect(() => {
+    serverIsRunning().then((isRunning) => {
+      if (isRunning) {
+        setserverError(false);
+      } else {
+        setserverError(true);
+      }
+    });
+  }, []);
 
   if (!auth) {
     return <Redirect to="/" />;
@@ -74,29 +88,35 @@ function VocabularyTraining() {
   };
 
   return (
-    <div id="content" className="vocabulary_training">
-      <NavigationTop width={width} />
-      {width < 700 && <NavigationBottom page={'VocabularyTraining'}/>}
-      <h1 className="margin_top_small">Vocabulary Training</h1>
-      {showOptions && !savedSettings ? (
-        <Options receiveInput={receiveInput} showButton={!savedSettings} onClick={changeView} />
-      ) : null}
-      {showQueries ? (
-        <Queries
-          show={false}
-          numberOfVocabs={numberOfVocab}
-          progress={progress}
-          direction={direction}
-          language={language}
-        />
-      ) : null}
-      {showSummary ? <Summary show={false} /> : null}
-      {savedSettings ? (
-        <button type="button" className="btn btn-primary margin_top" onClick={changeView}>
-          {`${buttonText}`}
-        </button>
-      ) : null}
-    </div>
+    <>
+      {serverError ? (
+        <Redirect to="/Error" />
+      ) : (
+        <div id="content" className="vocabulary_training">
+          <NavigationTop width={width} />
+          {width < 700 && <NavigationBottom page={"VocabularyTraining"} />}
+          <h1 className="margin_top_small">Vocabulary Training</h1>
+          {showOptions && !savedSettings ? (
+            <Options receiveInput={receiveInput} showButton={!savedSettings} onClick={changeView} />
+          ) : null}
+          {showQueries ? (
+            <Queries
+              show={false}
+              numberOfVocabs={numberOfVocab}
+              progress={progress}
+              direction={direction}
+              language={language}
+            />
+          ) : null}
+          {showSummary ? <Summary show={false} /> : null}
+          {savedSettings ? (
+            <button type="button" className="btn btn-primary margin_top" onClick={changeView}>
+              {`${buttonText}`}
+            </button>
+          ) : null}
+        </div>
+      )}
+    </>
   );
 }
 

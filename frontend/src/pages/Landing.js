@@ -1,29 +1,21 @@
-import React, { useGlobal, useState, useEffect } from "reactn";
-import SignUpButton from "../components/SignUpButton";
-import "../style.scss";
-import api from "../api";
 import PromiseB from "bluebird";
+import React, { useGlobal, useState, useEffect } from "reactn";
 import { Redirect } from "react-router-dom";
 
-const serverIsRunning = async () => {
-    try {
-        await api.status.get()
-        return true
-    } catch (error) {
-        console.log("checkServerStatus -> error", error)
-        return false
-    }
-}
+import "../style.scss";
+import SignUpButton from "../components/SignUpButton";
+import api from "../api";
+import serverIsRunning from "../helper"
 
 function Landing() {
-    const [auth, setAuth] = useGlobal("auth");
-    const [, setUser] = useGlobal("user");
     const [, setProgressSetting] = useGlobal("progressSetting");
+    const [, setUser] = useGlobal("user");
+    const [auth, setAuth] = useGlobal("auth");
     const [serverError, setserverError] = useGlobal("serverError")
-    
-    const [userNameHelp, setUserNameHelp] = useState("");
+
     const [passwordHelp, setPasswordHelp] = useState("");
     const [passwordRepeatHelp, setPasswordRepeatHelp] = useState("");
+    const [userNameHelp, setUserNameHelp] = useState("");
 
     async function createUser(input) {
         const userName = input.userName ? input.userName : null;
@@ -35,20 +27,18 @@ function Landing() {
 
     useEffect(() => {
        serverIsRunning().then(isRunning => {
-       console.log("Landing -> isRunning", isRunning)
            if (isRunning) {
                setserverError(false)
            } else {
                setserverError(true)
            }
        })
-    }, [])
+    }, [])    
 
     async function validateCreateUser(userName, usernameAlreadyTaken, password, passwordRepeat) {
         try {
             if (signUpDataComplete(userName, password, passwordRepeat)) {
                 if (usernameAlreadyTaken === true) {
-                    console.log("validateCreateUser -> usernameAlreadyTaken", usernameAlreadyTaken)
                     setUserNameHelp("Username is already taken. Please choose a different one.");
                 }
                 if (password !== passwordRepeat) {
@@ -97,7 +87,6 @@ function Landing() {
             console.log(error)
             setserverError(true)
         }
-
 
     }
 
@@ -223,20 +212,23 @@ function Landing() {
     }
 
     return (
-        <div>
-            {auth ? <Redirect to="/languages" /> : null}
-            <h1 className="margin_top_small">Vocabulary Trainer</h1>
-            <h2>Log in or sign up!</h2>
-            {serverError ? <div className="alert alert-danger">Network Error! Please try again later!</div>:  <SignUpButton
-                createUser={createUser}
-                login={login}
-                emptyHelpFields={emptyHelpFields}
-                userNameHelp={userNameHelp}
-                passwordHelp={passwordHelp}
-                passwordRepeatHelp={passwordRepeatHelp}
-            />}
-            
-        </div>
+      <div>
+        {auth ? <Redirect to="/languages" /> : null}
+        <h1 className="margin_top_small">Vocabulary Trainer</h1>
+        <h2>Log in or sign up!</h2>
+        {serverError ? (
+          <Redirect to="/Error"/>
+        ) : (
+          <SignUpButton
+            createUser={createUser}
+            login={login}
+            emptyHelpFields={emptyHelpFields}
+            userNameHelp={userNameHelp}
+            passwordHelp={passwordHelp}
+            passwordRepeatHelp={passwordRepeatHelp}
+          />
+        )}
+      </div>
     );
 }
 

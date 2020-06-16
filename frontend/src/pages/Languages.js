@@ -1,10 +1,13 @@
-import "../style.scss";
 import React, { useEffect, useState } from "react";
-import ReducedNavigation from "../components/ReducedNavigation";
+import { Link } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import { useGlobal } from "reactn";
-import api from "../api";
+
+import "../style.scss";
 import LanguageButton from "../components/LanguageButton";
+import ReducedNavigation from "../components/ReducedNavigation";
+import api from "../api";
+import serverIsRunning from "../helper";
 
 const getLanguages = async () => {
   const res = await api.language.getLanguages();
@@ -12,25 +15,41 @@ const getLanguages = async () => {
 };
 
 const Languages = () => {
-  const [auth, ] = useGlobal("auth");
+  const [auth] = useGlobal("auth");
   const [langName, setLangName] = useGlobal("langName");
   const [langID, setLangID] = useGlobal("langID");
   const [languages, setLanguages] = useState([]);
   const [redirect, setRedirect] = useState(false);
+  const [serverError, setserverError] = useGlobal("serverError");
 
   useEffect(() => {
-    getLanguages().then((data) => setLanguages(data));
+    if (!serverError) {
+      serverIsRunning().then((isRunning) => {
+        if (isRunning) {
+          setserverError(false);
+        } else {
+          setserverError(true);
+        }
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    getLanguages().then((data) => {
+      if (data) {
+        setLanguages(data);
+      }
+    });
   }, []);
 
   if (!auth) {
-    console.info("redirecting");
     return <Redirect to="/" />;
   }
 
   const getLanguage = (langID, langName) => {
     console.group("Language");
-      console.log("%c langID ", "Background: #0CE66E", langID);
-      console.log("%c langName ", "Background: #0CE6E2", langName);
+    console.log("%c langID ", "Background: #0CE66E", langID);
+    console.log("%c langName ", "Background: #0CE6E2", langName);
     console.groupEnd();
     setLangName(langName);
     setLangID(langID);
@@ -44,19 +63,24 @@ const Languages = () => {
   var i = 0;
 
   return (
-    
     <div>
       <ReducedNavigation />
-      <h1 className="margin_top_small">Languages</h1>
-      <h2>Select the language you want to practise.</h2>
-      <div className="row box">
-        {languages.map((language) => {
-          return <LanguageButton key={i++} language={language} getLanguage={getLanguage}  />;
-        })}
-      </div>
+      {serverError ? (
+        <Redirect to="/Error" />
+      ) : (
+        <>
+          {" "}
+          <h1 className="margin_top_small">Languages</h1>
+          <h2>Select the language you want to practise.</h2>
+          <div className="row box">
+            {languages.map((language) => {
+              return <LanguageButton key={i++} language={language} getLanguage={getLanguage} />;
+            })}
+          </div>
+        </>
+      )}
     </div>
   );
 };
 
 export default Languages;
-

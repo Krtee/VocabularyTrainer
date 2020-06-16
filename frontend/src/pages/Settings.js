@@ -1,14 +1,15 @@
 import "../style.scss";
-import React, { useGlobal } from "reactn";
 import NavigationTop from "../components/NavigationTop";
 import { Redirect } from "react-router";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import React, {useGlobal, useEffect} from "reactn";
+import {createRef, useState} from "react";
+import "../style.scss";
 import NavigationBottom from "../components/NavigationBottom";
 import api from "../api";
-import { createRef, useState } from "react";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
+import serverIsRunning from "../helper"
 import useWindowDimensions from "../components/Windowsize";
-
 
 function Settings() {
     const [auth, setAuth] = useGlobal("auth");
@@ -23,11 +24,21 @@ function Settings() {
     const [passw, setpassw] = useState(false);
     const [userInfo, setUserInfo] = useState("");
     let { width } = useWindowDimensions();
+    const [serverError, setserverError] = useGlobal("serverError")
 
-
+    useEffect(() => {
+      serverIsRunning().then((isRunning) => {
+        if (isRunning) {
+          setserverError(false);
+        } else {
+          setserverError(true);
+        }
+      });
+    }, []);
 
     if (!auth) {
         return <Redirect to="/" />;
+      return <Redirect to="/" />;
     }
 
     const handleClose = (event, id) => {
@@ -132,7 +143,10 @@ function Settings() {
         }
     }
 
-    return (
+    return (<>
+        {serverError ? (
+          <Redirect to="/Error" />
+          ) : (
         <div id="content" className="settings margin_top">
             <NavigationTop width={width} />
             {width < 700 && <NavigationBottom />}
@@ -196,7 +210,8 @@ function Settings() {
                     </Button>}
                 </Modal.Footer>
             </Modal>
-        </div>
+        </div>)}
+        </>
     );
 }
 
