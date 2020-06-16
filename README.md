@@ -2,7 +2,7 @@
 
 ## Vocabulary Training App
 
-App to train some vocabulary.
+App to train vocabulary for different.
 
 ### Features
 
@@ -39,9 +39,7 @@ App to train some vocabulary.
 - API: REST
 - Database: MongoDB
 
-### Testing
 
-- TBD
 
 ## Run Project
 
@@ -60,7 +58,15 @@ App to train some vocabulary.
 6. `npm install`
 7. `npm start`
 
-> Last Update: 2020-05-22
+### Testing
+
+1. pull repository
+2. cd into ./backend
+3. `npm test`
+4. cd into ./frontend
+5. `npm test`
+
+> Last Update: 2020-06-16
 
 ---
 

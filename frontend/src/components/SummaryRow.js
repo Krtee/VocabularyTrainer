@@ -24,7 +24,7 @@ const SummaryRow = (props) => {
 
   return (
     <div
-      className={`vocabulary_list_entry ${
+      className={`summary_list_entry ${
         correct.toLowerCase().trim() === input.toLowerCase().trim() ? "right" : "wrong"
         }`}
     >
