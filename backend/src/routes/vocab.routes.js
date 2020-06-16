@@ -342,8 +342,8 @@ async function getTranslation(lang_id, en_word) {
     const translation = ibmRes.result.translations[0].translation;
 
     // Check if API found a translation
-    if (en_word === translation.toLowerCase()) {
-        console.log("\x1b[41m\x1b[30m%s\x1b[0m", "IBM SEEMS NOT TO KNOW THIS WORD:", " ", en_word);
+    if (en_word === translation.toLowerCase() || !ibmRes.result.translations[0].translation) {
+        console.log("\x1b[41m\x1b[30m%s\x1b[0m", "IBM SEEMS NOT TO KNOW THIS WORD IN THIS LANGUAGE:", " ", en_word);
 
         // When the API doesn't know a translation for an English input word,
         // it always returns the input word.

@@ -15,7 +15,7 @@ const getProgressForUserAndLanguage = async (user_id, lang_id) => {
       lang_id: lang_id,
     };
     const res = await api.progress.getProgressForUserAndLanguage(data);
-    if (res.length === 0) {
+    if (res.length < 50) {
       // true if all words created
       await createBasicVocab(user_id, lang_id);
       return getProgressForUserAndLanguage(user_id, lang_id);
@@ -63,6 +63,12 @@ const VocabularyList = (props) => {
       setLoading(false);
     });
     // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      console.log("cleaned up");
+    };
   }, []);
 
   if (!auth) {

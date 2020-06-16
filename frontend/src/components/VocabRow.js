@@ -24,8 +24,6 @@ const VocabRow = ({ english_word, progress, even }) => {
     // eslint-disable-next-line
   }, []);
 
-
-  
   return (
     <div className={"row vocabulary_list_entry"}>
       <div className={"col-xl-2 col-lg-2 col-md-3 col-4" + (even ? " blue_background" : "")}>
