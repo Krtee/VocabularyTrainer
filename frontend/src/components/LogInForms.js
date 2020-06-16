@@ -25,12 +25,10 @@ class LogInForms extends React.Component {
     switch (event.target.name) {
       case "noAccount":
         createUser(this.state);
-
         break;
 
       default:
         login(this.state);
-
         break;
     }
   }
