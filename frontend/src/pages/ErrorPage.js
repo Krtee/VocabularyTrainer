@@ -1,7 +1,5 @@
 import React, { useGlobal, useState, useEffect } from "reactn";
-
 import "../style.scss";
-import api from "../api";
 import serverIsRunning from "../helper";
 import { Link } from "react-router-dom";
 
@@ -18,6 +16,7 @@ const ErrorPage = () => {
         setserverError(true);
       }
     });
+    // eslint-disable-next-line
   }, []);
 
   const handleClick = () => {
@@ -41,15 +40,15 @@ const ErrorPage = () => {
     <div>
       <h1 className="margin_top_small">Oh no!</h1>
       <div className="d-flex p-2 flex-column">
-        <img style={{ height: "350px" }} src={require("../lib/error.svg")} className="m-4" />
+        <img style={{ height: "350px" }} src={require("../lib/error.svg")} className="m-4" alt="error-icon" />
         {serverErrorLocal ? (
           <div className="alert alert-danger m-4">Network Error! Please try again later!</div>
         ) : null}
         <div className="alert alert-warning m-4 d-flex justify-content-between align-items-center">
           {`Check Server Status: ${serverErrorLocal ? "Still down 😔" : "Up Again! 😃"}`}
           {loading ? (
-            <div class="spinner-border" role="status">
-              <span class="sr-only">Loading...</span>
+            <div className="spinner-border" role="status">
+              <span className="sr-only">Loading...</span>
             </div>
           ) : null}
           <button type="button" className="btn-warning btn btn-primary" onClick={handleClick}>

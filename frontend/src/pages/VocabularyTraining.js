@@ -1,6 +1,4 @@
 import React, { useGlobal, useState, useEffect } from "reactn";
-import { Link } from "react-router-dom";
-
 import "../style.scss";
 import NavigationBottom from "../components/NavigationBottom";
 import NavigationTop from "../components/NavigationTop";
@@ -35,6 +33,7 @@ function VocabularyTraining() {
         setserverError(true);
       }
     });
+    // eslint-disable-next-line
   }, []);
 
   if (!auth) {

@@ -1,7 +1,5 @@
 import React, { useGlobal, useState, useEffect } from "reactn";
-import { Link } from "react-router-dom";
 import { Redirect } from "react-router";
-
 import "../style.scss";
 import NavigationBottom from "../components/NavigationBottom";
 import NavigationTop from "../components/NavigationTop";
@@ -78,6 +76,7 @@ const VocabularyList = (props) => {
         setserverError(true);
       }
     });
+    // eslint-disable-next-line
   }, []);
 
   if (!auth) {

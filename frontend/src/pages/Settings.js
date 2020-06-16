@@ -34,11 +34,11 @@ function Settings() {
           setserverError(true);
         }
       });
+      // eslint-disable-next-line
     }, []);
 
     if (!auth) {
         return <Redirect to="/" />;
-      return <Redirect to="/" />;
     }
 
     const handleClose = (event, id) => {

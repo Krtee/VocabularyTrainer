@@ -33,6 +33,7 @@ function Landing() {
                setserverError(true)
            }
        })
+       // eslint-disable-next-line
     }, [])    
 
     async function validateCreateUser(userName, usernameAlreadyTaken, password, passwordRepeat) {
