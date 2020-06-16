@@ -103,6 +103,7 @@ function Landing() {
         }
     }
 
+
     function signUpDataComplete(userName, password, passwordRepeat) {
         if (userName != null && password != null && passwordRepeat != null) {
             return true;
@@ -132,12 +133,13 @@ function Landing() {
         for (let i = 0; i < allUsers.length; i++) {
             const element = allUsers[i];
             if (element.username === userName) {
-                console.log("username already exists");
+                console.log("Username already exists");
                 return false;
             }
         }
         return true;
     }
+
 
     async function login(input) {
         try {

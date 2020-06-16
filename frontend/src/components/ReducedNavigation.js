@@ -11,7 +11,7 @@ const ReducedNavigation = () => {
     }
 
     return (
-        <Navbar id="navbar" sticky="top" expand={"*"}>
+        <Navbar id="navbar" sticky="top" className="white-background" expand={"*"}>
             <Nav className="ml-auto">
                 <NavDropdown title="Account" id="basic-nav-dropdown" >
                     <NavDropdown.Item>

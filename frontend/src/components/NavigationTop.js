@@ -12,7 +12,7 @@ const NavigationTop = (props) => {
     }
 
     return (
-        <Navbar expand="lg" id="navbar" sticky="top">
+        <Navbar expand="lg" id="navbar" className="white-background" sticky="top">
             <Navbar.Toggle aria-controls="basic-navbar-nav" className={'ml-auto'}/>
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto" >
