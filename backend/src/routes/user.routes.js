@@ -6,7 +6,8 @@ userRoutes.get("/status", (req, res) => {
     console.log(
         "\x1b[5m\x1b[30m\x1b[42m\x1b[0m",
         "Server up and running!"
-      );   return res.status(200).send({status: "ok"})
+      );   
+      return res.status(200).send({status: "ok"})
 })
 
 /* Get all User */

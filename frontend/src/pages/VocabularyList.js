@@ -1,11 +1,14 @@
-import "../style.scss";
 import React, { useGlobal, useState, useEffect } from "reactn";
-import NavigationTop from "../components/NavigationTop";
+import { Link } from "react-router-dom";
 import { Redirect } from "react-router";
-import api from "../api";
-import VocabRow from "../components/VocabRow";
-import Pagination from "../components/Pagination";
+
+import "../style.scss";
 import NavigationBottom from "../components/NavigationBottom";
+import NavigationTop from "../components/NavigationTop";
+import Pagination from "../components/Pagination";
+import VocabRow from "../components/VocabRow";
+import api from "../api";
+import serverIsRunning from "../helper"
 import useWindowDimensions from "../components/Windowsize";
 
 const getProgressForUserAndLanguage = async (user_id, lang_id) => {
@@ -49,7 +52,8 @@ const VocabularyList = (props) => {
   const [user] = useGlobal("user");
   const [langID] = useGlobal("langID");
   const [langName] = useGlobal("langName");
-
+  const [serverError, setserverError] = useGlobal("serverError")
+  
   const [prog, setProg] = useState([]);
   const [loading, setLoading] = useState(true);
   let { width } = useWindowDimensions();
@@ -66,9 +70,14 @@ const VocabularyList = (props) => {
   }, []);
 
   useEffect(() => {
-    return () => {
-      console.log("cleaned up");
-    };
+    serverIsRunning().then((isRunning) => {
+      console.log("Landing -> isRunning", isRunning);
+      if (isRunning) {
+        setserverError(false);
+      } else {
+        setserverError(true);
+      }
+    });
   }, []);
 
   if (!auth) {
@@ -79,7 +88,7 @@ const VocabularyList = (props) => {
 
   const indexOfLastVocab = currentPage * vocabsPerPage;
   const indexOfFirstVocab = indexOfLastVocab - vocabsPerPage;
-  const currentVocabs = prog.slice(indexOfFirstVocab, indexOfLastVocab);
+  const currentVocabs = prog ? prog.slice(indexOfFirstVocab, indexOfLastVocab) : null;
 
   // Change page
 
@@ -89,6 +98,11 @@ const VocabularyList = (props) => {
 
   //TODO catch data as json from database
   return (
+    <>
+    {serverError ? (
+          <Redirect to="/Error" />
+          ) : (
+
     <div id="content" className="vocabulary_list">
       <NavigationTop width={width} />
       {width < 700 && <NavigationBottom page={"VocabularyList"} />}
@@ -119,7 +133,8 @@ const VocabularyList = (props) => {
         )}
         <Pagination vocabsPerPage={vocabsPerPage} totalVocabs={prog.length} paginate={paginate} />
       </div>
-    </div>
+    </div>)}
+    </>
   );
 };
 
