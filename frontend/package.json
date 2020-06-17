@@ -53,8 +53,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "cd .. && node bumpVersion.js",
-      "post-push": "git reset --hard"
+      "pre-push": "cd .. && node bumpVersion.js"
     }
   }
 }
