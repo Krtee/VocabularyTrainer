@@ -1,7 +1,7 @@
 {
     "husky": {
       "hooks": {
-        "pre-push": "node bumpVersion.js"
+        "pre-commit": "node bumpVersion.js"
       }
     }
   }
