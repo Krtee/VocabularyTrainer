@@ -53,7 +53,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "git add --all && git commit -am 'bumpVersion' && cd .. && node bumpVersion.js && git reset --soft"
+      "pre-push": "git add --all && cd .. && node bumpVersion.js && git reset --hard"
     }
   }
 }
