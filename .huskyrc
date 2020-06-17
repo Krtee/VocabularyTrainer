@@ -1,6 +1,5 @@
-// test
 {
   "hooks": {
-    "pre-commit": "npm test"
+    "pre-push": "node bumpVersion.js"
   }
 }
