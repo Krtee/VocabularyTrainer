@@ -339,10 +339,24 @@ async function getTranslation(lang_id, en_word) {
             .json({ success: false, error: "Problems with IBM Cloud. Try again later." });
     }
 
-    const translation = ibmRes.result.translations[0].translation;
+    let translation = ibmRes.result.translations[0].translation;
+
+    // IBM returns "... <translation>" or "<translation> ..." some times for whatever reason. Removing the dots here.
+    if (translation.indexOf("...") !== -1) {
+      translation = translation.replace("...", "").trim();
+      console.log("\x1b[41m\x1b[30m%s\x1b[0m", "REPLACING '...'", " ", en_word, "> ", translation);
+    }
+
+    const shouldFail =
+    !translation ||
+    en_word === translation.toLowerCase() ||
+    translation === "'" ||
+    translation === "-" ||
+    translation === "- ..." ||
+    translation === '".';
 
     // Check if API found a translation
-    if (en_word === translation.toLowerCase() || !ibmRes.result.translations[0].translation) {
+    if (shouldFail) {
         console.log("\x1b[41m\x1b[30m%s\x1b[0m", "IBM SEEMS NOT TO KNOW THIS WORD IN THIS LANGUAGE:", " ", en_word);
 
         // When the API doesn't know a translation for an English input word,
