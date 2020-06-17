@@ -12,18 +12,20 @@ import { Redirect } from "react-router";
 
 function VocabularyTraining() {
   const [auth, ] = useGlobal("auth");
-  const [showOptions, setShowOptions] = useState(true);
-  const [showQueries, setShowQueries] = useState(false);
-  const [showSummary, setShowSummary] = useState(false);
+  const [direction, setDirection] = useGlobal("direction");
+  const [language, ] = useGlobal("language");
+  const [numberOfVocab, setNumberOfVocab] = useGlobal("numberOfVocab");
+  const [progress, setProgress] = useGlobal("progress");
+  const [serverError, setserverError] = useGlobal("serverError")
+
   const [buttonState, setButtonState] = useState("options");
   const [buttonText, setButtonText] = useState("Start training");
   const [savedSettings, setSavedSettings] = useState(false);
-  const [numberOfVocab, setNumberOfVocab] = useGlobal("numberOfVocab");
-  const [progress, setProgress] = useGlobal("progress");
-  const [direction, setDirection] = useGlobal("direction");
-  const [language, ] = useGlobal("language");
+  const [showOptions, setShowOptions] = useState(true);
+  const [showQueries, setShowQueries] = useState(false);
+  const [showSummary, setShowSummary] = useState(false);
+
   let {width} = useWindowDimensions();
-  const [serverError, setserverError] = useGlobal("serverError")
 
   useEffect(() => {
     serverIsRunning().then((isRunning) => {
@@ -81,8 +83,11 @@ function VocabularyTraining() {
       progressArray.push(3);
     }
     setProgress(progressArray);
-    if (input.training_options_radios) {
+    console.log("receiveInput -> input.training_options_radios", input.training_options_radios)
+        if (input.training_options_radios) {
       setDirection(input.training_options_radios);
+    } else {
+      setDirection("fo_en")
     }
   };
 
