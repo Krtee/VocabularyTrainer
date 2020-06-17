@@ -12,22 +12,23 @@ const ReducedNavigation = () => {
 
     return (
         <Navbar id="navbar" sticky="top" className="white-background" expand={"*"}>
-            <Nav className="ml-auto">
-                <NavDropdown title="Account" id="basic-nav-dropdown" >
-                    <NavDropdown.Item>
-                        <LinkContainer to="/Settings" className="menu_option settings">
+            <Navbar.Toggle aria-controls="basic-navbar-nav" className={"ml-auto"}/>
+            <Navbar.Collapse id="basic-navbar-nav" className={"justify-content-end"}>
+                <Nav className="ml-auto">
+                    <Nav.Item>
+                        <LinkContainer to="/Settings" className="menu_option settings" >
                             <NavItem className="menu_padding">
                                 Account settings
                             </NavItem>
                         </LinkContainer>
-                    </NavDropdown.Item>
-                    <NavDropdown.Item className="menu_option">
+                    </Nav.Item>
+                    <Nav.Item>
                         <button type="submit" className="btn btn-primary" onClick={handleClick}>
                             Logout
                         </button>
-                    </NavDropdown.Item>
-                </NavDropdown>
-            </Nav>
+                    </Nav.Item>
+                </Nav>
+            </Navbar.Collapse>
         </Navbar>
     );
 };

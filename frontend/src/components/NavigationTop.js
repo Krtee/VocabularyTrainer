@@ -15,7 +15,7 @@ const NavigationTop = (props) => {
         <Navbar expand="lg" id="navbar" className="white-background" sticky="top">
             <Navbar.Toggle aria-controls="basic-navbar-nav" className={'ml-auto'}/>
             <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="mr-auto" >
+                <Nav className="mr-auto">
 
                     {props.width > 700 &&
                     <>

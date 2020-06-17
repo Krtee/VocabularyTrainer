@@ -1,26 +1,25 @@
 import React from "react";
 import {shallow} from 'enzyme';
-import axios from "axios";
-import VocabularyTraining from "../pages/VocabularyTraining";
+import VocabularyTraining_Options from "../components/VocabularyTraining_Options";
+import VocabularyTraining_Queries from "../components/VocabularyTraining_Queries";
 
 
-jest.mock('axios');
 
-const setUp = (props = {}) => {
-    const component = shallow(<VocabularyTraining/>);
-    return component;
-};
-
-describe('<VocabularyTraining/>', function () {
-    let component;
-
-    beforeEach(()=>{
-        component = setUp();
-    })
+describe('<VoacbularyTraining_Options/>', function () {
     it('should should render the necessary', function () {
-        console.log(component.debug())
-        expect(component.find(VocabularyTraining).length).toBe(0);
+        const component = shallow(<VocabularyTraining_Options/>);
+
+        expect(component.find('input').length).toBe(6);
+        expect(component.find('div.form-group').length).toBe(3);
+
     });
 
+});
+
+describe('<VocabularyTraining_Queries>', function () {
+
+    it('should render word', function () {
+        const component = shallow(<VocabularyTraining_Queries/>)
+    });
 
 });
