@@ -53,7 +53,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "cd .. && node bumpVersion.js"
+      "pre-push": "cd .. && node bumpVersion.js"
     }
   }
 }
