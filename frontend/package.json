@@ -48,6 +48,7 @@
     ]
   },
   "devDependencies": {
-    "history": "^4.10.1"
+    "history": "^4.10.1",
+    "husky": "^4.2.5"
   }
 }

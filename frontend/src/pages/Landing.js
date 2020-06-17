@@ -6,6 +6,7 @@ import "../style.scss";
 import SignUpButton from "../components/SignUpButton";
 import api from "../api";
 import serverIsRunning from "../helper"
+import constants from "../lib/constants.json"
 
 function Landing() {
     const [, setProgressSetting] = useGlobal("progressSetting");
@@ -215,7 +216,7 @@ function Landing() {
     }
 
     return (
-      <div>
+      <div test={console.log(JSON.parse(JSON.stringify(constants)))}>
         {auth ? <Redirect to="/languages" /> : null}
         <h1 className="margin_top_small">Vocabulary Trainer</h1>
         <h2>Log in or sign up!</h2>
