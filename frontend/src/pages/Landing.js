@@ -3,7 +3,7 @@ import React, { useGlobal, useState, useEffect } from "reactn";
 import { Redirect } from "react-router-dom";
 
 import "../style.scss";
-import SignUpButton from "../components/SignUpButton";
+import LogInFormsHandler from "../components/LogInFormsHandler";
 import api from "../api";
 import serverIsRunning from "../helper"
 import {version} from "../lib/version.json"
@@ -223,7 +223,7 @@ function Landing() {
         {serverError ? (
           <Redirect to="/Error" />
         ) : (
-          <SignUpButton
+          <LogInFormsHandler
             createUser={createUser}
             login={login}
             emptyHelpFields={emptyHelpFields}

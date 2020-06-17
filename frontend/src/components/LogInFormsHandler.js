@@ -2,7 +2,7 @@ import React, { useState } from "reactn";
 import LogInForms from "./LogInForms";
 
 
-const SignUpButton = (props) => {
+const LogInFormsHandler = (props) => {
     const { createUser, login, userNameHelp, passwordHelp, passwordRepeatHelp, emptyHelpFields } = props;
 
     const [noAccount, setNoAccount] = useState(false);
@@ -38,5 +38,5 @@ const SignUpButton = (props) => {
 
 };
 
-export default SignUpButton;
+export default LogInFormsHandler;
 
