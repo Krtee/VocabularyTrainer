@@ -50,5 +50,10 @@
   "devDependencies": {
     "history": "^4.10.1",
     "husky": "^4.2.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "cd .. && node bumpVersion.js"
+    }
   }
 }
