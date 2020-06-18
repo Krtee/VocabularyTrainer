@@ -68,3 +68,37 @@ App to train vocabulary for different.
 
 > Last Update: 2020-06-16
 
+----
+
+### Präsi
+1. App Funktionsumfang 
+   > Regina 
+2. Code Structure
+   > Roland
+3.  Testing
+   > Minh
+4. lessons learned
+  - React
+  - Mongo
+  - Testing
+  - (Global) State Management
+  - Git Workflow
+    - Full Remote work
+  - Render processing
+  - Merging
+  - (REST) API Management
+    - trouble finding good one, IBM is best for free so far, but still kinda sucks
+  - Docker
+  - Bootstrap
+  - Everyone learned at least some things in every major topic. 
+5. Versioning
+
+
+---
+
+More Ideas
+- Categories
+- Edit/delete Vocab
+- multiple translations
+- example sentences (linguee)
+- ...

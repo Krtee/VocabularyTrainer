@@ -5,8 +5,8 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    image: myapp-backend
-    container_name: myapp-node-backend
+    image: vt-backend
+    container_name: vt-node-backend
     command: /usr/src/app/node_modules/.bin/nodemon server.js
     volumes:
       - ./backend/:/usr/src/app
@@ -32,10 +32,10 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    image: myapp-client
+    image: vt-client
     stdin_open: true
     tty: true
-    container_name: myapp-react-client
+    container_name: vt-react-client
     command: yarn start
     volumes:
       - ./frontend/:/usr/app
