@@ -2,13 +2,15 @@
 
 ## Vocabulary Training App
 
-App to train vocabulary for different.
+App to train vocabulary for different languages.
 
 ### Features
 
 - Train vocabulary and track process
 - Add custom words
 - customize your training experience
+- Vocab overview
+- Account Setting
 
 ## Team
 
@@ -39,17 +41,15 @@ App to train vocabulary for different.
 - API: REST
 - Database: MongoDB
 
-
-
 ## Run Project
 
 ### Prerequisites
 
 - install node (incl. npm)
-- (install docker)
+- OR: install docker
 
 ### Get started
-
+#### node
 1. pull repository
 2. cd into ./backend
 3. `npm install`
@@ -57,48 +57,20 @@ App to train vocabulary for different.
 5. cd into ./frontend
 6. `npm install`
 7. `npm start`
+8. Open `localhost:3000` in Browser
+
+#### docker
+1. pull repository
+2. cd into root
+3. `docker-compose up --build`
+4. Open `localhost:3000` in Browser
 
 ### Testing
-
 1. pull repository
 2. cd into ./backend
 3. `npm test`
 4. cd into ./frontend
 5. `npm test`
 
-> Last Update: 2020-06-16
+> Last Update: 2020-06-18
 
-----
-
-### Präsi
-1. App Funktionsumfang 
-   > Regina 
-2. Code Structure
-   > Roland
-3.  Testing
-   > Minh
-4. lessons learned
-  - React
-  - Mongo
-  - Testing
-  - (Global) State Management
-  - Git Workflow
-    - Full Remote work
-  - Render processing
-  - Merging
-  - (REST) API Management
-    - trouble finding good one, IBM is best for free so far, but still kinda sucks
-  - Docker
-  - Bootstrap
-  - Everyone learned at least some things in every major topic. 
-5. Versioning
-
-
----
-
-More Ideas
-- Categories
-- Edit/delete Vocab
-- multiple translations
-- example sentences (linguee)
-- ...

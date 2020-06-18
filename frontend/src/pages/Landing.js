@@ -89,7 +89,6 @@ function Landing() {
             }
     
         } catch (error) {
-            console.log(error)
             setserverError(true)
         }
 
