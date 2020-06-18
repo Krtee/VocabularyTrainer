@@ -232,4 +232,11 @@ div#language_menu {
 
     }
 
+    #vocabulary_list {
+        -webkit-hyphens: none;
+        -ms-hyphens: none;
+        hyphens: none;
+        overflow-wrap: initial;
+    }
+
 }

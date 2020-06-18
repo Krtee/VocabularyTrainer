@@ -7,10 +7,12 @@ import { Redirect } from "react-router";
 
 const ReducedNavigation = () => {
     const [, setAuth] = useGlobal("auth");
+    const [, setLangID] = useGlobal("langID");
 
     function handleClick() {
         localStorage.setItem("isAuthorized", false)
         localStorage.setItem("userId", "")
+        setLangID("");
         setAuth(false);
     }
 

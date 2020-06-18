@@ -133,14 +133,23 @@ userRoutes.delete("/:user_id", (req, res, next) => {
 
 userRoutes.post("/getIdForUserName", (req, res) => {
     const { userName } = req.body;
+/*     console.log("*** req JSON: " + JSON.stringify(req));
+    console.log("*** req JSON: " + JSON.stringify(req));
+    console.log("*** userName: " + userName); */
 
     User.findOne({ username: userName }, (err, data) => {
         if (err) {
             console.error(err);
             return res.json({ success: false, error: err });
         }
-        const userId = data._id;
-        return res.json({ userId: userId });
+        if (data !== null) {
+            const userId = data._id;
+            return res.json({ userId: userId });
+        } else {
+            res.status(400).send({
+                'success': false
+            });
+        }
     });
 
 });

@@ -10,12 +10,12 @@ const setUp = (props = {}) => {
 
 describe('<LogInForms/>', function () {
 
-    it('should should render the necessary', function () {
+    it('should render the necessary', function () {
         let component = setUp(true)
         expect(component.find('input').length).toBe(4);
     });
 
-    it('should should render the necessary', function () {
+    it('should render the necessary', function () {
         let component = setUp(false)
         expect(component.find('input').length).toBe(2);
     });
