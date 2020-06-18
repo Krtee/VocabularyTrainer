@@ -175,7 +175,9 @@ function Landing() {
                                 setPasswordHelp("Please enter your password");
                             }
                         }
-                        setLocalStorage(true, userInfo._id );
+                        if (passwordCorrect) {
+                            setLocalStorage(true, userInfo._id );
+                        }
                         setAuth(passwordCorrect);
                         return resolve(res.data);
                     }
@@ -242,8 +244,8 @@ function Landing() {
             passwordRepeatHelp={passwordRepeatHelp}
           />
         )}
-        <div className="fixed-bottom m-5">
-          <span className="text-secondary">Version: {version}</span>
+        <div className="fixed-bottom m-5 flex-end text-right">
+          <span className="text-secondary ">Version: {version}</span>
         </div>
       </div>
     );
