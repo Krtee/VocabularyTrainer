@@ -289,8 +289,6 @@ async function getTranslation(lang_id, en_word) {
             "https://api.eu-de.language-translator.watson.cloud.ibm.com/instances/93ebb1a7-fe31-4268-b0b6-3bde1a15069c",
     });
 
-    console.log("*** #0");
-
     const translateParams = {
         text: en_word,
         modelId: `en-${lang_id}`,

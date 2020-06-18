@@ -131,6 +131,13 @@ div#language_menu {
 
 /* ---------- VocabularyList ---------- */
 
+#vocabulary_list {
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    overflow-wrap: break-word;
+}
+
 .vocabulary_list_header{
     font-weight: bold;
 }

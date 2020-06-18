@@ -1,5 +1,5 @@
 import React, {useGlobal} from "reactn";
-import {Navbar, Nav, NavDropdown} from "react-bootstrap";
+import {Navbar, Nav } from "react-bootstrap";
 import {LinkContainer} from "react-router-bootstrap";
 import NavItem from "react-bootstrap/NavItem";
 

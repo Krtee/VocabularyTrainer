@@ -53,7 +53,7 @@ describe('translation', function () {
 });
 
 describe('Fetching', () => {
-    it('Should fetch all Vocabs', async () => {
+/*     it('Should fetch all Vocabs', async () => {
 
         const response = await request(app)
             .get('/Vocab/')
@@ -61,6 +61,6 @@ describe('Fetching', () => {
             .expect(200)
 
         expect(response.body.data.length).toBeGreaterThan(0)
-    })
+    }) */
 
 })

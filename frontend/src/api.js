@@ -53,15 +53,6 @@ const deleteUser = async (userId) =>{
 
 // Vocab ------------------------------------------------------------
 
-const getVocabs = async () => {
-  try {
-    const res = await axios.get(`${url}/Vocab/`);
-    return res.data ? (res.data ? res.data.data : res) : res;
-  } catch (error) {
-    console.error(error);
-  }
-};
-
 const insertVocab = async (data) => {
   try {
     const res = await axios.post(`${url}/Vocab/insert`, data);
@@ -102,14 +93,6 @@ const getLanguages = async () => {
 
 // Progress ---------------------------------------------------------
 
-const getProgress = async () => {
-  try {
-    const res = await axios.get(`${url}/Vocab/getProgress`);
-    return res.data ? (res.data ? res.data.data : res) : res;
-  } catch (error) {
-    console.error(error);
-  }
-};
 
 const searchProgress = async (data) => {
   try {

@@ -12,7 +12,7 @@ import serverIsRunning from "../helper"
 import useWindowDimensions from "../components/Windowsize";
 
 function Settings() {
-    const [auth, setAuth] = useGlobal("auth");
+    const [, setAuth] = useGlobal("auth");
     const [user,] = useGlobal("user");
     let newName = createRef();
     let newProgress = createRef();
