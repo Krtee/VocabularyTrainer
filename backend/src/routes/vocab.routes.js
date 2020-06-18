@@ -27,29 +27,29 @@ vocabRoutes.post("/createProgress", (req, res) => {
     const { user_id, english_word, language_id } = req.body;
 
     Progress.find(
-      { english_word: english_word, user_id: user_id, language_id: language_id },
-      async (err, entry) => {
-        if (err) {
-          return res.json({ success: false, error: err });
-        } else {
-          if (entry[0] !== undefined) {
-            return res.json({ didAlreadyExist: true, success: true, data: entry });
-          } else {
-            const prog = new Progress({
-              english_word: english_word,
-              user_id: user_id,
-              language_id: language_id,
-              progress: 1,
-              right_guesses_in_a_row: 0,
-            });
+        { english_word: english_word, user_id: user_id, language_id: language_id },
+        async (err, entry) => {
+            if (err) {
+                return res.json({ success: false, error: err });
+            } else {
+                if (entry[0] !== undefined) {
+                    return res.json({ didAlreadyExist: true, success: true, data: entry });
+                } else {
+                    const prog = new Progress({
+                        english_word: english_word,
+                        user_id: user_id,
+                        language_id: language_id,
+                        progress: 1,
+                        right_guesses_in_a_row: 0,
+                    });
 
-            prog.save((err) => {
-              if (err) return res.json({ didAlreadyExist: false, success: false, error: err });
-            });
-            return res.json({ didAlreadyExist: false, success: true, data: prog });
-          }
+                    prog.save((err) => {
+                        if (err) return res.json({ didAlreadyExist: false, success: false, error: err });
+                    });
+                    return res.json({ didAlreadyExist: false, success: true, data: prog });
+                }
+            }
         }
-      }
     );
 });
 
@@ -139,6 +139,7 @@ vocabRoutes.post("/increaseProgress", (req, res) => {
 
 vocabRoutes.post("/getVocabAndTranslation", (req, res) => {
     const { english_word, lang_id } = req.body;
+
     Vocab.findOne({ english_word: english_word }, (err, data) => {
         if (err || !data) {
             // console.error(err);
@@ -186,9 +187,19 @@ vocabRoutes.post("/insert", (req, res) => {
                     en_word
                 );
 
-                // Create Word in vocab collection
 
-                const translation = await getTranslation(lang_id, english_word);
+                // Create Word in vocab collection
+                let translation;
+
+                try {
+                    translation = await getTranslation(lang_id, english_word);
+                } catch (error) {
+                    const response = getResponseForFailedTranslation(error);
+                    return res
+                        .status(response.status)
+                        .json({ success: response.success, error: response.errorText });
+                }
+
                 if (translation.status !== 200) {
                     return res.status(translation.status).json(translation);
                 }
@@ -221,7 +232,17 @@ vocabRoutes.post("/insert", (req, res) => {
                         .json({ success: true, message: `This word is already in your collection.` });
                 }
 
-                const translation = await getTranslation(lang_id, en_word);
+                let translation;
+
+                try {
+                    translation = await getTranslation(lang_id, english_word);
+                } catch (error) {
+                    const response = getResponseForFailedTranslation(error);
+                    return res
+                        .status(response.status)
+                        .json({ success: response.success, error: response.errorText });
+                }
+
                 if (translation.status !== 200) {
                     return res.status(translation.status).json(translation);
                 }
@@ -271,34 +292,40 @@ async function getTranslation(lang_id, en_word) {
         modelId: `en-${lang_id}`,
     };
 
+    let ibmRes;
+
     // Translate via IBM
-    let ibmRes = await languageTranslator.translate(translateParams).then((translationResult) => {
-        return JSON.stringify(translationResult, null, 2);
-    });
+    try {
+        ibmRes = await languageTranslator.translate(translateParams).then((translationResult) => {
+            return JSON.stringify(translationResult, null, 2);
+        });
+    } catch (error) {
+        // If requested language is unknown
+        throw "unknown_language";
+    }
+
     ibmRes = JSON.parse(ibmRes);
 
     if (ibmRes.status !== 200) {
         // Any IBM Problem
-        return res
-            .status(500)
-            .json({ success: false, error: "Problems with IBM Cloud. Try again later." });
+        throw "ibm_problems";
     }
 
     let translation = ibmRes.result.translations[0].translation;
 
     // IBM returns "... <translation>" or "<translation> ..." some times for whatever reason. Removing the dots here.
     if (translation.indexOf("...") !== -1) {
-      translation = translation.replace("...", "").trim();
-      console.log("\x1b[41m\x1b[30m%s\x1b[0m", "REPLACING '...'", " ", en_word, "> ", translation);
+        translation = translation.replace("...", "").trim();
+        console.log("\x1b[41m\x1b[30m%s\x1b[0m", "REPLACING '...'", " ", en_word, "> ", translation);
     }
 
     const shouldFail =
-    !translation ||
-    en_word === translation.toLowerCase() ||
-    translation === "'" ||
-    translation === "-" ||
-    translation === "- ..." ||
-    translation === '".';
+        !translation ||
+        en_word === translation.toLowerCase() ||
+        translation === "'" ||
+        translation === "-" ||
+        translation === "- ..." ||
+        translation === '".';
 
     // Check if API found a translation
     if (shouldFail) {
@@ -306,9 +333,34 @@ async function getTranslation(lang_id, en_word) {
 
         // When the API doesn't know a translation for an English input word,
         // it always returns the input word.
-        return { status: 502, error: "Unknown word. Please check the spelling." };
+        return { status: 400, success: false };
     }
     return { status: 200, translation: translation };
+}
+
+function getResponseForFailedTranslation(error) {
+
+    let status;
+    let success;
+    let errorText;
+
+    if (error === "unknown_language") {
+        status = 400;
+        success = false;
+        errorText = "IBM does not know this language."
+    } else if (error === "ibm problems") {
+        status = 500;
+        success = false;
+        errorText = "Problems with IBM Cloud occurred";
+    } else {
+        status = 404;
+        success = false;
+        errorText = "Unknown IBM related error occured";
+    }
+
+    return { status, success, errorText };
+
+
 }
 
 module.exports = vocabRoutes;

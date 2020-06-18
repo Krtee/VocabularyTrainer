@@ -10,7 +10,7 @@ import {version} from "../lib/version.json"
 
 function Landing() {
     const [, setProgressSetting] = useGlobal("progressSetting");
-    const [user, setUser] = useGlobal("user");
+    const [, setUser] = useGlobal("user");
     const [auth, setAuth] = useGlobal("auth");
     const [serverError, setserverError] = useGlobal("serverError")
 

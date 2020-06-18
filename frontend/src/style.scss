@@ -1,11 +1,13 @@
 /* ---------- General instructions ---------- */
 
 * {
-    font-family: 'Segoe UI','Roboto','Oxygen-Sans','Ubuntu','Cantarell','Helvetica Neue',sans-serif;
+    font-family: 'Segoe UI', 'Roboto', 'Oxygen-Sans', 'Ubuntu', 'Cantarell', 'Helvetica Neue', sans-serif;
 }
 
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     font-family: "Passion One", sans-serif;
 }
 
@@ -13,18 +15,18 @@ h1 {
     margin-top: 2em;
     color: #007bff;
     font-weight: bold;
-    margin-bottom:.5em !important;
+    margin-bottom: .5em !important;
 }
 
 h2 {
     color: #888;
     font-size: 1.8em !important;
-    margin-bottom:1em !important;
+    margin-bottom: 1em !important;
 }
 
 .row {
-    margin-left:0px !important;
-    margin-right:0px !important;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
 }
 
 .margin_left {
@@ -74,7 +76,6 @@ a:hover {
 
 
 #content {
-    //padding-top: 1em;
     padding-bottom: 7em;
 }
 
@@ -92,23 +93,26 @@ a:hover {
     background: white !important;
 }
 
+/* Navigation */
 
-/* NavigationTop */
-
-.vocabulary_list .vocabulary_list,
-.add_vocabulary .add_vocabulary,
-.vocabulary_training .vocabulary_training,
-.settings .settings
-{
-    //color: #007bff !important;
+#navbar_permanent_line {
+    background-color: white !important;
+    border-bottom: 2px solid #ddd;
 }
 
+
+/* Landing */
+
+.version {
+    color: rgba(108, 117, 125, 0.897) !important;
+    text-align: right;
+}
 
 
 /* ---------- Languages page ---------- */
 
 div#language_menu {
-    padding-left:0;
+    padding-left: 0;
 }
 
 .languages_box {
@@ -137,11 +141,18 @@ div#language_menu {
 
 /* ---------- VocabularyList ---------- */
 
-.vocabulary_list_header{
+#vocabulary_list {
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    overflow-wrap: break-word;
+}
+
+.vocabulary_list_header {
     font-weight: bold;
 }
 
-.vocabulary_list_entry > div {
+.vocabulary_list_entry>div {
     padding-top: .25em;
     padding-bottom: .25em;
 }
@@ -220,4 +231,5 @@ div#language_menu {
         border-bottom: 2px solid #ddd;
 
     }
-  }
+
+}

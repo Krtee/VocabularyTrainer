@@ -10,7 +10,7 @@ userRoutes.get("/status", (req, res) => {
     return res.status(200).send({ status: "ok" })
 })
 
-/* Get all User */
+/* Get all Users */
 userRoutes.get('/', (req, res, next) => {
     User.find({}, function (err, result) {
         if (err) {
@@ -47,6 +47,11 @@ userRoutes.get("/:user_id", (req, res, next) => {
 userRoutes.post("/", (req, res, next) => {
     const { id, username, password } = req.body;
 
+    let forTesting = false;
+    if (req.body.forTesting !== undefined) {
+        forTesting = true;
+    }
+
     if (!id && id !== 0 && !username && !password) {
         return res.json({
             success: false,
@@ -57,7 +62,8 @@ userRoutes.post("/", (req, res, next) => {
     let newUser = {
         username: req.body.username,
         password: req.body.password,
-        right_guesses_in_a_row: 3
+        right_guesses_in_a_row: 3,
+        forTesting: forTesting
     };
 
     User.findOne({ username: req.body.username }, (err, data) => {
@@ -80,7 +86,10 @@ userRoutes.post("/", (req, res, next) => {
                 });
             });
         } else {
-            console.log("Username already taken.");
+            res.status(400).send({
+                success: false,
+                message: "Username already taken."
+            });
         }
     });
 });
