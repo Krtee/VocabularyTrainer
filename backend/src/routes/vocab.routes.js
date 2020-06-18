@@ -141,10 +141,7 @@ vocabRoutes.post("/increaseProgress", (req, res) => {
 
 vocabRoutes.post("/getVocabAndTranslation", (req, res) => {
     const { english_word, lang_id } = req.body;
-<<<<<<< HEAD
 
-=======
->>>>>>> 9f98687a7f8903e5cad30da1f33c61f53da6ada9
     Vocab.findOne({ english_word: english_word }, (err, data) => {
         if (err || !data) {
             // console.error(err);
