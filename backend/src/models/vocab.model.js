@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const DataSchema = new Schema(
     {
         "english_word": String,
+        "forTesting": Boolean,
         "translation":
         {
             "ar": String,
@@ -28,7 +29,7 @@ const DataSchema = new Schema(
             "sv": String,
             "tr": String,
             "zh": String
-        }
+        },
     },
     { timestamps: true,  minimize: false  }
 );

@@ -12,7 +12,7 @@ setGlobal({
   numberOfVocab: 25,
   direction: "fo_en",
   langName: "German",
-  langID: "de",
+  langID: "",
   summary: [],
   progressSetting: 3,
   serverError: false,

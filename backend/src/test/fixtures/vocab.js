@@ -3,19 +3,22 @@ const mongoose = require('mongoose')
 const vocab_one = {
     _id: new mongoose.Types.ObjectId(),
     "language_id, ": "de",
-    "english_word": "cat"
+    "english_word": "cat",
+    "forTesting": true
 }
 
 const vocab_two = {
     _id: new mongoose.Types.ObjectId(),
     "language_id, ": "fr",
-    "english_word": "dog"
+    "english_word": "dog",
+    "forTesting": true
 }
 
 const vocab_three = {
     _id: new mongoose.Types.ObjectId(),
     "language_id, ": "de",
-    "english_word": "house"
+    "english_word": "house",
+    "forTesting": true
 }
 
 
