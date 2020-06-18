@@ -51,8 +51,6 @@ vocabRoutes.post("/createProgress", (req, res) => {
         }
       }
     );
-
-
 });
 
 vocabRoutes.post("/searchProgress", (req, res) => {
