@@ -60,7 +60,6 @@ const Languages = () => {
   return (
     <div>
       <ReducedNavigation />
-      {console.log("languages.js: ", localStorage.getItem("isAuthorized"))}
       {serverError ? (
         <Redirect to="/Error" />
       ) : localStorage.getItem("isAuthorized") === "false" ||
