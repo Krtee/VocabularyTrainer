@@ -46,7 +46,6 @@ const VocabularyTraining_Summary = (props) => {
             langID={langID}
             user={user}
             width={width}
-            test={console.log("entry.currentWord", entry.currentWord.translation[langID])}
           />
         );
       })}

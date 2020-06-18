@@ -35,7 +35,7 @@ router.delete("/:lang_id", (req, res) => {
   });
 });
 
-/* Add Single User */
+/* Add Single Lang */
 router.post("/", (req, res, next) => {
   let data = new Languages();
   const { id, language } = req.body;

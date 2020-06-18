@@ -13,7 +13,6 @@ const getLanguages = async () => {
 };
 
 const Languages = () => {
-  const [auth] = useGlobal("auth");
   const [langName, setLangName] = useGlobal("langName");
   const [langID, setLangID] = useGlobal("langID");
   const [languages, setLanguages] = useState([]);

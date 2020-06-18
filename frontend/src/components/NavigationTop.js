@@ -7,15 +7,17 @@ import { Redirect } from "react-router";
 
 const NavigationTop = (props) => {
     const [, setAuth] = useGlobal("auth");
+    const [, setLangID] = useGlobal("langID");
 
     function handleClick() {
         localStorage.setItem("isAuthorized", false)
         localStorage.setItem("userId", "")
+        setLangID("");
         setAuth(false);
     }
 
     return (
-        <Navbar expand="lg" id="navbar" className="white-background" sticky="top">
+        <Navbar expand="lg" id="navbar" className="white-background nav_border" sticky="top">
             {localStorage.getItem("isAuthorized") === "false" ? <Redirect to="/"/>:null}
             <Navbar.Toggle aria-controls="basic-navbar-nav" className={'ml-auto'}/>
             <Navbar.Collapse id="basic-navbar-nav">

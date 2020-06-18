@@ -56,18 +56,16 @@ const VocabularyList = (props) => {
     let { width } = useWindowDimensions();
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [vocabsPerPage] = useState(50);
+    const [vocabsPerPage] = useState(25);
 
     useEffect(() => {
         let isCancelled = false;
         getProgressForUserAndLanguage(user, langID).then((data) => {
-            console.log("isCancelled: "+ isCancelled)
             if (!isCancelled) {
                 setProg(data);
                 setLoading(false);
             }
             else {
-                console.log("fetching cancelled")
             }
 
         });
@@ -75,7 +73,6 @@ const VocabularyList = (props) => {
 
         return () => {
             isCancelled = true;
-            console.log("unmounted." + isCancelled)
         };
 
         // eslint-disable-next-line

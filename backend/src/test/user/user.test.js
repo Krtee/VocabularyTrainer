@@ -15,15 +15,15 @@ describe('Registration', () => {
 
         const user = await User.findById(response.body.data._id)
         expect(user).not.toBeNull()
-        expect(user.email).toEqual(register_user.email)
+        expect(user.username).toEqual(register_user.username)
     })
 
-    it('Should not register a user with an email that already exists', async () => {
+    it('Should not register a user with a user name that already exists', async () => {
         const response = await request(app)
             .post('/Users/')
             .send(register_user)
             .expect(400)
-        expect(response.body.email).toBeDefined()
+        expect(response.body.success).toEqual(false)
     })
 })
 
