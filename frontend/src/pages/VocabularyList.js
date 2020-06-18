@@ -56,7 +56,7 @@ const VocabularyList = (props) => {
     let { width } = useWindowDimensions();
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [vocabsPerPage] = useState(50);
+    const [vocabsPerPage] = useState(25);
 
     useEffect(() => {
         let isCancelled = false;
