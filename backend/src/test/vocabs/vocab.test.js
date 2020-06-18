@@ -2,12 +2,12 @@ const request = require('supertest')
 const app = require('../../../app')
 const Vocab = require('../../models/Vocab.model')
 const { setupDatabase } = require('../fixtures/db')
-const { add_new_word_wrong_language_id,add_new_wrong_word,add_new_word } = require('../fixtures/vocab')
+const { add_new_word_wrong_language_id, add_new_wrong_word, add_new_word } = require('../fixtures/vocab')
 
 beforeAll(setupDatabase)
 
 describe('Vocabs', () => {
-    it('Should add word with valid info', async () => {
+    it('Should add a new, valid vocab', async () => {
         const response = await request(app)
             .post('/Vocab/insert')
             .send(add_new_word)
@@ -20,7 +20,7 @@ describe('Vocabs', () => {
 
     })
 
-    it('Should not add word with a word that already exists', async () => {
+    it('Should not add a vocab that already exists', async () => {
         const response = await request(app)
             .post('/Vocab/insert')
             .send(add_new_word)
@@ -29,19 +29,23 @@ describe('Vocabs', () => {
         console.log(response.body)
     })
 
-    it('should not add with wrong lang id', async function () {
-        const response = await request(app)
-            .post('/Vocab/insert')
-            .send(add_new_word_wrong_language_id)
-            .expect(400)
-    });
-
-    it('should not add with wrong word', async function () {
+    it('Should not add a nonexistent vocab', async function () {
         const response = await request(app)
             .post('/Vocab/insert')
             .send(add_new_wrong_word)
             .expect(400)
     });
+
+    it('Should not add a vocab with a nonexistent lang id', async function () {
+        const response = await request(app)
+            .post('/Vocab/insert')
+            .send(add_new_word_wrong_language_id)
+            .expect(400)
+
+        expect(response.body.success).toEqual(false)
+    })
+
+
 })
 
 describe('translation', function () {

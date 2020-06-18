@@ -27,14 +27,14 @@ const add_new_word = {
 
 const add_new_word_wrong_language_id = {
     _id: new mongoose.Types.ObjectId(),
-    language_id: "wrong id",
-    english_word: "house"
+    language_id: "zz",
+    english_word: "example"
 }
 
 const add_new_wrong_word = {
     _id: new mongoose.Types.ObjectId(),
     language_id: "de",
-    english_word: "house213"
+    english_word: "teem"
 }
 
 module.exports = {

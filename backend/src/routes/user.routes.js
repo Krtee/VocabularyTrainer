@@ -80,7 +80,10 @@ userRoutes.post("/", (req, res, next) => {
                 });
             });
         } else {
-            console.log("Username already taken.");
+            res.status(400).send({
+                success: false,
+                message: "Username already taken."
+            });
         }
     });
 });

@@ -74,7 +74,6 @@ a:hover {
 
 
 #content {
-    //padding-top: 1em;
     padding-bottom: 7em;
 }
 
@@ -92,17 +91,12 @@ a:hover {
     background: white !important;
 }
 
+/* Landing */
 
-/* NavigationTop */
-
-.vocabulary_list .vocabulary_list,
-.add_vocabulary .add_vocabulary,
-.vocabulary_training .vocabulary_training,
-.settings .settings
-{
-    //color: #007bff !important;
+.version {
+    color: rgba(108, 117, 125, 0.897)!important;
+    text-align: right;
 }
-
 
 
 /* ---------- Languages page ---------- */
