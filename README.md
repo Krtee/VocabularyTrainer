@@ -6,11 +6,16 @@ App to train vocabulary for different languages.
 
 ### Features
 
-- Train vocabulary and track process
+- Train vocabulary for different languages
+- Track your progress
+- Overview over your vocabulary and progress
+- For each language: Default set of most basic vocabulary
 - Add custom words
-- customize your training experience
-- Vocab overview
-- Account Setting
+- Customize your training experience
+- Account settings: 
+    - Change username and password
+    - Define how many right guesses in a row shall lead to new progress level
+    - Delete your account
 
 ## Team
 
@@ -45,11 +50,11 @@ App to train vocabulary for different languages.
 
 ### Prerequisites
 
-- install node (incl. npm)
-- OR: install docker
+- Install node (incl. npm)
+- OR: Install docker
 
 ### Get started
-#### node
+#### Node
 1. pull repository
 2. cd into ./backend
 3. `npm install`
@@ -59,13 +64,13 @@ App to train vocabulary for different languages.
 7. `npm start`
 8. Open `localhost:3000` in Browser
 
-#### docker
+#### Docker
 1. pull repository
 2. cd into root
 3. `docker-compose up --build`
 4. Open `localhost:3000` in Browser
 
-### Testing
+### Run tests
 1. pull repository
 2. cd into ./backend
 3. `npm test`
