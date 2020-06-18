@@ -84,16 +84,12 @@ const VocabularyList = (props) => {
     useEffect(() => {
         let isCancelled = false;
         serverIsRunning().then((isRunning) => {
-                console.log("Landing -> isRunning", isRunning);
                 if (!isCancelled) {
                     if (isRunning) {
                         setserverError(false);
                     } else {
                         setserverError(true);
                     }
-                }
-                else {
-                    console.log("server runtask cancelled")
                 }
             }
         );

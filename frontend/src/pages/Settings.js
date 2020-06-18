@@ -13,6 +13,7 @@ import useWindowDimensions from "../components/Windowsize";
 
 function Settings() {
     const [auth, setAuth] = useGlobal("auth");
+    const[progressSetting,setProgessSetting] = useGlobal("progressSetting")
     const [user,] = useGlobal("user");
     let newName = createRef();
     let newProgress = createRef();
@@ -128,6 +129,10 @@ function Settings() {
         const res = await api.user.editUser(user, toSend);
         if (res.data.success) {
             setChanged(true);
+            if(toSend.hasOwnProperty("right_guesses_in_a_row")){
+                setProgessSetting(toSend.right_guesses_in_a_row)
+                console.log(progressSetting)
+            }
         }
     }
 
