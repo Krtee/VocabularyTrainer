@@ -10,7 +10,7 @@ import {version} from "../lib/version.json"
 
 function Landing() {
     const [, setProgressSetting] = useGlobal("progressSetting");
-    const [, setUser] = useGlobal("user");
+    const [user, setUser] = useGlobal("user");
     const [auth, setAuth] = useGlobal("auth");
     const [serverError, setserverError] = useGlobal("serverError")
 
@@ -27,15 +27,15 @@ function Landing() {
     }
 
     useEffect(() => {
-       serverIsRunning().then(isRunning => {
-           if (isRunning) {
-               setserverError(false)
-           } else {
-               setserverError(true)
-           }
-       })
-       // eslint-disable-next-line
-    }, [])    
+      serverIsRunning().then((isRunning) => {
+        if (isRunning) {
+          setserverError(false);
+        } else {
+          setserverError(true);
+        }
+      });
+      // eslint-disable-next-line
+    }, []);    
 
     async function validateCreateUser(userName, usernameAlreadyTaken, password, passwordRepeat) {
         try {
@@ -62,10 +62,13 @@ function Landing() {
                                 if (res.status === 200) {
                                     setAuth(true);
                                     const userId = await getIdForUserName(userName);
+                                    setLocalStorage(true, userId)
                                     setUser(userId);
                                     return resolve(res.data);
                                 }
                             }
+                            localStorage.setItem("isAuthorized", false)
+                            localStorage.setItem("userId", "")                    
                             setAuth(false);
                             return reject("Something went wrong while trying to authenticate!");
                         });
@@ -172,7 +175,7 @@ function Landing() {
                                 setPasswordHelp("Please enter your password");
                             }
                         }
-    
+                        setLocalStorage(true, userInfo._id );
                         setAuth(passwordCorrect);
                         return resolve(res.data);
                     }
@@ -212,6 +215,13 @@ function Landing() {
             return userInfo.password === password;
         } catch (error) {
             console.error(error);
+        }
+    }
+
+    function setLocalStorage(isAuthorized, userId) {
+        if (isAuthorized) {
+            localStorage.setItem("isAuthorized", true)
+            localStorage.setItem("userId", userId)
         }
     }
 

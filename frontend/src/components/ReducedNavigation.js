@@ -7,6 +7,8 @@ const ReducedNavigation = () => {
     const [, setAuth] = useGlobal("auth");
 
     function handleClick() {
+        localStorage.setItem("isAuthorized", false)
+        localStorage.setItem("userId", "")
         setAuth(false);
     }
 

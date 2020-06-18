@@ -11,7 +11,6 @@ import { Redirect } from "react-router";
 
 
 function VocabularyTraining() {
-  const [auth, ] = useGlobal("auth");
   const [direction, setDirection] = useGlobal("direction");
   const [language, ] = useGlobal("language");
   const [numberOfVocab, setNumberOfVocab] = useGlobal("numberOfVocab");
@@ -37,10 +36,6 @@ function VocabularyTraining() {
     });
     // eslint-disable-next-line
   }, []);
-
-  if (!auth) {
-    return <Redirect to="/" />;
-  }
 
   const changeView = () => {
     if (buttonState === "options") {
@@ -95,6 +90,9 @@ function VocabularyTraining() {
     <>
       {serverError ? (
         <Redirect to="/Error" />
+      ) : localStorage.getItem("isAuthorized") === "false" ||
+        localStorage.getItem("isAuthorized") === false ? (
+        <Redirect to="/" />
       ) : (
         <div id="content" className="vocabulary_training">
           <NavigationTop width={width} />

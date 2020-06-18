@@ -37,10 +37,6 @@ function Settings() {
       // eslint-disable-next-line
     }, []);
 
-    if (!auth) {
-        return <Redirect to="/" />;
-    }
-
     const handleClose = (event, id) => {
         if (event) { event.preventDefault(); }
         if (id === "1") {
@@ -139,79 +135,133 @@ function Settings() {
         const res = await api.user.deleteUser(user);
         if (res.data.success) {
             setChanged(true);
+            localStorage.setItem("isAuthorized", false)
+            localStorage.setItem("userId", "")    
             await setAuth(false);
         }
     }
 
-    return (<>
+    return (
+      <>
         {serverError ? (
           <Redirect to="/Error" />
-          ) : (
-        <div id="content" className="settings margin_top">
+        ) : localStorage.getItem("isAuthorized") === "false" ||
+          localStorage.getItem("isAuthorized") === false ? (
+          <Redirect to="/" />
+        ) : (
+          <div id="content" className="settings margin_top">
             <NavigationTop width={width} />
             {width < 700 && <NavigationBottom />}
             <form>
-                <h1 className="margin_top_small">Settings</h1>
-                <h2 className={"lead"}>Choose the property that you want to change</h2>
+              <h1 className="margin_top_small">Settings</h1>
+              <h2 className={"lead"}>Choose the property that you want to change</h2>
+              <div className="form-group row">
+                <label className="col-lg-4 col-xs-12 no-padding-left" htmlFor="settings">
+                  How many correct answers in a row lead to a new progress level?
+                </label>
+                <input
+                  type="number"
+                  className="form-control col-lg-8 col-xs-12"
+                  id="settings"
+                  placeholder=""
+                  ref={newProgress}
+                />
+              </div>
+              <div className="form-group row">
+                <label className="col-lg-4 col-xs-12 no-padding-left" htmlFor="settings">
+                  Change username
+                </label>
+                <input
+                  type="text"
+                  className="form-control col-lg-8 col-xs-12"
+                  id="settings"
+                  placeholder=""
+                  ref={newName}
+                />
+              </div>
+              <div className="form-group row">
+                <label className="col-lg-4 col-xs-12 no-padding-left" htmlFor="settings">
+                  Change password
+                </label>
+                <input
+                  type="password"
+                  className="form-control col-lg-8 col-xs-12"
+                  id="settings"
+                  placeholder=""
+                  onChange={handleOnChange}
+                  ref={newpassword}
+                />
+              </div>
+              {passw && (
                 <div className="form-group row">
-                    <label className="col-lg-4 col-xs-12 no-padding-left" htmlFor="settings">How many correct answers
-                        in a row lead to a new progress level?</label>
-                    <input type="number" className="form-control col-lg-8 col-xs-12" id="settings" placeholder=""
-                        ref={newProgress} />
+                  <label className="col-lg-4 col-xs-12 no-padding-left" htmlFor="settings">
+                    Re-enter password
+                  </label>
+                  <input
+                    type="password"
+                    className="form-control col-lg-8 col-xs-12"
+                    id="settings"
+                    placeholder=""
+                    ref={newpassword2}
+                  />
                 </div>
-                <div className="form-group row">
-                    <label className="col-lg-4 col-xs-12 no-padding-left" htmlFor="settings">Change username</label>
-                    <input type="text" className="form-control col-lg-8 col-xs-12" id="settings" placeholder=""
-                        ref={newName} />
-                </div>
-                <div className="form-group row">
-                    <label className="col-lg-4 col-xs-12 no-padding-left" htmlFor="settings">Change password</label>
-                    <input type="password" className="form-control col-lg-8 col-xs-12" id="settings" placeholder="" onChange={handleOnChange}
-                        ref={newpassword} />
-                </div>
-                {passw && <div className="form-group row">
-                    <label className="col-lg-4 col-xs-12 no-padding-left" htmlFor="settings">Re-enter password</label>
-                    <input type="password" className="form-control col-lg-8 col-xs-12" id="settings" placeholder=""
-                        ref={newpassword2} />
-                </div>}
-                <div className="warning">{userInfo}</div>
-                <button className="btn btn-primary" onClick={(e) => handleShow(e, "changeButton")}>Save settings</button>
+              )}
+              <div className="warning">{userInfo}</div>
+              <button className="btn btn-primary" onClick={(e) => handleShow(e, "changeButton")}>
+                Save settings
+              </button>
             </form>
 
-            <Button variant={"danger"} style={{ marginTop: "1em" }} onClick={(e) => handleShow(e, "deleteButton")}>Delete Account</Button>
-
+            <Button
+              variant={"danger"}
+              style={{ marginTop: "1em" }}
+              onClick={(e) => handleShow(e, "deleteButton")}
+            >
+              Delete Account
+            </Button>
 
             <Modal show={show} onHide={(e) => handleClose(e, "1")}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Warning</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>{changed ? 'Changed.' : 'Are you sure that you want to save these changes?'}</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={(e) => handleClose(e, "1")}>
-                        Close
-                    </Button>
-                    {!changed && <Button variant="primary" onClick={changeInformation}>
-                        Save Changes
-                    </Button>}
-                </Modal.Footer>
+              <Modal.Header closeButton>
+                <Modal.Title>Warning</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                {changed ? "Changed." : "Are you sure that you want to save these changes?"}
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={(e) => handleClose(e, "1")}>
+                  Close
+                </Button>
+                {!changed && (
+                  <Button variant="primary" onClick={changeInformation}>
+                    Save Changes
+                  </Button>
+                )}
+              </Modal.Footer>
             </Modal>
 
             <Modal show={show2} onHide={(e) => handleClose(e, "2")}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Warning</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>{changed ? 'Account Deleted.' : 'Are you sure that you want to delete this account?'}</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={(e) => handleClose(e, "2")}>
-                        Close
-                    </Button>
-                    {!changed && <Button variant="danger" onClick={deleteAccount}>
-                        Delete Account
-                    </Button>}
-                </Modal.Footer>
+              <Modal.Header closeButton>
+                <Modal.Title>Warning</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                {changed
+                  ? "Account Deleted."
+                  : "Are you sure that you want to delete this account?"}
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={(e) => handleClose(e, "2")}>
+                  Close
+                </Button>
+                {!changed && (
+                  <Button variant="danger" onClick={deleteAccount}>
+                    Delete Account
+                  </Button>
+                )}
+              </Modal.Footer>
             </Modal>
-        </div>)}
-        </>
+          </div>
+        )}
+      </>
     );
 }
 

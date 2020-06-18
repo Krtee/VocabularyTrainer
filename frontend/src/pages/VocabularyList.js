@@ -46,7 +46,6 @@ const createBasicVocab = async (user, id) => {
 };
 
 const VocabularyList = (props) => {
-    const [auth] = useGlobal("auth");
     const [user] = useGlobal("user");
     const [langID] = useGlobal("langID");
     const [langName] = useGlobal("langName");
@@ -54,7 +53,7 @@ const VocabularyList = (props) => {
 
     const [prog, setProg] = useState([]);
     const [loading, setLoading] = useState(true);
-    let {width} = useWindowDimensions();
+    let { width } = useWindowDimensions();
 
     const [currentPage, setCurrentPage] = useState(1);
     const [vocabsPerPage] = useState(50);
@@ -105,10 +104,6 @@ const VocabularyList = (props) => {
         // eslint-disable-next-line
     }, []);
 
-    if (!auth) {
-        return <Redirect to="/"/>;
-    }
-
     var key = 0;
 
     const indexOfLastVocab = currentPage * vocabsPerPage;
@@ -124,9 +119,12 @@ const VocabularyList = (props) => {
     //TODO catch data as json from database
     return (
         <>
-            {serverError ? (
-                <Redirect to="/Error"/>
-            ) : (
+      {serverError ? (
+        <Redirect to="/Error" />
+      ) : localStorage.getItem("isAuthorized") === "false" ||
+        localStorage.getItem("isAuthorized") === false ? (
+        <Redirect to="/" />
+      ) : (
 
                 <div id="content" className="vocabulary_list">
                     <NavigationTop width={width}/>

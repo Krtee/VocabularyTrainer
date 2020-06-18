@@ -7,8 +7,7 @@ import "./style.scss";
 // FIXME: FOR DEV REASONS SET ON TRUE, BUT SET FALSE FOR PRODUCTIVE!
 // FIXME: REMOVE USERID AND LANGNAME AND LANGID BEFORE RELEASE!
 setGlobal({
-  auth: false,
-  user: "5ee0e6472be0845b1432ee44",
+  user: "",
   progress: [1],
   numberOfVocab: 25,
   direction: "fo_en",

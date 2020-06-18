@@ -41,10 +41,6 @@ const Languages = () => {
     });
   }, []);
 
-  if (!auth) {
-    return <Redirect to="/" />;
-  }
-
   const getLanguage = (langID, langName) => {
     console.group("Language");
     console.log("%c langID ", "Background: #0CE66E", langID);
@@ -64,8 +60,12 @@ const Languages = () => {
   return (
     <div>
       <ReducedNavigation />
+      {console.log("languages.js: ", localStorage.getItem("isAuthorized"))}
       {serverError ? (
         <Redirect to="/Error" />
+      ) : localStorage.getItem("isAuthorized") === "false" ||
+        localStorage.getItem("isAuthorized") === false ? (
+        <Redirect to="/" />
       ) : (
         <>
           {" "}

@@ -2,17 +2,21 @@ import React, {useGlobal} from "reactn";
 import {Navbar, Nav, NavDropdown} from "react-bootstrap";
 import NavItem from "react-bootstrap/NavItem";
 import {LinkContainer} from "react-router-bootstrap";
+import { Redirect } from "react-router";
 //import useWindowDimensions from "./Windowsize";
 
 const NavigationTop = (props) => {
     const [, setAuth] = useGlobal("auth");
 
     function handleClick() {
+        localStorage.setItem("isAuthorized", false)
+        localStorage.setItem("userId", "")
         setAuth(false);
     }
 
     return (
         <Navbar expand="lg" id="navbar" className="white-background" sticky="top">
+            {localStorage.getItem("isAuthorized") === "false" ? <Redirect to="/"/>:null}
             <Navbar.Toggle aria-controls="basic-navbar-nav" className={'ml-auto'}/>
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">

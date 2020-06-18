@@ -10,7 +10,6 @@ import serverIsRunning from "../helper";
 import useWindowDimensions from "../components/Windowsize";
 
 const AddVocabulary = () => {
-  const [auth] = useGlobal("auth");
   const [langID] = useGlobal("langID");
   const [serverError, setserverError] = useGlobal("serverError");
   const [user] = useGlobal("user");
@@ -32,10 +31,6 @@ const AddVocabulary = () => {
     });
     // eslint-disable-next-line
   }, []);
-
-  if (!auth) {
-    return <Redirect to="/" />;
-  }
 
   const addVocab = async (event) => {
     event.preventDefault();
@@ -73,53 +68,57 @@ const AddVocabulary = () => {
 
   return (
     <div id="content" className="add_vocabulary">
+      {localStorage.getItem("isAuthorized") === "false" ||
+      localStorage.getItem("isAuthorized") === false ? (
+        <Redirect to="/" />
+      ) : null}
       <NavigationTop width={width} />
       {width < 700 && <NavigationBottom page={"AddVocabulary"} />}
       {serverError ? (
         <Redirect to="/Error" />
       ) : (
-          <form>
-            <h1 className="margin_top_small">Add vocabulary</h1>
-            <h2>Enter the word you want to add</h2>
-            <div className="form-group row">
-              <label
-                className="col-lg-2 col-md-3 col-sm-3 col-12 no-padding-left"
-                htmlFor="add_vocabulary_english"
-              >
-                English
-            </label>
-              <input
-                type="text"
-                className="form-control col-lg-10 col-md-9 col-sm-9 col-12"
-                id="add_vocabulary_english"
-                placeholder="type in English word"
-                ref={textinput}
-              />
-            </div>
-            <button
-              type="submit"
-              className="btn btn-primary margin_top_small"
-              onClick={addVocab}
-              disabled={loading}
+        <form>
+          <h1 className="margin_top_small">Add vocabulary</h1>
+          <h2>Enter the word you want to add</h2>
+          <div className="form-group row">
+            <label
+              className="col-lg-2 col-md-3 col-sm-3 col-12 no-padding-left"
+              htmlFor="add_vocabulary_english"
             >
-              {loading ? (
-                <div className="spinner-border " role="status">
-                  <span className="sr-only">Loading...</span>
-                </div>
-              ) : (
-                  "Add vocabulary"
-                )}
+              English
+            </label>
+            <input
+              type="text"
+              className="form-control col-lg-10 col-md-9 col-sm-9 col-12"
+              id="add_vocabulary_english"
+              placeholder="type in English word"
+              ref={textinput}
+            />
+          </div>
+          <button
+            type="submit"
+            className="btn btn-primary margin_top_small"
+            onClick={addVocab}
+            disabled={loading}
+          >
+            {loading ? (
+              <div className="spinner-border " role="status">
+                <span className="sr-only">Loading...</span>
+              </div>
+            ) : (
+              "Add vocabulary"
+            )}
+          </button>
+          <Link to="/VocabularyList">
+            <button
+              type="button"
+              className="btn btn-primary margin_left grey_button margin_top_small"
+            >
+              Show overview
             </button>
-            <Link to="/VocabularyList">
-              <button
-                type="button"
-                className="btn btn-primary margin_left grey_button margin_top_small"
-              >
-                Show overview
-            </button>
-            </Link>
-          </form>
-        )}
+          </Link>
+        </form>
+      )}
       <div className={"p-1 inline_block margin_top " + color}>{info}</div>
     </div>
   );
