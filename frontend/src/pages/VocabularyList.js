@@ -46,6 +46,7 @@ const createBasicVocab = async (user, id) => {
 };
 
 const VocabularyList = (props) => {
+<<<<<<< Updated upstream
   const [auth] = useGlobal("auth");
   const [user] = useGlobal("user");
   const [langID] = useGlobal("langID");
@@ -135,6 +136,121 @@ const VocabularyList = (props) => {
     </div>)}
     </>
   );
+=======
+    const [user] = useGlobal("user");
+    const [langID] = useGlobal("langID");
+    const [langName] = useGlobal("langName");
+    const [serverError, setserverError] = useGlobal("serverError")
+
+    const [prog, setProg] = useState([]);
+    const [loading, setLoading] = useState(true);
+    let { width } = useWindowDimensions();
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [vocabsPerPage] = useState(25);
+
+    useEffect(() => {
+        let isCancelled = false;
+        getProgressForUserAndLanguage(user, langID).then((data) => {
+            console.log("isCancelled: "+ isCancelled)
+            if (!isCancelled) {
+                setProg(data);
+                setLoading(false);
+            }
+            else {
+                console.log("fetching cancelled")
+            }
+
+        });
+
+
+        return () => {
+            isCancelled = true;
+            console.log("unmounted." + isCancelled)
+        };
+
+        // eslint-disable-next-line
+    }, []);
+
+    useEffect(() => {
+        let isCancelled = false;
+        serverIsRunning().then((isRunning) => {
+                console.log("Landing -> isRunning", isRunning);
+                if (!isCancelled) {
+                    if (isRunning) {
+                        setserverError(false);
+                    } else {
+                        setserverError(true);
+                    }
+                }
+                else {
+                    console.log("server runtask cancelled")
+                }
+            }
+        );
+
+        return () => {
+            isCancelled = true;
+        }
+        // eslint-disable-next-line
+    }, []);
+
+    var key = 0;
+
+    const indexOfLastVocab = currentPage * vocabsPerPage;
+    const indexOfFirstVocab = indexOfLastVocab - vocabsPerPage;
+    const currentVocabs = prog ? prog.slice(indexOfFirstVocab, indexOfLastVocab) : null;
+
+    // Change page
+
+    const paginate = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    //TODO catch data as json from database
+    return (
+        <>
+      {serverError ? (
+        <Redirect to="/Error" />
+      ) : localStorage.getItem("isAuthorized") === "false" ||
+        localStorage.getItem("isAuthorized") === false ? (
+        <Redirect to="/" />
+      ) : (
+
+                <div id="content" className="vocabulary_list">
+                    <NavigationTop width={width}/>
+                    {width < 700 && <NavigationBottom page={"VocabularyList"}/>}
+                    <div id="vocabulary_list">
+                        <h1 className="margin_top_small">Vocabulary overview</h1>
+                        <div className="row vocabulary_list_entry">
+                            <div className="col-xl-2 col-lg-2 col-md-3 col-4 vocabulary_list_header">English</div>
+                            <div className="col-xl-2 col-lg-2 col-md-3 col-4 vocabulary_list_header">{langName}</div>
+                            <div className="col-xl-1 col-lg-2 col-md-3 col-4 vocabulary_list_header">Progress</div>
+                        </div>
+
+                        {!loading && currentVocabs && currentVocabs.length > 0 ? (
+                            currentVocabs.map((progressObject) => {
+                                return (
+                                    <VocabRow
+                                        key={new Date().getTime() + key++}
+                                        english_word={progressObject.english_word}
+                                        progress={progressObject.progress}
+                                        translation=""
+                                        even={key % 2 === 0 ? true : false}
+                                    />
+                                );
+                            })
+                        ) : (
+                            <div className="spinner-border m-5" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </div>
+                        )}
+                        <Pagination vocabsPerPage={vocabsPerPage} totalVocabs={prog.length} paginate={paginate}/>
+                    </div>
+                </div>)}
+        </>
+    );
+>>>>>>> Stashed changes
 };
 
 export default VocabularyList;

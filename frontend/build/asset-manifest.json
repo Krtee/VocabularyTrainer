@@ -1,29 +1,29 @@
 {
   "files": {
-    "main.css": "/static/css/main.1f05bb14.chunk.css",
-    "main.js": "/static/js/main.025f6a2b.chunk.js",
-    "main.js.map": "/static/js/main.025f6a2b.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.9acda144.js",
-    "runtime-main.js.map": "/static/js/runtime-main.9acda144.js.map",
-    "static/css/2.69121389.chunk.css": "/static/css/2.69121389.chunk.css",
-    "static/js/2.06df2081.chunk.js": "/static/js/2.06df2081.chunk.js",
-    "static/js/2.06df2081.chunk.js.map": "/static/js/2.06df2081.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.d06e3ad73e0542f062d9aac6834ebf3d.js": "/precache-manifest.d06e3ad73e0542f062d9aac6834ebf3d.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/2.69121389.chunk.css.map": "/static/css/2.69121389.chunk.css.map",
-    "static/css/main.1f05bb14.chunk.css.map": "/static/css/main.1f05bb14.chunk.css.map",
-    "static/js/2.06df2081.chunk.js.LICENSE.txt": "/static/js/2.06df2081.chunk.js.LICENSE.txt",
-    "static/media/003-plus.svg": "/static/media/003-plus.fbcff910.svg",
-    "static/media/005-liste.svg": "/static/media/005-liste.ad43a8d6.svg",
-    "static/media/007-bearbeiten.svg": "/static/media/007-bearbeiten.2927f8de.svg",
-    "static/media/error.svg": "/static/media/error.fec60437.svg"
+    "main.css": "/rg041.bplaced.net/static/css/main.1f05bb14.chunk.css",
+    "main.js": "/rg041.bplaced.net/static/js/main.ad1d1513.chunk.js",
+    "main.js.map": "/rg041.bplaced.net/static/js/main.ad1d1513.chunk.js.map",
+    "runtime-main.js": "/rg041.bplaced.net/static/js/runtime-main.5da179c6.js",
+    "runtime-main.js.map": "/rg041.bplaced.net/static/js/runtime-main.5da179c6.js.map",
+    "static/css/2.69121389.chunk.css": "/rg041.bplaced.net/static/css/2.69121389.chunk.css",
+    "static/js/2.7671a5d9.chunk.js": "/rg041.bplaced.net/static/js/2.7671a5d9.chunk.js",
+    "static/js/2.7671a5d9.chunk.js.map": "/rg041.bplaced.net/static/js/2.7671a5d9.chunk.js.map",
+    "index.html": "/rg041.bplaced.net/index.html",
+    "precache-manifest.167edf906e84dd4ac21ddff2f7b60bdf.js": "/rg041.bplaced.net/precache-manifest.167edf906e84dd4ac21ddff2f7b60bdf.js",
+    "service-worker.js": "/rg041.bplaced.net/service-worker.js",
+    "static/css/2.69121389.chunk.css.map": "/rg041.bplaced.net/static/css/2.69121389.chunk.css.map",
+    "static/css/main.1f05bb14.chunk.css.map": "/rg041.bplaced.net/static/css/main.1f05bb14.chunk.css.map",
+    "static/js/2.7671a5d9.chunk.js.LICENSE.txt": "/rg041.bplaced.net/static/js/2.7671a5d9.chunk.js.LICENSE.txt",
+    "static/media/003-plus.svg": "/rg041.bplaced.net/static/media/003-plus.fbcff910.svg",
+    "static/media/005-liste.svg": "/rg041.bplaced.net/static/media/005-liste.ad43a8d6.svg",
+    "static/media/007-bearbeiten.svg": "/rg041.bplaced.net/static/media/007-bearbeiten.2927f8de.svg",
+    "static/media/error.svg": "/rg041.bplaced.net/static/media/error.fec60437.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.9acda144.js",
+    "static/js/runtime-main.5da179c6.js",
     "static/css/2.69121389.chunk.css",
-    "static/js/2.06df2081.chunk.js",
+    "static/js/2.7671a5d9.chunk.js",
     "static/css/main.1f05bb14.chunk.css",
-    "static/js/main.025f6a2b.chunk.js"
+    "static/js/main.ad1d1513.chunk.js"
   ]
 }

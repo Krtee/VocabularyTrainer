@@ -55,5 +55,6 @@
     "hooks": {
       "pre-push": "cd .. && node bumpVersion.js"
     }
-  }
+  },
+  "homepage": "rg041.bplaced.net"
 }
