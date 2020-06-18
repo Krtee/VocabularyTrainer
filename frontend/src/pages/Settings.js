@@ -16,6 +16,7 @@ function Settings() {
   const [, setAuth] = useGlobal("auth");
   const [user,] = useGlobal("user");
   const [langID] = useGlobal("langID");
+  const[,setProgessSetting] = useGlobal("progressSetting")
 
   let newName = createRef();
   let newProgress = createRef();
@@ -128,11 +129,14 @@ function Settings() {
     }
     cleanResponse(toSend)
 
-    const res = await api.user.editUser(user, toSend);
-    if (res.data.success) {
-      setChanged(true);
+        const res = await api.user.editUser(user, toSend);
+        if (res.data.success) {
+            setChanged(true);
+            if(toSend.hasOwnProperty("right_guesses_in_a_row")){
+                setProgessSetting(toSend.right_guesses_in_a_row)
+            }
+        }
     }
-  }
 
   const deleteAccount = async (event) => {
     const res = await api.user.deleteUser(user);

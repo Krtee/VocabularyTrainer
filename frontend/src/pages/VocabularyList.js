@@ -88,9 +88,6 @@ const VocabularyList = (props) => {
                         setserverError(true);
                     }
                 }
-                else {
-                    console.log("server runtask cancelled")
-                }
             }
         );
 

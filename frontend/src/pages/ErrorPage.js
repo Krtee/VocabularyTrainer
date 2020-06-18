@@ -9,14 +9,20 @@ const ErrorPage = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    let isCancelled = false;
     serverIsRunning().then((isRunning) => {
-      if (isRunning) {
-        setserverError(false);
-      } else {
-        setserverError(true);
+      if(!isCancelled) {
+        if (isRunning) {
+          setserverError(false);
+        } else {
+          setserverError(true);
+        }
       }
     });
-    // eslint-disable-next-line
+
+    return () => {
+      isCancelled = true;
+    }    // eslint-disable-next-line
   }, []);
 
   const handleClick = () => {
