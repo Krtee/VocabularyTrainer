@@ -5,14 +5,6 @@ const Progress = require("../models/progress.model");
 const LanguageTranslatorV3 = require("ibm-watson/language-translator/v3");
 const { IamAuthenticator } = require("ibm-watson/auth");
 
-// fetches all available data
-vocabRoutes.get("/", (req, res) => {
-    Vocab.find((err, data) => {
-        if (err) return res.status(400).json({ success: false, error: err });
-        return res.status(200).json({ success: true, data: data });
-    });
-});
-
 vocabRoutes.post("/getByIdArray", (req, res) => {
     const en_words = JSON.parse(JSON.stringify(req.body));
     const query = { english_word: { $in: en_words } };
@@ -28,43 +20,6 @@ vocabRoutes.post("/getByIdArray", (req, res) => {
             success: true,
             data: result,
         });
-    });
-});
-
-vocabRoutes.get("/byId", (req, res) => {
-    const { id } = req.query;
-    Vocab.findOne({ vocab_id: id }, (err, data) => {
-        if (err) {
-            // console.error(err);
-            return res.json({ success: false, error: err });
-        }
-        return res.json({ success: true, data: data });
-    });
-});
-
-// overwrites existing data
-vocabRoutes.post("/update", (req, res) => {
-    const { id, update } = req.body;
-    Vocab.findByIdAndUpdate(id, update, (err) => {
-        if (err) return res.json({ success: false, error: err });
-        return res.json({ success: true });
-    });
-});
-
-// removes existing data
-vocabRoutes.delete("/delete", (req, res) => {
-    const { id } = req.body;
-    Vocab.findByIdAndRemove(id, (err) => {
-        if (err) return res.send(err);
-        return res.json({ success: true });
-    });
-});
-
-// fetches progress for given vocab
-vocabRoutes.get("/getProgress", (req, res) => {
-    Progress.find((err, data) => {
-        if (err) return res.json({ success: false, error: err });
-        return res.json({ success: true, data: data });
     });
 });
 
@@ -100,13 +55,9 @@ vocabRoutes.post("/createProgress", (req, res) => {
 
 });
 
-
-
 vocabRoutes.post("/searchProgress", (req, res) => {
-
     Progress.findOne(req.body, (err, data) => {
         if (err) {
-            // console.error(err);
             return res.json({ success: false, error: err });
         }
         return res.json({ success: true, data: data });
@@ -139,7 +90,6 @@ vocabRoutes.get("/filterProgress", (req, res) => {
  */
 vocabRoutes.post("/increaseRGIAR", (req, res) => {
     const { user_id, lang_id, english_word } = req.body;
-
     Progress.findOneAndUpdate(
         { user_id: user_id, language_id: lang_id, english_word: english_word },
         { $inc: { right_guesses_in_a_row: 1 } },
@@ -191,9 +141,6 @@ vocabRoutes.post("/increaseProgress", (req, res) => {
 
 vocabRoutes.post("/getVocabAndTranslation", (req, res) => {
     const { english_word, lang_id } = req.body;
-    var vocab = "";
-    var translation = "";
-
     Vocab.findOne({ english_word: english_word }, (err, data) => {
         if (err || !data) {
             // console.error(err);
