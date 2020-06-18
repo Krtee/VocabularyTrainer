@@ -59,7 +59,6 @@ const AddVocabulary = () => {
         setColor("wrong");
       }
     } else {
-      console.log("addVocab -> res", res);
       setInfo("Word not found. Please check the spelling.");
       setColor("wrong");
     }

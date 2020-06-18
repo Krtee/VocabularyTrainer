@@ -61,13 +61,11 @@ const VocabularyList = (props) => {
     useEffect(() => {
         let isCancelled = false;
         getProgressForUserAndLanguage(user, langID).then((data) => {
-            console.log("isCancelled: "+ isCancelled)
             if (!isCancelled) {
                 setProg(data);
                 setLoading(false);
             }
             else {
-                console.log("fetching cancelled")
             }
 
         });
@@ -75,7 +73,6 @@ const VocabularyList = (props) => {
 
         return () => {
             isCancelled = true;
-            console.log("unmounted." + isCancelled)
         };
 
         // eslint-disable-next-line
@@ -84,7 +81,6 @@ const VocabularyList = (props) => {
     useEffect(() => {
         let isCancelled = false;
         serverIsRunning().then((isRunning) => {
-                console.log("Landing -> isRunning", isRunning);
                 if (!isCancelled) {
                     if (isRunning) {
                         setserverError(false);
