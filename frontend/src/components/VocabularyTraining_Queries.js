@@ -49,6 +49,8 @@ const VocabularyTraining_Queries = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (input) {
+
     const currentWord = trainingVorab[iterate];
     const localSummary = summary;
     localSummary.push({ currentWord, input });
@@ -60,7 +62,6 @@ const VocabularyTraining_Queries = (props) => {
       lang_id: langID,
     };
 
-    if (input) {
       let wellJustFakeIt = false;
       let correct;
 
@@ -115,6 +116,8 @@ const VocabularyTraining_Queries = (props) => {
           setHelp(`Correct translation: ${translationByDirection} \nPlease type it in to increase your learning effect.`);
         }
       }
+    } else {
+      setHelp("Please insert translation!")
     }
   };
 

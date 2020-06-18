@@ -112,7 +112,6 @@ function Settings() {
                     password: newpassword.current.value,
                     right_guesses_in_a_row: newProgress.current.value
                 }
-                console.log(toSend);
             }
         }
         else {

@@ -188,12 +188,12 @@ export default {
   },
   vocab: {
     insert: (data) => insertVocab(data),
-    getVocab: () => getVocabs(),
+    // getVocab: () => getVocabs(),
     getVocabAndTranslation: (data) => getVocabAndTranslation(data),
     getVocabById: (id) => getVocabsById(id)
   },
   progress: {
-    getProgress: () => getProgress(),
+    // getProgress: () => getProgress(),
     searchProgress: (data) => searchProgress(data),
     filterProgress: (id) => filterProgress(id),
     getProgressForUserAndLanguage: (data) => getProgressForUserAndLanguage(data),

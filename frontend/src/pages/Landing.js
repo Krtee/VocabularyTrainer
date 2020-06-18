@@ -18,6 +18,17 @@ function Landing() {
     const [passwordRepeatHelp, setPasswordRepeatHelp] = useState("");
     const [userNameHelp, setUserNameHelp] = useState("");
 
+    useEffect(() => {
+        serverIsRunning().then((isRunning) => {
+          if (isRunning) {
+            setserverError(false);
+          } else {
+            setserverError(true);
+          }
+        });
+        // eslint-disable-next-line
+      }, []);   
+
     async function createUser(input) {
         const userName = input.userName ? input.userName : null;
         const password = input.password ? input.password : null;
@@ -25,17 +36,6 @@ function Landing() {
         emptyHelpFields();
         usernameAlreadyTaken(userName).then((taken) => validateCreateUser(userName, taken, password, passwordRepeat));
     }
-
-    useEffect(() => {
-      serverIsRunning().then((isRunning) => {
-        if (isRunning) {
-          setserverError(false);
-        } else {
-          setserverError(true);
-        }
-      });
-      // eslint-disable-next-line
-    }, []);    
 
     async function validateCreateUser(userName, usernameAlreadyTaken, password, passwordRepeat) {
         try {

@@ -78,7 +78,6 @@ function VocabularyTraining() {
       progressArray.push(3);
     }
     setProgress(progressArray);
-    console.log("receiveInput -> input.training_options_radios", input.training_options_radios)
         if (input.training_options_radios) {
       setDirection(input.training_options_radios);
     } else {
