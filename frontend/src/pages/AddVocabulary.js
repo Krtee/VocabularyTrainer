@@ -18,6 +18,9 @@ const AddVocabulary = () => {
   const [info, setInfo] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const USER_ID = localStorage.getItem("userId") || user;
+  const LANG_ID = localStorage.getItem("langID") || langID;
+
   let textinput = createRef();
   let { width } = useWindowDimensions();
 
@@ -37,10 +40,11 @@ const AddVocabulary = () => {
     setInfo("");
     setColor("no-color");
     setLoading(true);
+    
     const data = {
-      language_id: langID,
+      language_id: LANG_ID,
       english_word: textinput.current.value.toLowerCase(),
-      user_id: user,
+      user_id: USER_ID,
     };
     const res = await api.vocab.insert(data);
 
