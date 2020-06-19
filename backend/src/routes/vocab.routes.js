@@ -84,10 +84,8 @@ vocabRoutes.get("/filterProgress", (req, res) => {
 });
 
 vocabRoutes.delete("/:user_id", (req, res, next) => {
-    console.log("*** req.params.user_id: " + req.params.user_id);
     Progress.findByIdAndDelete(req.params.user_id, function (err, result) {
         if (err) {
-            console.log("*** error: " + err.message);
             res.status(400).send({
                 success: false,
                 error: err.message
