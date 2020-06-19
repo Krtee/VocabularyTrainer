@@ -1,4 +1,8 @@
-
+# Add Vocab
+- tree
+- tee
+  - tea
+- 
 ----
 
 ### Präsi
