@@ -21,7 +21,7 @@ const VocabRow = ({ english_word, progress, even }) => {
   const LANG_ID = localStorage.getItem("langID") || langID;
 
   useEffect(() => {
-        getTranslation(english_word, LANG_ID, USER_ID).then((data) => {
+    getTranslation(english_word, LANG_ID, USER_ID).then((data) => {
       setTranslation(data);
     });
     // eslint-disable-next-line

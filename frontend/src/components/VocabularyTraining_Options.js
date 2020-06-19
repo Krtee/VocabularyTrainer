@@ -1,7 +1,7 @@
 import React, { useGlobal, useState } from "reactn";
 
 const VocabularyTraining_Options = (props) => {
-  const [language,] = useGlobal("langName");
+  const [language] = useGlobal("langName");
   const [vocabNumber, setVocabNumber] = useState(25);
   const [progress1, setProgress1] = useState(true);
   const [progress2, setProgress2] = useState(true);

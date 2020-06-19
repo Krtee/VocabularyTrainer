@@ -11,7 +11,7 @@ const ErrorPage = () => {
   useEffect(() => {
     let isCancelled = false;
     serverIsRunning().then((isRunning) => {
-      if(!isCancelled) {
+      if (!isCancelled) {
         if (isRunning) {
           setserverError(false);
         } else {
@@ -22,7 +22,7 @@ const ErrorPage = () => {
 
     return () => {
       isCancelled = true;
-    }    // eslint-disable-next-line
+    }; // eslint-disable-next-line
   }, []);
 
   const handleClick = () => {
@@ -46,7 +46,12 @@ const ErrorPage = () => {
     <div>
       <h1 className="margin_top_small">Oh no!</h1>
       <div className="d-flex p-2 flex-column">
-        <img style={{ height: "350px" }} src={require("../lib/error.svg")} className="m-4" alt="error-icon" />
+        <img
+          style={{ height: "350px" }}
+          src={require("../lib/error.svg")}
+          className="m-4"
+          alt="error-icon"
+        />
         {serverErrorLocal ? (
           <div className="alert alert-danger m-4">Network Error! Please try again later!</div>
         ) : null}

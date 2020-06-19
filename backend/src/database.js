@@ -1,14 +1,13 @@
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 dotenv.config();
 
-
 const dbRoute =
-    //Original Database:
-    // "mongodb+srv://london:kAXrWRHvbEsVQBIecl34HVLsyVsuk1@hdm-mwa-urx4p.mongodb.net/london?retryWrites=true&w=majority";
+  //Original Database:
+  // "mongodb+srv://london:kAXrWRHvbEsVQBIecl34HVLsyVsuk1@hdm-mwa-urx4p.mongodb.net/london?retryWrites=true&w=majority";
 
-    //New database:
-    "mongodb+srv://london:kAXrWRHvbEsVQBIecl34HVLsyVsuk1@hdm-mwa-urx4p.mongodb.net/london_db?retryWrites=true&w=majority";
+  //New database:
+  "mongodb+srv://london:kAXrWRHvbEsVQBIecl34HVLsyVsuk1@hdm-mwa-urx4p.mongodb.net/london_db?retryWrites=true&w=majority";
 
 // connects our back end code with the database
 mongoose.connect(dbRoute, { useNewUrlParser: true });

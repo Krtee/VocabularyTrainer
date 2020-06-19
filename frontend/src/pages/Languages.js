@@ -47,7 +47,7 @@ const Languages = () => {
     console.groupEnd();
     setLangName(langName);
     setLangID(langID);
-    localStorage.setItem("langID", langID)
+    localStorage.setItem("langID", langID);
     setRedirect(true);
   };
 

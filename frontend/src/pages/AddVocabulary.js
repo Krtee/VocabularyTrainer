@@ -40,7 +40,7 @@ const AddVocabulary = () => {
     setInfo("");
     setColor("no-color");
     setLoading(true);
-    
+
     const data = {
       language_id: LANG_ID,
       english_word: textinput.current.value.toLowerCase(),

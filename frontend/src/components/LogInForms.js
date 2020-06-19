@@ -1,6 +1,5 @@
 import React, { useState } from "reactn";
 
-
 const LogInForms = (props) => {
   const { noAccount, createUser, login, userNameHelp, passwordHelp, passwordRepeatHelp } = props;
 
@@ -8,12 +7,16 @@ const LogInForms = (props) => {
   const [password, setPassword] = useState("");
   const [passwordRepeat, setPasswordRepeat] = useState("");
 
-  const loginInfo = { userName, password, passwordRepeat, userNameHelp, passwordHelp, passwordRepeatHelp };
-
-
+  const loginInfo = {
+    userName,
+    password,
+    passwordRepeat,
+    userNameHelp,
+    passwordHelp,
+    passwordRepeatHelp,
+  };
 
   const handleChange = (event) => {
-
     const value = event.target.value;
 
     switch (event.target.name) {
@@ -26,11 +29,10 @@ const LogInForms = (props) => {
       case "passwordRepeat":
         setPasswordRepeat(value);
         break;
-      default: break;
+      default:
+        break;
     }
-
-
-  }
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -44,7 +46,7 @@ const LogInForms = (props) => {
         login(loginInfo);
         break;
     }
-  }
+  };
 
   if (noAccount) {
     return (
@@ -146,8 +148,6 @@ const LogInForms = (props) => {
       </fieldset>
     );
   }
-
-}
-
+};
 
 export default LogInForms;

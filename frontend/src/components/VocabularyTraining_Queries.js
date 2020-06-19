@@ -27,16 +27,16 @@ const VocabularyTraining_Queries = (props) => {
   const [message, setMessage] = useState(null);
 
   useEffect(() => {
-      const query = { user_id: user, language_id: langID, progress: progress };
-      getProgress(query).then((data) => {
-        if (data && data.success) {
-          getTrainingVocab(data.data);
-  
-          // reset Summary
-          setSummary([]);
-        }
-      });
-  
+    const query = { user_id: user, language_id: langID, progress: progress };
+    getProgress(query).then((data) => {
+      if (data && data.success) {
+        getTrainingVocab(data.data);
+
+        // reset Summary
+        setSummary([]);
+      }
+    });
+
     // eslint-disable-next-line
   }, []);
 
@@ -50,17 +50,16 @@ const VocabularyTraining_Queries = (props) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (input) {
+      const currentWord = trainingVorab[iterate];
+      const localSummary = summary;
+      localSummary.push({ currentWord, input });
+      setSummary(localSummary);
 
-    const currentWord = trainingVorab[iterate];
-    const localSummary = summary;
-    localSummary.push({ currentWord, input });
-    setSummary(localSummary);
-
-    const idObj = {
-      user_id: user,
-      english_word: currentWord.english_word,
-      lang_id: langID,
-    };
+      const idObj = {
+        user_id: user,
+        english_word: currentWord.english_word,
+        lang_id: langID,
+      };
 
       let wellJustFakeIt = false;
       let correct;
@@ -113,11 +112,13 @@ const VocabularyTraining_Queries = (props) => {
             props.direction === "fo_en"
               ? currentWord.translation[langID]
               : currentWord.english_word;
-          setHelp(`Correct translation: ${translationByDirection} \nPlease type it in to increase your learning effect.`);
+          setHelp(
+            `Correct translation: ${translationByDirection} \nPlease type it in to increase your learning effect.`
+          );
         }
       }
     } else {
-      setHelp("Please insert translation!")
+      setHelp("Please insert translation!");
     }
   };
 

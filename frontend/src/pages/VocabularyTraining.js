@@ -5,17 +5,16 @@ import NavigationTop from "../components/NavigationTop";
 import Options from "../components/VocabularyTraining_Options";
 import Queries from "../components/VocabularyTraining_Queries";
 import Summary from "../components/VocabularyTraining_Summary";
-import serverIsRunning from "../helper"
+import serverIsRunning from "../helper";
 import useWindowDimensions from "../components/Windowsize";
 import { Redirect } from "react-router";
 
-
 function VocabularyTraining() {
   const [direction, setDirection] = useGlobal("direction");
-  const [language, ] = useGlobal("language");
+  const [language] = useGlobal("language");
   const [numberOfVocab, setNumberOfVocab] = useGlobal("numberOfVocab");
   const [progress, setProgress] = useGlobal("progress");
-  const [serverError, setserverError] = useGlobal("serverError")
+  const [serverError, setserverError] = useGlobal("serverError");
 
   const [buttonState, setButtonState] = useState("options");
   const [buttonText, setButtonText] = useState("Start training");
@@ -24,7 +23,7 @@ function VocabularyTraining() {
   const [showQueries, setShowQueries] = useState(false);
   const [showSummary, setShowSummary] = useState(false);
 
-  let {width} = useWindowDimensions();
+  let { width } = useWindowDimensions();
 
   useEffect(() => {
     serverIsRunning().then((isRunning) => {
@@ -62,7 +61,7 @@ function VocabularyTraining() {
 
   const receiveInput = (input) => {
     setSavedSettings(true);
-    if (input.vocabNumber === 0){
+    if (input.vocabNumber === 0) {
       setNumberOfVocab(25);
     } else {
       setNumberOfVocab(input.vocabNumber);
@@ -78,10 +77,10 @@ function VocabularyTraining() {
       progressArray.push(3);
     }
     setProgress(progressArray);
-        if (input.training_options_radios) {
+    if (input.training_options_radios) {
       setDirection(input.training_options_radios);
     } else {
-      setDirection("fo_en")
+      setDirection("fo_en");
     }
   };
 

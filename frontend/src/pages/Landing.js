@@ -227,7 +227,7 @@ function Landing() {
 
   return (
     <div>
-      { redirect ? <Redirect to="/languages" /> : null}
+      {redirect ? <Redirect to="/languages" /> : null}
       <h1 className="margin_top_small">Vocabulary Trainer</h1>
       <h2>Log in or sign up!</h2>
       {serverError ? (
