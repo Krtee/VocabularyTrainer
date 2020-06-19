@@ -13,7 +13,11 @@
   - husky -> versioning
 
 - backend 
+  - axios
   - cors -> multiple ports
+  - express -> node.js server 
+  - ibm-watson -> translation api
+  - mongoose -> dbRequests
 
 
 
