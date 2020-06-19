@@ -62,6 +62,7 @@ const VocabularyList = (props) => {
         let isCancelled = false;
         getProgressForUserAndLanguage(user, langID).then((data) => {
             if (!isCancelled) {
+                console.log("VocabularyList -> data", data)
                 setProg(data);
                 setLoading(false);
             }
@@ -69,8 +70,6 @@ const VocabularyList = (props) => {
             }
 
         });
-
-
         return () => {
             isCancelled = true;
         };
