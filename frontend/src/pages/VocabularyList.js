@@ -10,7 +10,7 @@ import serverIsRunning from "../helper"
 import useWindowDimensions from "../components/Windowsize";
 
 
-const createBasicVocab = async (user, id) => {
+const createBasicVocab = async (USER_ID, id) => {
     const basics = require("../basic_vocab.json");
     const vocabulary = basics.vocabulary;
 
@@ -18,7 +18,7 @@ const createBasicVocab = async (user, id) => {
         const data = {
             language_id: id,
             english_word: word,
-            user_id: user,
+            user_id: USER_ID,
         };
         const res = await api.vocab.insert(data);
         if (res.status === 200) {
@@ -42,11 +42,13 @@ const VocabularyList = (props) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [vocabsPerPage] = useState(25);
 
+    const USER_ID = localStorage.getItem("userId") || user;
+    const LANG_ID = localStorage.getItem("langID") || langID;
+
     useEffect(() => {
         let isCancelled = false;
-        getProgressForUserAndLanguage(user, langID).then((data) => {
+        getProgressForUserAndLanguage(USER_ID, LANG_ID).then((data) => {
             if (!isCancelled) {
-                console.log("VocabularyList -> data", data)
                 setProg(data);
                 setLoading(false);
             }

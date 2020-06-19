@@ -1,11 +1,11 @@
 import React, { useState, useGlobal, useEffect } from "reactn";
 import api from "../api";
 
-const getTranslation = async (english_word, lang_id, user) => {
+const getTranslation = async (english_word, lang_id, USER_ID) => {
   const data = {
     english_word: english_word,
     lang_id: lang_id,
-    user_id: user,
+    user_id: USER_ID,
   };
 
   const res = await api.vocab.getVocabAndTranslation(data);
@@ -17,8 +17,11 @@ const VocabRow = ({ english_word, progress, even }) => {
   const [user] = useGlobal("user");
   const [translation, setTranslation] = useState("");
 
+  const USER_ID = localStorage.getItem("userId") || user;
+  const LANG_ID = localStorage.getItem("langID") || langID;
+
   useEffect(() => {
-    getTranslation(english_word, langID, user).then((data) => {
+        getTranslation(english_word, LANG_ID, USER_ID).then((data) => {
       setTranslation(data);
     });
     // eslint-disable-next-line
