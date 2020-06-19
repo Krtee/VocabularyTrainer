@@ -2,7 +2,21 @@
 - tree
 - tee
   - tea
-- 
+
+----
+- why reactN
+- libraries 
+  - axios frontend API
+  - Bootstrap
+  - express (backend)
+  - mongodb / mongoose
+  - husky -> versioning
+
+- backend 
+  - cors -> multiple ports
+
+
+
 ----
 
 ### Präsi

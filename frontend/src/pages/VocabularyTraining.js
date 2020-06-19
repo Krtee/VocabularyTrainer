@@ -1,4 +1,5 @@
 import React, { useGlobal, useState, useEffect } from "reactn";
+import { Redirect } from "react-router";
 import "../style.scss";
 import NavigationBottom from "../components/NavigationBottom";
 import NavigationTop from "../components/NavigationTop";
@@ -7,7 +8,6 @@ import Queries from "../components/VocabularyTraining_Queries";
 import Summary from "../components/VocabularyTraining_Summary";
 import serverIsRunning from "../helper";
 import useWindowDimensions from "../components/Windowsize";
-import { Redirect } from "react-router";
 
 function VocabularyTraining() {
   const [direction, setDirection] = useGlobal("direction");
