@@ -1,6 +1,6 @@
-import React, {useGlobal} from "reactn";
-import {Navbar, Nav } from "react-bootstrap";
-import {LinkContainer} from "react-router-bootstrap";
+import React, { useGlobal } from "reactn";
+import { Navbar, Nav } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 import NavItem from "react-bootstrap/NavItem";
 import { Redirect } from "react-router";
 
@@ -18,11 +18,18 @@ const ReducedNavigation = () => {
 
     return (
         <Navbar id="navbar" sticky="top" className="white-background" expand={"*"}>
-            {localStorage.getItem("isAuthorized") === "false" ? <Redirect to="/"/>:null}
+            {localStorage.getItem("isAuthorized") === "false" ? <Redirect to="/" /> : null}
 
-            <Navbar.Toggle aria-controls="basic-navbar-nav" className={"ml-auto"}/>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" className={"ml-auto"} />
             <Navbar.Collapse id="basic-navbar-nav" className={"justify-content-end"}>
                 <Nav className="ml-auto">
+                    <Nav.Item>
+                        <LinkContainer to="/Languages" className="menu_option settings" >
+                            <NavItem className="menu_padding">
+                                Change language
+                            </NavItem>
+                        </LinkContainer>
+                    </Nav.Item>
                     <Nav.Item>
                         <LinkContainer to="/Settings" className="menu_option settings" >
                             <NavItem className="menu_padding">
