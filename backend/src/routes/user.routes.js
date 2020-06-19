@@ -133,9 +133,6 @@ userRoutes.delete("/:user_id", (req, res, next) => {
 
 userRoutes.post("/getIdForUserName", (req, res) => {
     const { userName } = req.body;
-/*     console.log("*** req JSON: " + JSON.stringify(req));
-    console.log("*** req JSON: " + JSON.stringify(req));
-    console.log("*** userName: " + userName); */
 
     User.findOne({ username: userName }, (err, data) => {
         if (err) {
