@@ -3,7 +3,7 @@ const app = require('../../../app')
 const User = require('../../models/user.model')
 const Vocab = require('../../models/Vocab.model')
 const { setupDatabase } = require('../fixtures/db')
-const { add_new_word_wrong_language_id, add_new_wrong_word, add_new_word, register_testuser, progress_object, increase_progress, get_all_progress_objects } = require('../fixtures/vocab')
+const { add_new_word_wrong_language_id, add_new_wrong_word, add_new_word, register_testuser, progress_object, increase_progress, get_all_progress_objects, user_id } = require('../fixtures/vocab')
 
 
 beforeAll(setupDatabase)
@@ -148,7 +148,20 @@ describe('Progress', () => {
         expect(response.body.data.progress).toEqual(2)
     })
 
+})
 
 
+describe('Delete', () => {
+
+    it('Should delete specified progress', async () => {
+
+        const response = await request(app)
+            .delete(`/Vocab/${user_id}`)
+            .send()
+            .expect(200)
+        expect(response.body.success).toEqual(true)
+    })
 
 })
+
+

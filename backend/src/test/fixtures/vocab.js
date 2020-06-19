@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 
+const user_id = new mongoose.Types.ObjectId();
+
 const vocab_one = {
     _id: new mongoose.Types.ObjectId(),
     "language_id, ": "de",
@@ -41,8 +43,7 @@ const add_new_wrong_word = {
 }
 
 const register_testuser = {
-    /* _id: new mongoose.Types.ObjectId(), */
-    _id: "000",
+    _id: user_id,
     "username": "test_customer_###",
     "password": "password123",
     "right_guesses_in_a_row": 3,
@@ -52,17 +53,17 @@ const register_testuser = {
 const progress_object = {
     language_id: "fr",
     english_word: "cat",
-    user_id: "000"
+    user_id: user_id
 };
 
 const increase_progress = {
-    user_id: "000",
+    user_id: user_id,
     english_word: "cat",
     lang_id: "fr",
 };
 
 const get_all_progress_objects = {
-    user_id: "000",
+    user_id: user_id,
     lang_id: "fr",
 };
 
@@ -76,6 +77,7 @@ module.exports = {
     register_testuser: register_testuser,
     progress_object: progress_object,
     increase_progress: increase_progress,
-    get_all_progress_objects: get_all_progress_objects
+    get_all_progress_objects: get_all_progress_objects,
+    user_id: user_id
 
 }

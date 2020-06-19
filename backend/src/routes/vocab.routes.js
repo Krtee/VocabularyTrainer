@@ -83,6 +83,28 @@ vocabRoutes.get("/filterProgress", (req, res) => {
     });
 });
 
+vocabRoutes.delete("/:user_id", (req, res, next) => {
+    console.log("*** req.params.user_id: " + req.params.user_id);
+    Progress.findByIdAndDelete(req.params.user_id, function (err, result) {
+        if (err) {
+            console.log("*** error: " + err.message);
+            res.status(400).send({
+                success: false,
+                error: err.message
+            });
+        } else {
+            res.status(200).send({
+                success: true,
+                data: result,
+                message: "Progress deleted successfully"
+            });
+        }
+
+    });
+});
+
+
+
 /**
  * Increase right_guesses_in_a_row by one
  */
