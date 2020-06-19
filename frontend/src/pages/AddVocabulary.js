@@ -39,7 +39,7 @@ const AddVocabulary = () => {
     setLoading(true);
     const data = {
       language_id: langID,
-      english_word: textinput.current.value,
+      english_word: textinput.current.value.toLowerCase(),
       user_id: user,
     };
     const res = await api.vocab.insert(data);
