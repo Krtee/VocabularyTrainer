@@ -43,7 +43,7 @@ const get_id_for_nonexistent_username = {
 const user_info_to_change = {
     "username": "W5#NZ3~yG72P@gW",
     "password": "new_password",
-    "right_guesses_in_a_row": 6
+    "right_guesses_in_a_row": 1
   }
 
 module.exports = {
