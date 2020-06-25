@@ -155,7 +155,7 @@ function Settings() {
         localStorage.getItem("isAuthorized") === false ? (
         <Redirect to="/" />
       ) : (
-        <div id="content" className="settings margin_top">
+        <div id="content" className="settings">
           {langID.length > 0 ? <NavigationTop width={width} /> : <ReducedNavigation />}
 
           {width < 700 && langID.length > 0 && <NavigationBottom />}
@@ -216,7 +216,7 @@ function Settings() {
               </div>
             )}
             <div className="warning">{userInfo}</div>
-            <button className="btn btn-primary" onClick={(e) => handleShow(e, "changeButton")}>
+            <button className="blue-button" onClick={(e) => handleShow(e, "changeButton")}>
               Save settings
             </button>
           </form>

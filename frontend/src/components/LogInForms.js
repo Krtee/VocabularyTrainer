@@ -6,6 +6,7 @@ const LogInForms = (props) => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordRepeat, setPasswordRepeat] = useState("");
+  const [showPasswordRepeat, setShowPasswordRepeat] = useState(false);
 
   const loginInfo = {
     userName,
@@ -25,6 +26,11 @@ const LogInForms = (props) => {
         break;
       case "password":
         setPassword(value);
+         if (value !== "") {
+          setShowPasswordRepeat(true);
+        } else {
+          setShowPasswordRepeat(false);
+        } 
         break;
       case "passwordRepeat":
         setPasswordRepeat(value);
@@ -85,23 +91,27 @@ const LogInForms = (props) => {
               <small className="form-text text-muted">{passwordHelp}</small>
             </div>
           </div>
-          <div className="form-group row">
-            <label className="col-lg-2 col-xs-12 no-padding" htmlFor="login-password">
-              Repeat password
-            </label>
-            <div className="col-lg-10 col-xs-12 no-padding">
-              <input
-                name="passwordRepeat"
-                type="password"
-                className="form-control"
-                id="login-password"
-                placeholder="Repeat password"
-                onChange={handleChange}
-              />
-              <small className="form-text text-muted">{passwordRepeatHelp}</small>
+
+          {showPasswordRepeat ?
+            <div className="form-group row">
+              <label className="col-lg-2 col-xs-12 no-padding" htmlFor="login-password">
+                Repeat password
+          </label>
+              <div className="col-lg-10 col-xs-12 no-padding">
+                <input
+                  name="passwordRepeat"
+                  type="password"
+                  className="form-control"
+                  id="login-password"
+                  placeholder="Repeat password"
+                  onChange={handleChange}
+                />
+                <small className="form-text text-muted">{passwordRepeatHelp}</small>
+              </div>
             </div>
-          </div>
-          <input type="submit" value="Sign Up" className="btn btn-primary" />
+          : ""}
+
+          <input type="submit" value="Sign Up" className="blue-button" />
         </form>
       </fieldset>
     );
@@ -141,7 +151,7 @@ const LogInForms = (props) => {
               <small className="form-text text-muted">{passwordHelp}</small>
             </div>
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="blue-button">
             Log in
           </button>
         </form>

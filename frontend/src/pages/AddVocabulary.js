@@ -100,7 +100,7 @@ const AddVocabulary = () => {
           </div>
           <button
             type="submit"
-            className="btn btn-primary margin_top_small"
+            className="blue-button margin_right margin_bottom"
             onClick={addVocab}
             disabled={loading}
           >
@@ -115,7 +115,7 @@ const AddVocabulary = () => {
           <Link to="/VocabularyList">
             <button
               type="button"
-              className="btn btn-primary margin_left grey_button margin_top_small"
+              className="btn btn-primary grey_button"
             >
               Show overview
             </button>

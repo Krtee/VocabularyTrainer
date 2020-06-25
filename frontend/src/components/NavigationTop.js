@@ -53,7 +53,7 @@ const NavigationTop = (props) => {
                 </LinkContainer>
               </NavDropdown.Item>
               <NavDropdown.Item className="menu_option">
-                <button type="submit" className="btn btn-primary" onClick={handleClick}>
+                <button type="submit" className="blue-button logout" onClick={handleClick}>
                   Logout
                 </button>
               </NavDropdown.Item>
@@ -66,7 +66,7 @@ const NavigationTop = (props) => {
               <LinkContainer to="/Settings" className="menu_option settings">
                 <NavItem className="menu_padding">Account settings</NavItem>
               </LinkContainer>
-              <button type="submit" className="btn btn-primary" onClick={handleClick}>
+              <button type="submit" className="blue-button logout" onClick={handleClick}>
                 Logout
               </button>
             </>

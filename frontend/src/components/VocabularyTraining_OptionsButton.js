@@ -13,7 +13,7 @@ class VocabularyTraining_OptionsButton extends React.Component {
 
   render() {
     return (
-      <button type="button" className="btn btn-primary" onClick={() => this.handleClick}>
+      <button type="button" className="blue-button" onClick={() => this.handleClick}>
         Start training
       </button>
     );

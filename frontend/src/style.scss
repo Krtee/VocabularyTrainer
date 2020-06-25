@@ -1,20 +1,31 @@
 /* ---------- General instructions ---------- */
 
 * {
-    font-family: 'Segoe UI', 'Roboto', 'Oxygen-Sans', 'Ubuntu', 'Cantarell', 'Helvetica Neue', sans-serif;
+    font-family: 'Roboto', 'Segoe UI', 'Oxygen-Sans', 'Ubuntu', 'Cantarell', 'Helvetica Neue', sans-serif;
 }
 
+body {
+    background-color: #002060 !important;
+}
+
+main {
+    padding: 2em;
+    margin-top: 2em;
+    margin-bottom: 2.5em;
+    background-color: white;
+}
 
 h1,
 h2,
 h3 {
-    font-family: "Passion One", sans-serif;
+    /*     font-family: "Passion One", sans-serif;
+ */
+    font-family: "Jaldi", sans-serif;
 }
 
 h1 {
     margin-top: 2em;
-    color: #007bff;
-    font-weight: bold;
+    color: #002060;
     margin-bottom: .5em !important;
 }
 
@@ -31,6 +42,14 @@ h2 {
 
 .margin_left {
     margin-left: 1em;
+}
+
+.margin_right {
+    margin-right: 1em;
+}
+
+.margin_bottom {
+    margin-bottom: 1em;
 }
 
 .margin_top {
@@ -63,20 +82,31 @@ a:hover {
 }
 
 .box {
-    border: 2px solid #ced4da;
-    border-radius: .5rem;
-    padding: 2em;
+    /* border: 2px solid #ced4da;
+    border-radius: .5rem; */
+    padding-top: 2em;
 }
 
 .bigFont {
     font-family: "Passion One", sans-serif;
     font-size: 1.2em;
-    color: #007bff;
+    color: #002060;
 }
 
+.blue-button {
+    background-color: #002060;
+    color: white;
+    border-radius: .25rem;
+    padding-top: 0.375rem;
+    padding-right: 0.75rem;
+    padding-bottom: 0.375rem;
+    padding-left: 0.75rem;
+    border: 1px solid #002060 !important;
+}
 
-#content {
-    padding-bottom: 7em;
+.blue-button:hover {
+    background-color: black;
+    border: 1px solid black !important;
 }
 
 .grey_button {
@@ -94,6 +124,10 @@ a:hover {
 }
 
 /* Navigation */
+
+.logout {
+    margin: .75em 0 .25em 1em;
+}
 
 #navbar_permanent_line {
     background-color: white !important;
@@ -124,19 +158,11 @@ div#language_menu {
 .languages_option {
     text-align: center;
     vertical-align: middle;
-    background-color: #d7eaff;
     margin: 0.5em 0;
     padding: 0.5em 0;
-    color: black;
+    color: white;
     border-radius: .5rem;
 }
-
-.languages_option:hover {
-    background-color: #007bff;
-    color: white;
-}
-
-
 
 
 /* ---------- VocabularyList ---------- */
@@ -163,7 +189,7 @@ div#language_menu {
 }
 
 .blue_background {
-    background-color: #cce5ff;
+    background-color: #e6ebff;
 }
 
 .creating {
@@ -174,13 +200,18 @@ div#language_menu {
 }
 
 /* ---------- Pagination ---------- */
+
+.page-link {
+    color: #002060 !important;
+}
+
 .page_link:hover {
     cursor: pointer;
 
 }
 
 .page_link_active {
-    background-color: #007bff !important;
+    background-color: #002060 !important;
     color: white !important;
 }
 
@@ -195,16 +226,16 @@ div#language_menu {
 /* ---------- VocabularyTraining ---------- */
 
 .right {
-    background-color: #ccffcc;
+    background-color: #e3fce3;
 }
 
 .info {
-    background-color: #fff3cd;
+    background-color: #fff5d9;
 
 }
 
 .wrong {
-    background-color: #ffcccc;
+    background-color: #ffe3e3;
 }
 
 .no-color {
@@ -244,6 +275,12 @@ div#language_menu {
         -ms-hyphens: none;
         hyphens: none;
         overflow-wrap: initial;
+    }
+
+    main {
+        padding: 2em;
+        margin-top: 2em;
+        border-radius: .5rem;
     }
 
 }

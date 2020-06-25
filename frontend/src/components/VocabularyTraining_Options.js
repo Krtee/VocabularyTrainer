@@ -150,7 +150,7 @@ const VocabularyTraining_Options = (props) => {
         </div>
       </div>
       {showButton ? (
-        <button type="submit" className="btn btn-primary margin_top">
+        <button type="submit" className="blue-button margin_top">
           Start training
         </button>
       ) : null}
@@ -159,3 +159,5 @@ const VocabularyTraining_Options = (props) => {
 };
 
 export default VocabularyTraining_Options;
+
+

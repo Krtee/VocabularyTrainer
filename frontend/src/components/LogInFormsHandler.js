@@ -39,7 +39,7 @@ const LogInFormsHandler = (props) => {
       />
       <button
         type="button"
-        className="btn btn-primary marginleft margin_top grey_button"
+        className="btn btn-primary marginleft margin_top_small grey_button"
         onClick={handleClick}
       >
         {buttonText}

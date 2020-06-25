@@ -197,7 +197,7 @@ const VocabularyTraining_Queries = (props) => {
             />
           </div>
           {help ? <p className="alert-warning">{help}</p> : null}
-          <button type="submit" className="btn btn-primary" onClick={handleSubmit}>
+          <button type="submit" className="blue-button" onClick={handleSubmit}>
             Submit and continue
           </button>
           <button type="button" className="btn btn-secondary ml-1" onClick={handleSkip}>

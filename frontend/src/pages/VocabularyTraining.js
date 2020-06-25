@@ -110,7 +110,7 @@ function VocabularyTraining() {
           ) : null}
           {showSummary ? <Summary show={false} /> : null}
           {savedSettings ? (
-            <button type="button" className="btn btn-primary margin_top" onClick={changeView}>
+            <button type="button" className="blue-button margin_top" onClick={changeView}>
               {`${buttonText}`}
             </button>
           ) : null}

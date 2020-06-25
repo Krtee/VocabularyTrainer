@@ -33,7 +33,7 @@ const ReducedNavigation = () => {
             </LinkContainer>
           </Nav.Item>
           <Nav.Item>
-            <button type="submit" className="btn btn-primary" onClick={handleClick}>
+            <button type="submit" className="blue-button logout" onClick={handleClick}>
               Logout
             </button>
           </Nav.Item>
